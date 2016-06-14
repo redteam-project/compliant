@@ -1,2 +1,23 @@
 ---
 # vars file for 800-53
+audit_rules: /etc/audit/rules.d/audit.rules
+audit_arch:
+  - b32
+  - b64
+aide_minute: 05
+aide_hour: 03
+aide_day_of_month: '*'
+aide_month: '*'
+aide_day_of_week: '*'
+shared_lib_path:
+  - /lib
+  - /lib64
+  - /usr/lib
+  - /usr/lib64
+executables_path:
+  - /bin
+  - /usr/bin
+  - /usr/local/bin
+  - /sbin
+  - /usr/sbin
+  - /usr/local/sbin
