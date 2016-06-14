@@ -1,0 +1,88 @@
+- name: Check ownership and permissions on /etc/shadow
+  file: path=/etc/shadow owner=root group=root mode=0000
+  tags:
+    - CCE-26947-2
+    - CCE-26967-0
+    - CCE-26992-8
+    - AC-6
+- name: Check ownership and permissions on /etc/group
+  file: path=/etc/group owner=root group=root mode=0644
+  tags:
+    - CCE-27026-4
+    - CCE-26975-3
+    - CCE-26951-4
+    - AC-6
+- name: Check ownership and permissions on /etc/passwd
+  file: path=/etc/passwd owner=root group=root mode=0644
+  tags:
+    - CCE-26953-0
+    - CCE-26856-5
+    - CCE-26868-0
+    - AC-6
+- name: Check ownership and permissions on /etc/group
+  file: path=/etc/passwd owner=root group=root mode=0644
+  tags:
+    - CCE-26822-7
+    - CCE-26930-8
+    - CCE-26954-8
+    - AC-6
+- name: Find Shared Library Files That Are Group or World Writeable
+  shell: "find /lib /lib64 /usr/lib /usr/lib64 -perm -go=w -print"
+  register: shared_libs
+  changed_when: False
+  always_run: true
+- name: Verify that Shared Library Files Have Restrictive Permissions
+  with_items: "{{shared_libs.stdout_lines}}"
+  file: path={{ item }} mode="go-w" follow=true
+  ignore_errors: true
+  tags:
+    - CCE-27424-1
+    - AC-6
+ 
+- name: Find Shared Library Files That Are Not Owned By Root
+  shell: "find /lib /lib64 /usr/lib /usr/lib64 \\! -user root -print"
+  register: shared_libs
+  changed_when: False
+  always_run: True
+- name: Verify that Shared Library Files Have Root Ownership
+  with_lines: "{{ shared_libs.stdout_lines }}"
+  file: path={{ item }} owner=root follow=true
+  ignore_errors: true
+  tags:
+    - CCE-27424-1
+    - AC-6
+
+- name: Find System Executables Are Group or World Writeable
+  shell: "find /bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin -perm -go=w"
+  register: executable_files
+  changed_when: False
+  always_run: True
+- name: Verify that System Executables Have Restrictive Permissions
+  with_items: "{{ executable_files.stdout_lines }}"
+  file: path={{ item }} mode="go-w" follow=true
+  ignore_errors: True
+  tags:
+    - CCE-27289-8
+    - AC-6
+
+- name: Find System Executables That Are Not Owned By Root
+  shell: 'find /bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin \! -user root -print'
+  register: executable_files
+  changed_when: False
+  always_run: True
+- name: Verify that System Executables Have Root Ownership
+  with_lines: "{{ executable_files.stdout_lines }}"
+  file: path={{ item }} owner=root follow=true
+  ignore_errors: True
+  tags:
+    - CCE-27623-8
+    - AC-6
+
+- name: System Audit Logs Must Have Mode 0640 or Less Permissive
+  file: path=/var/log/audit/audit.log mode=640
+  tags:
+    - CCE-27243-5
+    - AC-6
+    - AU-1(b)
+    - AU-9
+    - IR-5    

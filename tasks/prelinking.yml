@@ -1,0 +1,9 @@
+- name: Disable PRELINKING by Default
+  lineinfile:
+    dest=/etc/sysconfig/preling
+    create=yes
+    regexp='PRELINKING=yes'
+    line='PRELINKING=yes'
+- name: Disable existing PRELINKING
+  command: /usr/sbin/prelink -ua
+  ignore_errors: yes

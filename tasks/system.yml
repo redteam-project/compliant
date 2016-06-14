@@ -1,0 +1,251 @@
+- name: Modify the System Login Banner - /etc/issue
+  copy:
+    src=issue
+    dest=/etc/issue
+    group=root
+    owner=root
+    mode=644
+    force=yes
+  tags:
+    - CCE-26974-6
+    - AC-8(a)
+    - AC-8(b)
+    - AC-8(c)
+- name: Modify the System Login Banner - /etc/issue.net
+  copy:
+    src=issue
+    dest=/etc/issue.net
+    group=root
+    owner=root
+    mode=644
+    force=yes
+  tags:
+    - CCE-26974-6
+    - AC-8(a)
+    - AC-8(b)
+    - AC-8(c)
+- name: Modify the System Login Banner - /etc/motd
+  copy:
+    src=issue
+    dest=/etc/motd
+    group=root
+    owner=root
+    mode=644
+    force=yes
+  tags:
+    - CCE-26974-6
+    - AC-8(a)
+    - AC-8(b)
+    - AC-8(c)
+- name: Install the screen Package
+  yum: name=screen
+  tags:
+    - CCE-26940-7
+- name: Enable Randomized Layout of Virtual Address Space
+  lineinfile: 
+    dest=/etc/sysctl.conf
+    regexp='kernel.randomize_va_space ='
+    line='kernel.randomize_va_space = 2'
+  tags:
+    - CCE-26999-3
+- name: Enable ExecShield
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='kernel.exec-shield ='
+    line='kernel.exec-shield = 1'
+  tags:
+    - CCE-27007-4
+- name: Disable Kernel Parameter for Sending ICMP Redirects by Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.send_redirects ='
+    line='net.ipv4.conf.default.send_redirects = 0'
+  tags:
+    - CCE-27001-7
+    - AC-4
+    - CM-7
+    - SC-5
+    - SC-7
+- name: Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.send_redirects ='
+    line='net.ipv4.conf.all.send_redirects = 0'
+  tags:
+    - CCE-27004-1
+    - CM-7
+- name: Disable Kernel Parameter for IP Forwarding
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.ip_forward ='
+    line='net.ipv4.ip_forward = 0'
+  tags:
+    - CCE-26866-4
+    - CM-7
+    - SC-5
+- name: Disable Kernel Parameter for Accepting Source-Routed Packets for All Interfaces
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.accept_source_route ='
+    line='net.ipv4.conf.all.accept_source_route = 0'
+  tags:
+    - CCE-27037-1
+    - CM-7
+- name: Disable Kernel Parameter for Accepting ICMP Redirects for All Interfaces
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.accept_redirects ='
+    line='net.ipv4.conf.all.accept_redirects = 0'
+  tags:
+    - CCE-27027-2
+    - CM-7
+- name: Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.secure_redirects ='
+    line='net.ipv4.conf.all.secure_redirects = 0'
+  tags:
+    - CCE-26854-0
+    - AC-4
+    - CM-7
+- name: Enable Kernel Parameter to Log Martian Packets
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.log_martians ='
+    line='net.ipv4.conf.all.log_martians = 1'
+  tags:
+    - CCE-27066-0
+    - AC-17(7)
+    - CM-7
+- name: Disable Kernel Parameter for Accepting Source-Routed Packets By Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.accept_source_route ='
+    line='net.ipv4.conf.default.accept_source_route = 0'
+  tags:
+    - CCE-26983-7
+    - AC-4
+    - CM-7
+    - SC-5
+    - SC-7
+- name: Disable Kernel Parameter for Accepting Secure Redirects By Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.secure_redirects ='
+    line='net.ipv4.conf.default.secure_redirects = 0'
+  tags:
+    - CCE-26831-8
+    - AC-4
+    - CM-7
+    - SC-5
+    - SC-7
+- name: Disable Kernel Parameter for Accepting ICMP Redirects By Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.accept_redirects ='
+    line='net.ipv4.conf.default.accept_redirects = 0'
+  tags:
+    - CCE-27015-7
+    - AC-4
+    - CM-7
+    - SC-5
+    - SC-7
+- name: Enable Kernel Parameter to Ignore ICMP Broadcast Echo Requests
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.icmp_echo_ignore_broadcasts ='
+    line='net.ipv4.icmp_echo_ignore_broadcasts = 1'
+  tags:
+    - CCE-26883-9
+    - CM-7
+    - SC-5
+- name: Enable Kernel Parameter to Ignore Bogus ICMP Error Responses
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.icmp_ignore_bogus_error_responses ='
+    line='net.ipv4.icmp_ignore_bogus_error_responses = 1'
+  tags:
+    - CCE-26993-6
+    - CM-7
+    - SC-5
+- name: Enable Kernel Parameter to Use TCP Syncookies
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.tcp_syncookies ='
+    line='net.ipv4.tcp_syncookies = 1'
+  tags:
+    - CCE-27053-8
+    - AC-4
+- name: Enable Kernel Parameter to Use Reverse Path Filtering for All Interfaces
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.rp_filter ='
+    line='net.ipv4.conf.all.rp_filter = 1'
+  tags:
+    - CCE-26979-5
+    - AC-4
+    - SC-5
+    - SC-7
+- name: Enable Kernel Parameter to Use Reverse Path Filtering by Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.rp_filter ='
+    line='net.ipv4.conf.default.rp_filter = 1'
+  tags:
+    - CCE-26915-9
+    - AC-4
+    - SC-5
+    - SC-7
+- name: Disable IPv6 Networking Support Automatic Loading
+  lineinfile:
+    dest=/etc/modprobe.d/disabled.conf
+    create=yes
+    regexp='options ipv6 disable='
+    line='options ipv6 disable=1'
+  tags:
+    - CCE-27153-6
+    - CM-7
+- name: Disable Accepting IPv6 Redirects
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv6.conf.default.accept_redirects ='
+    line='net.ipv6.conf.default.accept_redirects = 0'
+  tags:
+    - CCE-27166-8
+    - CM-7
+- name: Disable DCCP Support
+  lineinfile:
+    dest=/etc/modprobe.d/system.conf
+    create=yes
+    regexp='install dccp'
+    line='install dccp /bin/false'
+  tags:
+    - CCE-26448-1
+    - CM-7
+- name: Disable SCTP Support
+  lineinfile:
+    dest=/etc/modprobe.d/system.conf
+    create=yes
+    regexp='install sctp'
+    line='install sctp /bin/false'
+  tags:
+    - CCE-26410-1
+    - CM-7
+- name: Disable RDS Support
+  lineinfile:
+    dest=/etc/modprobe.d/system.conf
+    create=yes
+    regexp='install rds'
+    line='install rds /bin/false'
+  tags:
+    - CCE-26239-4
+    - CM-7
+- name: Disable TIPC Support
+  lineinfile:
+    dest=/etc/modprobe.d/system.conf
+    create=yes
+    regexp='install tipc'
+    line='install tipc /bin/false'
+  tags:
+    - CCE-26696-5
+    - CM-7

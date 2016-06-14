@@ -1,2 +1,12 @@
----
-# handlers file for 800-53
+- name: reload ssh
+  service:
+    name=sshd
+    state=reloaded
+- name: reload auditd
+  service:
+    name=auditd
+    state=reloaded
+- name: apply grub2 changes
+  shell: grub2-mkconfig -o /boot/grub2/grub.cfg
+- name: start lvm2polld
+  service: lvm2-polld state=started

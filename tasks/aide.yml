@@ -1,0 +1,17 @@
+- name: Install AIDE
+  yum:
+    name=aide
+  tags:
+    - CCE-27024-9
+    - CM-3(d)
+    - CM-3(e)
+    - CM-6(d)
+    - CM-6(3)
+    - SC-28
+    - SI-7
+- name: Initialize AIDE
+  command: /sbin/aide --init creates=/var/lib/aide/aide.db.new.gz
+- name: Copy AIDE Database
+  command: cp /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz creates=/var/lib/aide/aide.db.gz
+- name: Schedule AIDE
+  cron: name=aide minute={{ aide_minute }} hour={{ aide_hour }} day={{ aide_day_of_month }} weekday={{ aide_day_of_week }} month={{ aide_month }} user=root job="nice -19 /sbin/aide --check"

@@ -1,0 +1,60 @@
+#- name: Enable SELinux
+- selinux: policy=targeted state=enforcing
+  tags:
+    - CCE-26969-6
+    - CCE-26875-5
+    - AC-3
+    - AC-3(3)
+    - AC-4
+    - AC-6
+    - AU-9
+- name: Set SELinux to Enforcing
+  command: /usr/sbin/setenforce 1
+  when: ansible_selinux.mode == "permissive"
+- name: Remove Rsh Trust Files - /etc/hosts.equiv
+  file:
+    dest=/etc/hosts.equiv
+    state=absent
+  tags:
+    - CCE-27270-8
+    - AC-17(8)
+    - CM-7
+- name: Find User Rsh Trust Files
+  shell: "find /home -name '.rhosts' -print"
+  register: user_rhosts
+  always_run: True
+  changed_when: False
+- name: Remove Rsh Trust Files - ~/.rhosts
+  with_items: "{{ user_rhosts.stdout_lines }}"
+  file:
+    dest="{{ item }}"
+    state=absent
+  tags:
+    - CCE-27270-8
+    - AC-17(8)
+    - CM-7
+  ignore_errors: True #Just incase there are no files to remove
+- name: Ensure SELinux Not Disabled in /etc/grub.conf
+  replace:
+    dest=/etc/grub.conf
+    regexp="selinux=0"
+  when: ansible_distribution_major_version == 6
+  tags:
+    - CCE-26956-3
+    - AC-3
+    - AC-3(3)
+    - AC-6
+    - AU-9
+- name: Ensure SELinux Not Disabled in /etc/grub2.conf
+  replace:
+    dest=/etc/grub2.cfg
+    regexp="selinux=0"
+  notify: apply grub2 changes
+  when: ansible_distribution_major_version == 7
+  tags:
+    - CCE-26956-3
+    - AC-3
+    - AC-3(3)
+    - AC-6
+
+

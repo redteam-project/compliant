@@ -1,2 +1,13 @@
----
-# tasks file for 800-53
+- include: disk_partitions.yml
+- include: umask.yml
+- include: passwords.yml
+- include: packaging.yml
+- include: ssh.yml
+- include: accounts.yml
+- include: file_permissions.yml
+- include: system.yml
+- include: audit.yml
+- include: services.yml
+- include: prelinking.yml
+- include: selinux.yml
+- include: aide.yml
