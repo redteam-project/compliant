@@ -295,6 +295,7 @@
     name=oddjobd
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -308,6 +309,7 @@
     name=qpidd
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -321,6 +323,7 @@
     name=atd
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -334,6 +337,7 @@
     name=xinetd
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
     - CCE-27046-2
     - AC-17(8)
@@ -355,6 +359,7 @@
     name=telnet
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -380,6 +385,7 @@
     name=rsh
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -405,6 +411,7 @@
     name=rexec
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -418,6 +425,7 @@
     name=rlogin
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -431,6 +439,7 @@
     name=ypbind
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -456,6 +465,7 @@
     name=tftp
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -481,6 +491,7 @@
     name=avahi-daemon
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -494,6 +505,7 @@
     name=rdisc
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
