@@ -241,7 +241,7 @@
 - name: CM-7 Install Chrony Service
   yum:
     name=chrony
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -255,7 +255,7 @@
     name=chronyd
     state=running
     enabled=yes
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -267,7 +267,7 @@
 - name: CM-7 Install NTP Service
   yum:
     name=ntp
-  when: ansible_distribution_major_version == 6
+  when: ansible_distribution_major_version == "6"
   tags:
   - conf-low
   - conf-medium
@@ -281,7 +281,7 @@
     name=ntpd
     state=running
     enabled=yes
-  when: ansible_distribution_major_version == 6
+  when: ansible_distribution_major_version == "6"
   tags:
   - conf-low
   - conf-medium
@@ -568,9 +568,9 @@
   - int-medium
   - int-high
 
-- name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Initialize AIDE
+- name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Initialize AIDE - EL7
   command: /sbin/aide --init creates=/var/lib/aide/aide.db.new.gz
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -579,9 +579,9 @@
   - int-medium
   - int-high
 
-- name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Initialize AIDE
+- name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Initialize AIDE - EL6
   command: /usr/sbin/aide --init creates=/var/lib/aide/aide.db.new.gz
-  when: ansible_distribution_major_version == 6
+  when: ansible_distribution_major_version == "6"
   tags:
   - conf-low
   - conf-medium
@@ -603,7 +603,7 @@
 
 - name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Schedule AIDE
   cron: name=aide minute={{ aide_minute }} hour={{ aide_hour }} day={{ aide_day_of_month }} weekday={{ aide_day_of_week }} month={{ aide_month }} user=root job="nice -19 /sbin/aide --check"
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -614,7 +614,7 @@
 
 - name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Schedule AIDE
   cron: name=aide minute={{ aide_minute }} hour={{ aide_hour }} day={{ aide_day_of_month }} weekday={{ aide_day_of_week }} month={{ aide_month }} user=root job="nice -19 /usr/sbin/aide --check"
-  when: ansible_distribution_major_version == 6
+  when: ansible_distribution_major_version == "6"
   tags:
   - conf-low
   - conf-medium

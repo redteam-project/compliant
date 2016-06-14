@@ -154,7 +154,7 @@
     dest=/etc/security/pwquality.conf
     regexp='^minlen ='
     line="minlen = 15"
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -168,7 +168,7 @@
     dest=/etc/security/pwquality.conf
     regexp='^dcredit ='
     line="dcredit = -1"
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -182,7 +182,7 @@
     dest=/etc/security/pwquality.conf
     regexp='^ucredit ='
     line="ucredit = -1"
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -196,7 +196,7 @@
     dest=/etc/security/pwquality.conf
     regexp='ocredit ='
     line="ocredit = -1"
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -210,7 +210,7 @@
     dest=/etc/security/pwquality.conf
     regexp='^lcredit ='
     line="lcredit = -1"
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -224,7 +224,7 @@
     dest=/etc/security/pwquality.conf
     regexp='^difok ='
     line="difok = 4"
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -242,7 +242,7 @@
     line='password    requisite     pam_pwquality.so try_first_pass local_users_only retry=3 authtok_type= dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1 difok=4 maxrepeat=3'
     follow=yes
     backup=yes
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -258,7 +258,7 @@
     line='password    requisite     pam_pwquality.so try_first_pass local_users_only retry=3 authtok_type= dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1 difok=4 maxrepeat=3'
     follow=yes
     backup=yes
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -274,7 +274,7 @@
     line='password    requisite     pam_cracklib.so try_first_pass local_users_only retry=3 authtok_type= dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1 difok=4 maxrepeat=3'
     follow=yes
     backup=yes
-  when: ansible_distribution_major_version == 6
+  when: ansible_distribution_major_version == "6"
   tags:
   - conf-low
   - conf-medium
@@ -290,7 +290,7 @@
     line='password    requisite     pam_cracklib.so try_first_pass local_users_only retry=3 authtok_type= dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1 difok=4 maxrepeat=3'
     follow=yes
     backup=yes
-  when: ansible_distribution_major_version == 6
+  when: ansible_distribution_major_version == "6"
   tags:
   - conf-low
   - conf-medium

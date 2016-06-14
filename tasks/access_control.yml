@@ -65,7 +65,7 @@
     dest=/etc/security/pwquality.conf
     regexp='^dcredit ='
     line="dcredit = -1"
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -79,7 +79,7 @@
     dest=/etc/security/pwquality.conf
     regexp='^ucredit ='
     line="ucredit = -1"
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -93,7 +93,7 @@
     dest=/etc/security/pwquality.conf
     regexp='ocredit ='
     line="ocredit = -1"
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -107,7 +107,7 @@
     dest=/etc/security/pwquality.conf
     regexp='^lcredit ='
     line="lcredit = -1"
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -121,7 +121,7 @@
     dest=/etc/security/pwquality.conf
     regexp='^difok ='
     line="difok = 4"
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -663,7 +663,7 @@
   replace:
     dest=/etc/grub.conf
     regexp="selinux=0"
-  when: ansible_distribution_major_version == 6
+  when: ansible_distribution_major_version == "6"
   tags:
   - conf-low
   - conf-medium
@@ -677,7 +677,7 @@
     dest=/etc/grub2.cfg
     regexp="selinux=0"
   notify: apply grub2 changes
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
