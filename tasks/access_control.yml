@@ -1,0 +1,669 @@
+- name: AC-6(2) Restrict Virtual Console Root Logins
+  lineinfile:
+    dest=/etc/securetty
+    regexp='^vc'
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+- name: AC-6(2) Restrict Serial Port Root Logins
+  lineinfile:
+    dest=/etc/securetty
+    regexp='ttyS[0-9]'
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+- name: List Users
+  shell: "cat /etc/passwd | cut -d: -f1"
+  register: system_users
+  changed_when: False
+- name: List UIDs
+  shell: "cat /etc/passwd | cut -d: -f3"
+  register: system_uids
+  changed_when: False
+- name: AC-6(8) Ensure that System Accounts Do Not Run a Shell Upon Login
+  with_together:
+    - "{{ system_users.stdout_lines }}"
+    - "{{ system_uids.stdout_lines }}"
+  user: name={{ item.0 }} shell=/sbin/nologin
+  when: (item.1 < 500) and (item.1 > 0)
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+- name: AC-6 Verify Only Root Has UID 0
+  with_together:
+    - "{{ system_users.stdout_lines }}"
+    - "{{ system_uids.stdout_lines }}"
+  user: name={{ item.0 }} state=absent
+  when: (item.1 == 0) and (item.0 != "root")
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-2 Set Password Minimum Digit Characters
+  lineinfile:
+    dest=/etc/security/pwquality.conf
+    regexp='^dcredit ='
+    line="dcredit = -1"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-2 Set Password Minimum Uppercase Characters
+  lineinfile:
+    dest=/etc/security/pwquality.conf
+    regexp='^ucredit ='
+    line="ucredit = -1"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-2 Set Password Minimum Special Characters
+  lineinfile:
+    dest=/etc/security/pwquality.conf
+    regexp='ocredit ='
+    line="ocredit = -1"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-2 Set Password Minimum Lowercase Characters
+  lineinfile:
+    dest=/etc/security/pwquality.conf
+    regexp='^lcredit ='
+    line="lcredit = -1"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-2 Set Password Strength Minimum Different Characters
+  lineinfile:
+    dest=/etc/security/pwquality.conf
+    regexp='^difok ='
+    line="difok = 4"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-6 Check ownership and permissions on /etc/shadow
+  file: path=/etc/shadow owner=root group=root mode=0000
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-6 Check ownership and permissions on /etc/group
+  file: path=/etc/group owner=root group=root mode=0644
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-6 Check ownership and permissions on /etc/passwd
+  file: path=/etc/passwd owner=root group=root mode=0644
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-6 Check ownership and permissions on /etc/group
+  file: path=/etc/passwd owner=root group=root mode=0644
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: Find Shared Library Files That Are Group or World Writeable
+  shell: "find /lib /lib64 /usr/lib /usr/lib64 -perm -go=w -print"
+  register: shared_libs
+  changed_when: False
+  always_run: true
+- name: AC-6 Verify that Shared Library Files Have Restrictive Permissions
+  with_items: "{{shared_libs.stdout_lines}}"
+  file: path={{ item }} mode="go-w" follow=true
+  ignore_errors: true
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high 
+
+
+- name: Find Shared Library Files That Are Not Owned By Root
+  shell: "find /lib /lib64 /usr/lib /usr/lib64 \\! -user root -print"
+  register: shared_libs
+  changed_when: False
+  always_run: True
+- name: AC-6 Verify that Shared Library Files Have Root Ownership
+  with_lines: "{{ shared_libs.stdout_lines }}"
+  file: path={{ item }} owner=root follow=true
+  ignore_errors: true
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: Find System Executables Are Group or World Writeable
+  shell: "find /bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin -perm -go=w"
+  register: executable_files
+  changed_when: False
+  always_run: True
+- name: AC-6 Verify that System Executables Have Restrictive Permissions
+  with_items: "{{ executable_files.stdout_lines }}"
+  file: path={{ item }} mode="go-w" follow=true
+  ignore_errors: True
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: Find System Executables That Are Not Owned By Root
+  shell: 'find /bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin \! -user root -print'
+  register: executable_files
+  changed_when: False
+  always_run: True
+- name: AC-6 Verify that System Executables Have Root Ownership
+  with_lines: "{{ executable_files.stdout_lines }}"
+  file: path={{ item }} owner=root follow=true
+  ignore_errors: True
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-6 System Audit Logs Must Have Mode 0640 or Less Permissive
+  file: path=/var/log/audit/audit.log mode=640
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-8(a),AC-8(b),AC-(c) Enable SSH Warning Banner
+  lineinfile:
+    dest=/etc/ssh/sshd_config
+    regexp='Banner /etc/issue'
+    line='Banner /etc/issue'
+  notify:
+  - reload ssh
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-8(a),AC-8(b),AC-(c) Modify the System Login Banner - /etc/issue
+  copy:
+    src=issue
+    dest=/etc/issue
+    group=root
+    owner=root
+    mode=644
+    force=yes
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high  
+
+- name: AC-8(a),AC-8(b),AC-(c) Modify the System Login Banner - /etc/issue.net
+  copy:
+    src=issue
+    dest=/etc/issue.net
+    group=root
+    owner=root
+    mode=644
+    force=yes
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-8(a),AC-8(b),AC-(c) Modify the System Login Banner - /etc/motd
+  copy:
+    src=issue
+    dest=/etc/motd
+    group=root
+    owner=root
+    mode=644
+    force=yes
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-4 Disable Kernel Parameter for Sending ICMP Redirects by Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.send_redirects ='
+    line='net.ipv4.conf.default.send_redirects = 0'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.secure_redirects ='
+    line='net.ipv4.conf.all.secure_redirects = 0'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-17(7) Enable Kernel Parameter to Log Martian Packets
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.log_martians ='
+    line='net.ipv4.conf.all.log_martians = 1'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-4 Disable Kernel Parameter for Accepting Source-Routed Packets By Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.accept_source_route ='
+    line='net.ipv4.conf.default.accept_source_route = 0'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects By Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.secure_redirects ='
+    line='net.ipv4.conf.default.secure_redirects = 0'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Disable Kernel Parameter for Accepting ICMP Redirects By Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.accept_redirects ='
+    line='net.ipv4.conf.default.accept_redirects = 0'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Enable Kernel Parameter to Use TCP Syncookies
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.tcp_syncookies ='
+    line='net.ipv4.tcp_syncookies = 1'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering for All Interfaces
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.rp_filter ='
+    line='net.ipv4.conf.all.rp_filter = 1'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering by Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.rp_filter ='
+    line='net.ipv4.conf.default.rp_filter = 1'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+
+- name: AC-19(a),AC-19(d),AC-19(e) Disable the Automounter
+  service:
+    name=autofs
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high 
+
+- name: AC-17(8) Disable Automatic Bug Reporting Tool (abrtd)
+  service:
+    name=abrtd
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-17(8) Disable xinetd Service
+  service:
+    name=xinetd
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-17(8) Uninstall xinetd Package
+  yum:
+    name=xinetd
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-17(8) Disable telnet Service
+  service:
+    name=telnet
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-17(8) Uninstall telnet-server Package
+  yum:
+    name=telnet-server
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+
+- name: AC-17(8) Disable rsh Service
+  service:
+    name=rsh
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-17(8) Uninstall rsh-server Package
+  yum:
+    name=rsh-server
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-17(8) Disable rexec Service
+  service:
+    name=rexec
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-17(8) Disable rlogin Service
+  service:
+    name=rlogin
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-17(8) Disable ypbind Service
+  service:
+    name=ypbind
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-17(8) Uninstall ypserv Package
+  yum:
+    name=ypserv
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-17(8) Disable tftp Service
+  service:
+    name=tftp
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-17(8) Uninstall tftp-server Package
+  yum:
+    name=tftp-server
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-4,AC-17(8) Disable Network Router Discovery Daemon (rdisc)
+  service:
+    name=rdisc
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-3,AC-3(3),AC-4,AC-6 Enable SELinux
+  selinux: policy=targeted state=enforcing
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: Set SELinux to Enforcing
+  command: /usr/sbin/setenforce 1
+  when: ansible_selinux.mode == "permissive"
+- name: AC-17(8) Remove Rsh Trust Files - /etc/hosts.equiv
+  file:
+    dest=/etc/hosts.equiv
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: Find User Rsh Trust Files
+  shell: "find /home -name '.rhosts' -print"
+  register: user_rhosts
+  always_run: True
+  changed_when: False
+- name: AC-17(8) Remove Rsh Trust Files - ~/.rhosts
+  with_items: "{{ user_rhosts.stdout_lines }}"
+  file:
+    dest="{{ item }}"
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+
+- name: AC-3,AC-3(3),AC-6 Ensure SELinux Not Disabled in /etc/grub.conf
+  replace:
+    dest=/etc/grub.conf
+    regexp="selinux=0"
+  when: ansible_distribution_major_version == 6
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-3,AC-3(3),AC-6 Ensure SELinux Not Disabled in /etc/grub2.conf
+  replace:
+    dest=/etc/grub2.cfg
+    regexp="selinux=0"
+  notify: apply grub2 changes
+  when: ansible_distribution_major_version == 7
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high

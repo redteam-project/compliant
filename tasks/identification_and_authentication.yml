@@ -1,0 +1,420 @@
+- name: List Users
+  shell: "cat /etc/passwd | cut -d: -f1"
+  register: system_users
+  changed_when: False
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: List UIDs
+  shell: "cat /etc/passwd | cut -d: -f3"
+  register: system_uids
+  changed_when: False
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-2(1) Ensure that System Accounts Do Not Run a Shell Upon Login
+  with_together:
+    - "{{ system_users.stdout_lines }}"
+    - "{{ system_uids.stdout_lines }}"
+  user: name={{ item.0 }} shell=/sbin/nologin
+  when: (item.1 < 500) and (item.1 > 0)
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-2(1) Verify Only Root Has UID 0
+  with_together:
+    - "{{ system_users.stdout_lines }}"
+    - "{{ system_uids.stdout_lines }}"
+  user: name={{ item.0 }} state=absent
+  when: (item.1 == 0) and (item.0 != "root")
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: Find User's With Passwords That Aren't Shadowed
+  shell: 'grep -E -v :x:  /etc/passwd | cut -d: -f1'
+  register: bad_users
+  always_run: True
+  changed_when: False
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: Find Passwords That Aren't Shadowed
+  shell: 'grep -E -v :x:  /etc/passwd | cut -d: -f2'
+  register: bad_passwords
+  changed_when: False
+  always_run: True
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(h) Verify All Account Password Hashes are Shadowed - /etc/passwd
+  with_together:
+    - "{{ bad_users.stdout_lines }}"
+    - "{{ bad_passwords.stdout_lines }}"
+  replace:
+    dest=/etc/passwd
+    regexp='^{{ item.0 }}:{{ item.1 }}:'
+    replace='{{ item.0 }}:x:'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(h) Verify All Account Password Hashes are Shadowed - /etc/shadow
+  with_together:
+    - "{{ bad_users.stdout_lines }}"
+    - "{{ bad_passwords.stdout_lines }}"
+  user:
+    name={{ item.0 }}
+    password={{ item.1 }}
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(f),IA-5(1)(d) Set Password Minimum Age
+  lineinfile:
+    dest=/etc/login.defs
+    regexp="PASS_MIN_DAYS *[0-9]"
+    state=present
+    line="PASS_MIN_DAYS     1"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(f),IA-5(g),IA-5(1)(d) Set Password Maximum Age
+  lineinfile:
+    dest=/etc/login.defs
+    regexp="PASS_MAX_DAYS *[0-9]*"
+    state=present
+    line="PASS_MAX_DAYS     60"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(f) Set Password Warning Age
+  lineinfile:
+    dest=/etc/login.defs
+    regexp="PASS_WARN_AGE *[0-9]"
+    state=present
+    line="PASS_WARN_AGE     7"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(f),IA-5(1)(a) Set Password Minimum Length
+  lineinfile:
+    dest=/etc/security/pwquality.conf
+    regexp='^minlen ='
+    line="minlen = 15"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5 Set Password Minimum Digit Characters
+  lineinfile:
+    dest=/etc/security/pwquality.conf
+    regexp='^dcredit ='
+    line="dcredit = -1"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5 Set Password Minimum Uppercase Characters
+  lineinfile:
+    dest=/etc/security/pwquality.conf
+    regexp='^ucredit ='
+    line="ucredit = -1"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5 Set Password Minimum Special Characters
+  lineinfile:
+    dest=/etc/security/pwquality.conf
+    regexp='ocredit ='
+    line="ocredit = -1"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5 Set Password Minimum Lowercase Characters
+  lineinfile:
+    dest=/etc/security/pwquality.conf
+    regexp='^lcredit ='
+    line="lcredit = -1"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5 Set Password Strength Minimum Different Characters
+  lineinfile:
+    dest=/etc/security/pwquality.conf
+    regexp='^difok ='
+    line="difok = 4"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+# Now set the password quality in the PAM modules
+
+- name: IA-5(b),IA-5(c),IA-5(1)(a)  Set Password Strength - /etc/pam.d/system-auth
+  lineinfile:
+    dest=/etc/pam.d/system-auth
+    regexp='^password    requisite     pam_pwquality.so'
+    line='password    requisite     pam_pwquality.so try_first_pass local_users_only retry=3 authtok_type= dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1 difok=4 maxrepeat=3'
+    follow=yes
+    backup=yes
+  when: ansible_distribution_major_version == 7
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low 
+  - int-medium
+  - int-high
+
+- name: IA-5(b),IA-5(c),IA-5(1)(a) Set Password Strength - /etc/pam.d/password-auth
+  lineinfile:
+    dest=/etc/pam.d/password-auth
+    regexp='^password    requisite     pam_pwquality.so'
+    line='password    requisite     pam_pwquality.so try_first_pass local_users_only retry=3 authtok_type= dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1 difok=4 maxrepeat=3'
+    follow=yes
+    backup=yes
+  when: ansible_distribution_major_version == 7
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(b),IA-5(c),IA-5(1)(a) Set Password Strength - /etc/pam.d/system-auth
+  lineinfile:
+    dest=/etc/pam.d/system-auth
+    regexp='^password    requisite     pam_cracklib.so'
+    line='password    requisite     pam_cracklib.so try_first_pass local_users_only retry=3 authtok_type= dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1 difok=4 maxrepeat=3'
+    follow=yes
+    backup=yes
+  when: ansible_distribution_major_version == 6
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(b),IA-5(c),IA-5(1)(a)  Set Password Strength - /etc/pam.d/password-auth
+  lineinfile:
+    dest=/etc/pam.d/password-auth
+    regexp='^password    requisite     pam_cracklib.so'
+    line='password    requisite     pam_cracklib.so try_first_pass local_users_only retry=3 authtok_type= dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1 difok=4 maxrepeat=3'
+    follow=yes
+    backup=yes
+  when: ansible_distribution_major_version == 6
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(b),IA-5(c),IA-5(1)  Prevent Log In to Accounts With Empty Password - /etc/pam.d/system-auth
+  replace:
+    dest=/etc/pam.d/system-auth
+    regexp=nullok
+    follow=true
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(b),IA-5(c),IA-5(1)(a) Prevent Log In to Accounts With Empty Password - /etc/pam.d/password-auth
+  replace:
+    dest=/etc/pam.d/password-auth
+    regexp=nullok
+    follow=true
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+
+- name: SSH Permit Root Login
+  lineinfile:
+    dest=/etc/ssh/sshd_config
+    regexp="^PermitRootLogin "
+    line="PermitRootLogin no"
+  notify:
+  - reload ssh
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: SSH Permit Empty Passwords
+  lineinfile:
+    dest=/etc/ssh/sshd_config
+    regexp="^PermitEmptyPasswords "
+    line="PermitEmptyPasswords no"
+  notify:
+    - reload ssh
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: SSH Permit Password Authentication
+  lineinfile:
+    dest=/etc/ssh/sshd_config
+    regexp="^PasswordAuthentication "
+    line="PasswordAuthentication no"
+  notify:
+    - reload ssh
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(1)(c) Allow Only SSH Protocol 2
+  lineinfile:
+    dest=/etc/ssh/sshd_config
+    regexp="^Protocol [0-9]"
+    line="Protocol 2"
+  notify:
+    - reload ssh
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(1)(c) Disable telnet Service
+  service:
+    name=telnet
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(1)(c) Disable rsh Service
+  service:
+    name=rsh
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IA-5(1)(c) Disable rlogin Service
+  service:
+    name=rlogin
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high

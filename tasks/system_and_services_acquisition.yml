@@ -1,0 +1,15 @@
+- name: SA-8 Change default umask
+  replace:
+    dest=/etc/profile
+    regexp='umask [0-7][0-7][0-7]$'
+    replace='umask 0027'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+  - avail-low
+  - avail-medium
+  - avail-high

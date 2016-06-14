@@ -1,0 +1,68 @@
+- name: Install the screen Package
+  yum: name=screen
+  tags:
+    - CCE-26940-7
+- name: Enable Randomized Layout of Virtual Address Space
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='kernel.randomize_va_space ='
+    line='kernel.randomize_va_space = 2'
+  tags:
+    - CCE-26999-3
+- name: Enable ExecShield
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='kernel.exec-shield ='
+    line='kernel.exec-shield = 1'
+  tags:
+    - CCE-27007-4
+
+- name: Ensure audit is Installed
+  yum:
+    name=audit
+- name: Enable auditd service
+  service:
+    name=auditd
+    state=running
+    enabled=yes
+
+- name: Add Audit Rules
+  copy: src=audit.rules.tmp dest=/etc/audit/rules.d/hardened.rules force=yes
+
+- name: Find commands with setuid/setgid bit set on /
+  shell: sudo find / -xdev -type f -perm -4000 -o -type f -perm -2000 2>/dev/null
+  always_run: True
+  register: find_result
+- name: Ensure auditd Collects Information on the Use of Privileged Commands
+  with_items: "{{ find_result.stdout_lines }}"
+  lineinfile:
+    dest=/tmp/audit.rules.tmp
+    regexp="-a always,exit -F path={{item}} -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged"
+    create=yes
+    line="-a always,exit -F path={{item}} -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged"
+  notify: reload auditd
+
+- name: Disable Network Router Discovery Daemon (rdisc)
+  service:
+    name=rdisc
+    state=stopped
+    enabled=no
+
+- name: Ensure rsyslog is Installed
+  yum:
+    name=rsyslog
+- name: Enable rsyslog Service
+  service:
+    name=rsyslog
+    state=running
+    enabled=yes
+
+- name: Disable PRELINKING by Default
+  lineinfile:
+    dest=/etc/sysconfig/preling
+    create=yes
+    regexp='PRELINKING=yes'
+    line='PRELINKING=yes'
+- name: Disable existing PRELINKING
+  command: /usr/sbin/prelink -ua
+  ignore_errors: yes

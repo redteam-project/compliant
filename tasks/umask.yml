@@ -1,5 +1,0 @@
-- name: Change default umask
-  replace:
-    dest=/etc/profile
-    regexp='umask [0-7][0-7][0-7]$'
-    replace='umask 0027'

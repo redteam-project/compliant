@@ -1,0 +1,589 @@
+- name: CM-7 Disable Kernel Parameter for Sending ICMP Redirects by Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.send_redirects ='
+    line='net.ipv4.conf.default.send_redirects = 0'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.send_redirects ='
+    line='net.ipv4.conf.all.send_redirects = 0'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Kernel Parameter for IP Forwarding
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.ip_forward ='
+    line='net.ipv4.ip_forward = 0'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Kernel Parameter for Accepting Source-Routed Packets for All Interfaces
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.accept_source_route ='
+    line='net.ipv4.conf.all.accept_source_route = 0'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Kernel Parameter for Accepting ICMP Redirects for All Interfaces
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.accept_redirects ='
+    line='net.ipv4.conf.all.accept_redirects = 0'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.secure_redirects ='
+    line='net.ipv4.conf.all.secure_redirects = 0'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Enable Kernel Parameter to Log Martian Packets
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.all.log_martians ='
+    line='net.ipv4.conf.all.log_martians = 1'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Kernel Parameter for Accepting Source-Routed Packets By Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.accept_source_route ='
+    line='net.ipv4.conf.default.accept_source_route = 0'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Kernel Parameter for Accepting Secure Redirects By Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.secure_redirects ='
+    line='net.ipv4.conf.default.secure_redirects = 0'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Kernel Parameter for Accepting ICMP Redirects By Default
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.conf.default.accept_redirects ='
+    line='net.ipv4.conf.default.accept_redirects = 0'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Enable Kernel Parameter to Ignore ICMP Broadcast Echo Requests
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.icmp_echo_ignore_broadcasts ='
+    line='net.ipv4.icmp_echo_ignore_broadcasts = 1'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Enable Kernel Parameter to Ignore Bogus ICMP Error Responses
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv4.icmp_ignore_bogus_error_responses ='
+    line='net.ipv4.icmp_ignore_bogus_error_responses = 1'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable IPv6 Networking Support Automatic Loading
+  lineinfile:
+    dest=/etc/modprobe.d/disabled.conf
+    create=yes
+    regexp='options ipv6 disable='
+    line='options ipv6 disable=1'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Accepting IPv6 Redirects
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='net.ipv6.conf.default.accept_redirects ='
+    line='net.ipv6.conf.default.accept_redirects = 0'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high  
+
+- name: CM-7 Disable DCCP Support
+  lineinfile:
+    dest=/etc/modprobe.d/system.conf
+    create=yes
+    regexp='install dccp'
+    line='install dccp /bin/false'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable SCTP Support
+  lineinfile:
+    dest=/etc/modprobe.d/system.conf
+    create=yes
+    regexp='install sctp'
+    line='install sctp /bin/false'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable RDS Support
+  lineinfile:
+    dest=/etc/modprobe.d/system.conf
+    create=yes
+    regexp='install rds'
+    line='install rds /bin/false'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable TIPC Support
+  lineinfile:
+    dest=/etc/modprobe.d/system.conf
+    create=yes
+    regexp='install tipc'
+    line='install tipc /bin/false'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+
+- name: CM-7 Install Chrony Service
+  yum:
+    name=chrony
+  when: ansible_distribution_major_version == 7
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Enable Chrony Service (chrony)
+  service:
+    name=chronyd
+    state=running
+    enabled=yes
+  when: ansible_distribution_major_version == 7
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Install NTP Service
+  yum:
+    name=ntp
+  when: ansible_distribution_major_version == 6
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Enable NTP Service (ntpd)
+  service:
+    name=ntpd
+    state=running
+    enabled=yes
+  when: ansible_distribution_major_version == 6
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Odd Job Daemon (oddjobd)
+  service:
+    name=oddjobd
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Apache Qpid (qpidd)
+  service:
+    name=qpidd
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable At Service (atd)
+  service:
+    name=atd
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable xinetd Service
+  service:
+    name=xinetd
+    state=stopped
+    enabled=no
+  tags:
+    - CCE-27046-2
+    - AC-17(8)
+    - CM-7
+- name: CM-7 Uninstall xinetd Package
+  yum:
+    name=xinetd
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable telnet Service
+  service:
+    name=telnet
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Uninstall telnet-server Package
+  yum:
+    name=telnet-server
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable rsh Service
+  service:
+    name=rsh
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Uninstall rsh-server Package
+  yum:
+    name=rsh-server
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable rexec Service
+  service:
+    name=rexec
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable rlogin Service
+  service:
+    name=rlogin
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable ypbind Service
+  service:
+    name=ypbind
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Uninstall ypserv Package
+  yum:
+    name=ypserv
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable tftp Service
+  service:
+    name=tftp
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Uninstall tftp-server Package
+  yum:
+    name=tftp-server
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Avahi Server Software
+  service:
+    name=avahi-daemon
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Disable Network Router Discovery Daemon (rdisc)
+  service:
+    name=rdisc
+    state=stopped
+    enabled=no
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-7 Set SELinux to Enforcing
+  command: /usr/sbin/setenforce 1
+  when: ansible_selinux.mode == "permissive"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+
+- name: CM-7 Remove Rsh Trust Files - /etc/hosts.equiv
+  file:
+    dest=/etc/hosts.equiv
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: Find User Rsh Trust Files
+  shell: "find /home -name '.rhosts' -print"
+  register: user_rhosts
+  always_run: True
+  changed_when: False
+- name: CM-7 Remove Rsh Trust Files - ~/.rhosts
+  with_items: "{{ user_rhosts.stdout_lines }}"
+  file:
+    dest="{{ item }}"
+    state=absent
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low 
+  - int-medium
+  - int-high
+
+
+- name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Install AIDE
+  yum:
+    name=aide
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Initialize AIDE
+  command: /sbin/aide --init creates=/var/lib/aide/aide.db.new.gz
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+
+- name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Copy AIDE Database
+  command: cp /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz creates=/var/lib/aide/aide.db.gz
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Schedule AIDE
+  cron: name=aide minute={{ aide_minute }} hour={{ aide_hour }} day={{ aide_day_of_month }} weekday={{ aide_day_of_week }} month={{ aide_month }} user=root job="nice -19 /sbin/aide --check"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+

@@ -1,0 +1,12 @@
+- name: IR-5 System Audit Logs Must Have Mode 0640 or Less Permissive
+  file: path=/var/log/audit/audit.log mode=640
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+  - avail-low
+  - avail-medium
+  - avail-high

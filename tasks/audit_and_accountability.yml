@@ -1,0 +1,97 @@
+- name: AU-9 Check whether /var is on it's own partition
+  command: grep " /var " /etc/fstab
+  always_run: True
+  changed_when: False
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+  - avail-low
+  - avail-medium
+  - avail-high
+  register: result
+  ignore_errors: true
+
+- name: AU-9 Check whether /var/log is on it's own partition
+  command: grep " /var/log " /etc/fstab
+  always_run: True
+  changed_when: False
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+  - avail-low
+  - avail-medium
+  - avail-high
+  ignore_errors: yes
+
+- name: AU-4,AU-9 Check whether /var/log/audit is on it's own partition
+  command: grep " /var/log/audit " /etc/fstab
+  always_run: True
+  changed_when: False
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+  - avail-low
+  - avail-medium
+  - avail-high
+  ignore_errors: yes
+
+- name: AU-6,AU-1(b),AU-9 System Audit Logs Must Have Mode 0640 or Less Permissive
+  file: path=/var/log/audit/audit.log mode=640
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+
+- name: AU-9 Enable SELinux
+  selinux: policy=targeted state=enforcing
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AU-9 Ensure SELinux Not Disabled in /etc/grub.conf
+  replace:
+    dest=/etc/grub.conf
+    regexp="selinux=0"
+  when: ansible_distribution_major_version == 6
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AU-9 Ensure SELinux Not Disabled in /etc/grub2.conf
+  replace:
+    dest=/etc/grub2.cfg
+    regexp="selinux=0"
+  notify: apply grub2 changes
+  when: ansible_distribution_major_version == 7
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
