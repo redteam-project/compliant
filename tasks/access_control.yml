@@ -1,3 +1,6 @@
+- name: Ensure libselinux-python bindings are installed
+  package: name=libselinux-python sate=present
+
 - name: AC-6(2) Restrict Virtual Console Root Logins
   lineinfile:
     dest=/etc/securetty

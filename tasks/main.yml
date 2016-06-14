@@ -1,10 +1,11 @@
+---
 tasks:
-- include: access_control.yml				
-- include: audit_and_accountability.yml			
-- include: configuration_management.yml			
-- include: identification_and_authentication.yml		
-- include: incident_response.yml				
-- include: maintenance.yml					
+- include: access_control.yml
+- include: audit_and_accountability.yml
+- include: configuration_management.yml
+- include: identification_and_authentication.yml
+- include: incident_response.yml
+- include: maintenance.yml
 - include: misc.yml
 - include: system_and_communications_protection.yml
 - include: system_and_information_integregity.yml
