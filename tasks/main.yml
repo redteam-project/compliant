@@ -1,5 +1,5 @@
 ---
-tasks:
+# file: main.yml
 - include: access_control.yml
 - include: audit_and_accountability.yml
 - include: configuration_management.yml
