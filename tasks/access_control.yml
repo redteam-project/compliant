@@ -419,6 +419,7 @@
     name=autofs
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -432,6 +433,7 @@
     name=abrtd
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -445,6 +447,7 @@
     name=xinetd
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -470,6 +473,7 @@
     name=telnet
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -496,6 +500,7 @@
     name=rsh
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -521,6 +526,7 @@
     name=rexec
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -534,6 +540,7 @@
     name=rlogin
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -547,6 +554,7 @@
     name=ypbind
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -572,6 +580,7 @@
     name=tftp
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -597,6 +606,7 @@
     name=rdisc
     state=stopped
     enabled=no
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
