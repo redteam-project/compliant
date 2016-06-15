@@ -512,10 +512,7 @@
   - int-high
 
 - name: AC-19(a), AC-19(d), AC-19(e) Disable Modprobe Loading of USB Storage Driver - Ensure usb-storage.conf is present
-  copy: src=usb-storage.conf dest=/etc/modprobe.d/usb-storage.conf force=no
-
-- name: AC-19(a), AC-19(d), AC-19(e) Disable Modprobe Loading of USB Storage Driver - Ensure correct line is in file
-  replace: dest=/etc/modprobe.d/usb-storage.conf line="install usb-storage /bin/true"
+  copy: src=usb-storage.conf dest=/etc/modprobe.d/usb-storage.conf
 
 - name: AC-6 Set Daemon Umask 
   replace:
@@ -553,7 +550,7 @@
   - int-high
 
 - name: AC-18(a),AC-18(d),AC-18(3) Disable Bluetooth Kernel Modules
-  copy: src=bluetooth.conf dest=/etc/modprobe.d/bluetooth.conf force=no
+  copy: src=bluetooth.conf dest=/etc/modprobe.d/bluetooth.conf
 
 - name: AC-17 Install openswan or libreswan Package
   yum: name="{{ vpn_package }}" state=present
