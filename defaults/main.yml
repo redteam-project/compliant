@@ -21,3 +21,50 @@ executables_path:
   - /sbin
   - /usr/sbin
   - /usr/local/sbin
+
+ac_disable_services:
+- autofs
+- abrtd
+- rdisc
+- rexec
+- rlogin
+- rsh
+- telnet
+- tftp
+- xinetd
+- ypbind
+- ypserv
+
+ac_uninstall_packages:
+- xinetd
+- telnet-server
+- rsh-server
+- ypserv
+- tftp-server
+
+cm_disable_services:
+- atd
+- avahi-daemon
+- oddjobd
+- qpidd
+- rdisc
+- rexec
+- rlogin
+- rsh
+- telnet
+- tftp
+- xinetd
+- ypbind
+
+cm_uninstall_packages:
+- xinetd
+- telnet-server
+- rsh-server
+- ypserv
+- tftp-server
+
+ia_disable_services:
+- telnet
+- rlogin
+- rsh
+- 
