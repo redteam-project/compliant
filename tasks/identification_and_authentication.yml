@@ -412,3 +412,13 @@
   - int-low
   - int-medium
   - int-high
+
+- name: IA-2(1) Require Authentication for Single User Mode
+  lineinfile dest=/etc/sysconfig/init regexp=".*SINGLE.*" line="SINGLE=/sbin/sulogin"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
