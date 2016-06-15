@@ -553,7 +553,7 @@
   copy: src=bluetooth.conf dest=/etc/modprobe.d/bluetooth.conf force=no
 
 - name: AC-17 Install openswan or libreswan Package
-  yum: name={{ vpn_package }} state=present
+  yum: name="{{ vpn_package }}" state=present
 
 - name: AC-2(5) Set SSH Idle Timeout Interval
   lineinfile: dest=/etc/ssh/sshd_config regexp=".*ClientAliveInterval.*" line="ClientAliveInterval 900"
