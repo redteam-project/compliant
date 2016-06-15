@@ -128,3 +128,13 @@
   - int-low
   - int-medium
   - int-high
+
+- name: SC-2 Disable Interactive Boot
+  lineinfile: dest=/etc/sysconfig/init regexp=".*PROMPT.*" line="PROMPT=no"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
