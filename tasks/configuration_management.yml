@@ -292,9 +292,9 @@
 
 - name: "CM-7  Stop and disable services"
   service: name={{ item }} enabled=no state=stopped
-  failed_when: "stop_disabled_services | failed and 'service not found' not in stop_disabled_services.msg"
+  failed_when: "stop_disabled_services | failed and 'no service or tool found for: {{ item }}' not in stop_disabled_services.msg"
   register: stop_disabled_services
-  with_items: cm_disable_services
+  with_items: "{{ cm_disable_services }}"
   tags:
   - conf-low
   - conf-medium
@@ -307,7 +307,7 @@
   yum:
     name={{ item }}
     state=absent
-  with_items: cm_uninstall_packages
+  with_items: "{{ cm_uninstall_packages }}"
   tags:
   - conf-low
   - conf-medium
