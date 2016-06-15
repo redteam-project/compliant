@@ -116,3 +116,15 @@
   - int-low
   - int-medium
   - int-high
+
+- name: SC-5 Disable Core Dumps for All Users
+  lineinfile:
+    dest=/etc/security/limits.conf
+    line='*     hard   core    0'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
