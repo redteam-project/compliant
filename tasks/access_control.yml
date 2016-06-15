@@ -536,3 +536,5 @@
 - name: AC-2(2),AC-2(3) Set Account Expiration Following Inactivity
   lineinfile: dest=/etc/default/useradd regexp="*INACTIVE.*" line="INACTIVE=35"
 
+- name: AC-10 Limit the Number of Concurrent Login Sessions Allowed Per User
+  lineinfile: dest=/etc/security/limits.conf regexp="* hard maxlogins *" line="*	hard	maxlogins	10"

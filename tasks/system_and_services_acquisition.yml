@@ -2,7 +2,39 @@
   replace:
     dest=/etc/profile
     regexp='umask [0-7][0-7][0-7]$'
-    replace='umask 0027'
+    replace='umask 077'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+  - avail-low
+  - avail-medium
+  - avail-high
+
+- name: SA-8 Change default bash umask
+  replace:
+    dest=/etc/bashrc
+    regexp='umask [0-7][0-7][0-7]$'
+    replace='umask 027'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+  - avail-low
+  - avail-medium
+  - avail-high
+
+- name: SA-8 Change cshell umask
+  replace:
+    dest=/etc/csh.cshrc
+    regexp='umask [0-7][0-7][0-7]$'
+    replace='umask 027'
   tags:
   - conf-low
   - conf-medium
