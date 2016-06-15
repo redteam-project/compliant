@@ -1,22 +1,58 @@
-Role Name
+800-53
 =========
 
-A brief description of the role goes here.
+This role endeavors to apply relavent NIST 800-53 controls to an Enterprise Linux host.
+
+This is not a "scanner" per-se.  If you wish to assess the application of this role to your host, check out the Scap Security Guide and Open SCAP projects.  Both of these will provide you tools with which you can scan your host.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+You must have the appropriate disk partitions create on your host: /var, /var/log, /var/log/audit
+
+<strong>NOTE:</strong> This will make sweeping changes to your host.  It is recommended you apply this role to a freshly provisioned host.
 
 Role Variables
 --------------
+```yaml
+---
+# vars file for 800-53
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+#The location where to place the audit rules file on the host
+audit_rules: /etc/audit/rules.d/audit.rules
 
+#The architecture(s) to for which the audit rules should apply
+audit_arch:
+  - b32
+  - b64
+
+#The schedule for AIDE
+aide_minute: 05
+aide_hour: 03
+aide_day_of_month: '*'
+aide_month: '*'
+aide_day_of_week: '*'
+
+#The location(s) of the shared libraries on the target host
+shared_lib_path:
+  - /lib
+  - /lib64
+  - /usr/lib
+  - /usr/lib64
+
+#The location of the executable(s) on the target host
+executables_path:
+  - /bin
+  - /usr/bin
+  - /usr/local/bin
+  - /sbin
+  - /usr/sbin
+  - /usr/local/sbin
+```
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None
 
 Example Playbook
 ----------------
@@ -30,9 +66,9 @@ Including an example of how to use your role (for instance, with variables passe
 License
 -------
 
-BSD
+Apache 2.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Ken Evensen is a Solutions Architect with Red Hat
