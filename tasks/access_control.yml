@@ -517,7 +517,7 @@
 - name: AC-6 Set Daemon Umask 
   replace:
     dest=/etc/init.d/functions
-    regexp='umask [0-7][0-7][0-7]$'
+    regexp='umask [0-7]*$'
     replace='umask 027'
   tags:
   - conf-low
@@ -537,7 +537,7 @@
   lineinfile: 
     dest=/etc/security/limits.conf 
     regexp='.* hard maxlogins .*' 
-    line='\* hard maxlogins 10'
+    line="* hard maxlogins 10"
 
 - name: AC-3 Disable Interactive Boot
   lineinfile: dest=/etc/sysconfig/init regexp='.*PROMPT.*' line='PROMPT=no'
