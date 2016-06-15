@@ -532,3 +532,7 @@
   - avail-low
   - avail-medium
   - avail-high
+
+- name: AC-2(2),AC-2(3) Set Account Expiration Following Inactivity
+  lineinfile: dest=/etc/default/useradd regexp="*INACTIVE.*" line="INACTIVE=35"
+
