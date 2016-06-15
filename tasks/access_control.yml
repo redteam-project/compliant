@@ -548,3 +548,6 @@
   - int-low
   - int-medium
   - int-high
+
+-name: AC-18(a),AC-18(d),AC-18(3) Disable Bluetooth Kernel Modules
+ copy: src=bluetooth.conf dest=/etc/modprobe.d/bluetooth.conf force=no
