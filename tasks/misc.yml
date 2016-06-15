@@ -68,4 +68,7 @@
   ignore_errors: yes
 
 - name: Disable Ctrl-Alt-Del Reboot Activation
-  lineinfile: dest=/etc/init/control-alt-delete.conf regexp=".*exec.*$" line=exec /usr/bin/logger -p authpriv.notice -t init \"Ctrl-Alt-Del was pressed and ignored\""
+  lineinfile: 
+    dest=/etc/init/control-alt-delete.conf 
+    regexp=".*exec.*$" 
+    line="exec /usr/bin/logger -p authpriv.notice -t init \"Ctrl-Alt-Del was pressed and ignored\""
