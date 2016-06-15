@@ -68,10 +68,9 @@
   ignore_errors: yes
 
 - name: Disable Ctrl-Alt-Del Reboot Activation
-  lineinfile: 
+  copy:
+    src=control-alt-delete.override 
     dest=/etc/init/control-alt-delete.override
-    regexp=".*exec.*$" 
-    line="exec /usr/bin/logger -p authpriv.notice -t init \"Ctrl-Alt-Del was pressed and ignored\""
 
 - name: Do Not Allow SSH Environment Options
   lineinfile:
