@@ -49,7 +49,6 @@ cm_disable_services:
 - qpidd
 - rdisc
 - rexec
-- rhnsd
 - rlogin
 - rsh
 - telnet
