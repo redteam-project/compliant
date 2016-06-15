@@ -45,3 +45,29 @@
   - avail-low
   - avail-medium
   - avail-high
+
+- name: SA-8 Set SSH Idle Timeout Interval
+  lineinfile: dest=/etc/ssh/sshd_config regexp=".*ClientAliveInterval.*" line="ClientAliveInterval 900"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+  - avail-low
+  - avail-medium
+  - avail-high
+
+- name: SA-8 Set SSH Idle Timeout Interval
+  lineinfile: dest=/etc/ssh/sshd_config regexp=".*ClientAliveCountMax.*" line="ClientAliveCountMax 0"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+  - avail-low
+  - avail-medium
+  - avail-high
