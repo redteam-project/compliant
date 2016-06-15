@@ -57,3 +57,6 @@
   - avail-low
   - avail-medium
   - avail-high
+
+- name: MA-4 Install openswan or libreswan Package
+  yum: name={{ vpn_package }} state=present

@@ -67,4 +67,5 @@ ia_disable_services:
 - telnet
 - rlogin
 - rsh
-- 
+
+vpn_package: openswan

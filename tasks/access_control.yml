@@ -549,5 +549,8 @@
   - int-medium
   - int-high
 
--name: AC-18(a),AC-18(d),AC-18(3) Disable Bluetooth Kernel Modules
+- name: AC-18(a),AC-18(d),AC-18(3) Disable Bluetooth Kernel Modules
  copy: src=bluetooth.conf dest=/etc/modprobe.d/bluetooth.conf force=no
+
+- name: AC-17 Install openswan or libreswan Package
+  yum: name={{ vpn_package }} state=present
