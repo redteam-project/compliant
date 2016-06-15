@@ -74,6 +74,6 @@
 
 - name: Do Not Allow SSH Environment Options
   lineinfile:
-    dest=/etc/ssh/sshd
+    dest=/etc/ssh/sshd_config
     regexp=".*PermitUserEnvironment.*"
     line="PermitUserEnvironment no"
