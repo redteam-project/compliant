@@ -537,7 +537,10 @@
   lineinfile: dest=/etc/default/useradd regexp='.*INACTIVE.*' line='INACTIVE=35'
 
 - name: AC-10 Limit the Number of Concurrent Login Sessions Allowed Per User
-  lineinfile: dest=/etc/security/limits.conf regexp='.* hard maxlogins .*' line='*	hard	maxlogins	10'
+  lineinfile: 
+    dest=/etc/security/limits.conf 
+    regexp='.* hard maxlogins .*' 
+    line='\* hard maxlogins 10'
 
 - name: AC-3 Disable Interactive Boot
   lineinfile: dest=/etc/sysconfig/init regexp='.*PROMPT.*' line='PROMPT=no'
