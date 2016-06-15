@@ -135,6 +135,20 @@
   - int-medium
   - int-high
 
+- name: IA-5(f),IA-5(1)(a) Set Password Minimum Length
+  lineinfile:
+    dest=/etc/login.defs
+    regexp="PASS_MIN_LEN *[0-9]*"
+    state=present
+    line="PASS_MIN_LEN    14"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
 - name: IA-5(f) Set Password Warning Age
   lineinfile:
     dest=/etc/login.defs
