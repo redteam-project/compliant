@@ -510,3 +510,11 @@
   - int-low
   - int-medium
   - int-high
+
+- name: AC-19(a), AC-19(d), AC-19(e) Disable Modprobe Loading of USB Storage Driver - Ensure usb-storage.conf is present
+  copy: src=usb-storage.conf dest=/etc/modprobe.d/usb-storage.conf force=no
+
+- name: AC-19(a), AC-19(d), AC-19(e) Disable Modprobe Loading of USB Storage Driver - Ensure correct line is in file
+  replace: dest=/etc/modprobe.d/usb-storage.conf line="install usb-storage /bin/true"
+
+
