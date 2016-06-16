@@ -415,7 +415,7 @@
   - int-high
 
 - name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Schedule AIDE
-  cron: name=aide minute={{ aide_minute }} hour={{ aide_hour }} day={{ aide_day_of_month }} weekday={{ aide_day_of_week }} month={{ aide_month }} user=root job="nice -19 /sbin/aide --check"
+  cron: name=aide minute={{ aide_minute }} hour={{ aide_hour }} day={{ aide_day_of_month }} weekday={{ aide_day_of_week }} month={{ aide_month }} cron_file=/etc/crontab user=root job="nice -19 /sbin/aide --check"
   when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
@@ -426,7 +426,7 @@
   - int-high
 
 - name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Schedule AIDE
-  cron: name=aide minute={{ aide_minute }} hour={{ aide_hour }} day={{ aide_day_of_month }} weekday={{ aide_day_of_week }} month={{ aide_month }} user=root job="nice -19 /usr/sbin/aide --check"
+  cron: name=aide minute={{ aide_minute }} hour={{ aide_hour }} day={{ aide_day_of_month }} weekday={{ aide_day_of_week }} month={{ aide_month }} cron_file=/etc/crontab user=root job="nice -19 /usr/sbin/aide --check"
   when: ansible_distribution_major_version == "6"
   tags:
   - conf-low
