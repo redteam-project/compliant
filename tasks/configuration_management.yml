@@ -303,6 +303,17 @@
   - int-medium
   - int-high
 
+- name: "CM-7  Stop and disable rhnsd"
+  service: name=rhnsd enabled=no state=stopped
+  ignore_errors: yes
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
 - name: CM-7 Uninstall Unnecessary Packages
   yum:
     name={{ item }}
