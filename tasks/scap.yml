@@ -1,0 +1,33 @@
+---
+# file: scap.yml
+- name: Install Open SCAP scanner
+  yum: name=openscap-scanner state=present
+  when: run_scap
+  tags:
+  - scap
+
+- name: Install Open SCAP Security Guide
+  yum: name=scap-security-guide state=present
+  when: run_scap
+  tags:
+  - scap
+
+- name: Run an SCAP scan and Generate Report
+  command: /usr/bin/oscap xccdf eval --profile "{{ item }}" --results /root/scap_reports/scan-xccdf-results-{{ ansible_date_time.iso8601  }}-{{ item }}.xml --report /root/scap_reports/scan-xccdf-report-{{ ansible_date_time.iso8601  }}-{{ item }}.html  /usr/share/xml/scap/ssg/content/ssg-rhel{{ ansible_distribution_major_version }}-xccdf.xml
+  with_items: "{{ scap_profile }}"
+  when: run_scap
+  tags:
+  - scap
+
+- name Determine Most Recent Report
+  command: /bin/ls -t /root/*.html | head -n 1
+  when: run_scap
+  register: scap_html_report
+  tags:
+  - scap
+
+- name: Fetch the SCAP Report
+  fetch: src=/root/scan_reports/{{ scap_html_report }} dest=scap_results/{{ scap_html_report }}
+  when: run_scap
+  tags:
+  - scap

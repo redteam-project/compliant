@@ -69,3 +69,5 @@ ia_disable_services:
 - rsh
 
 vpn_package: openswan
+
+run_scap: true
