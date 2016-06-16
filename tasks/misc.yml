@@ -79,3 +79,4 @@
     line="PermitUserEnvironment no"
 
 - name: Set Last Login/Access Notification
+  lineinfile: dest=/etc/pam.d/system-auth line="session\t    required\t  pam_lastlog.so showfailed" state=present
