@@ -1,0 +1,10 @@
+- name: MP-2 Add nodev, nosuid, noguid Options to /dev/sh,
+  mount: name=/dev/shm state=present options=rw,suid,dev,exec,auto,nouser,async,relatime fstype=swap dump=0 passno=0
+  when: ansible_distribution_major_version == "6"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
