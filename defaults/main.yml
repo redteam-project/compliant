@@ -71,3 +71,5 @@ ia_disable_services:
 vpn_package: openswan
 
 run_scap: true
+scap_profile:
+- stig-rhel6-server-upstream
