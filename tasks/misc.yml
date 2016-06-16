@@ -77,3 +77,5 @@
     dest=/etc/ssh/sshd_config
     regexp=".*PermitUserEnvironment.*"
     line="PermitUserEnvironment no"
+
+- name: Set Last Login/Access Notification
