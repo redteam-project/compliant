@@ -517,7 +517,7 @@
 - name: AC-6 Set Daemon Umask 
   replace:
     dest=/etc/init.d/functions
-    regexp='umask [0-7]*$'
+    regexp='umask.*'
     replace='umask 027'
   tags:
   - conf-low
