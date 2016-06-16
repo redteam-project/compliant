@@ -59,7 +59,7 @@
   - avail-medium
   - avail-high
 
-- name: SA-8 Set SSH Idle Timeout Interval
+- name: SA-8 Set SSH Maximum Number of Client Connections
   lineinfile: dest=/etc/ssh/sshd_config regexp=".*ClientAliveCountMax.*" line="ClientAliveCountMax 0"
   tags:
   - conf-low
