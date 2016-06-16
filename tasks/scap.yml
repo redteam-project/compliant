@@ -12,22 +12,31 @@
   tags:
   - scap
 
+- name: Ensure the Reports Directory Exists
+  file: path=/tmp/scap_reports state=directory mode=0700 owner={{ ansible_env.SUDO_USER }} group={{ ansible_env.SUDO_USER }}
+  tags:
+  - scap
+
 - name: Run an SCAP scan and Generate Report
-  command: /usr/bin/oscap xccdf eval --profile "{{ item }}" --results /root/scap_reports/scan-xccdf-results-{{ ansible_date_time.iso8601  }}-{{ item }}.xml --report /root/scap_reports/scan-xccdf-report-{{ ansible_date_time.iso8601  }}-{{ item }}.html  /usr/share/xml/scap/ssg/content/ssg-rhel{{ ansible_distribution_major_version }}-xccdf.xml
+  command: /usr/bin/oscap xccdf eval --profile "{{ item }}" --results /tmp/scap_reports/scan-xccdf-results-{{ ansible_date_time.iso8601  }}-{{ item }}.xml --report /tmp/scap_reports/scan-xccdf-report-{{ ansible_date_time.iso8601  }}-{{ item }}.html  /usr/share/xml/scap/ssg/content/ssg-rhel{{ ansible_distribution_major_version }}-xccdf.xml
+  failed_when: "result | failed and 'This content points out to the remote resources' not in result.stdout"
+  register: result
   with_items: "{{ scap_profile }}"
   when: run_scap
   tags:
   - scap
 
-- name Determine Most Recent Report
-  command: /bin/ls -t /root/*.html | head -n 1
+- name: Determine Most Recent Report
+  shell: ls -t /tmp/scap_reports/*.html | head -n 1
+  args:
+    executable: /bin/bash
   when: run_scap
   register: scap_html_report
   tags:
   - scap
 
 - name: Fetch the SCAP Report
-  fetch: src=/root/scan_reports/{{ scap_html_report }} dest=scap_results/{{ scap_html_report }}
+  fetch: src={{ scap_html_report.stdout }} dest={{ scap_reports_dir }}/{{ ansible_hostname }}/{{ scap_html_report.stdout }} flat=yes
   when: run_scap
   tags:
   - scap
