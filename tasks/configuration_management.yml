@@ -437,7 +437,7 @@
   - int-high
 
 - name: CM-7 Add nodev, nosuid, noguid Options to /dev/sh,
-  mount: name=/dev/shm src=tmpfs state=present opts=rw,nosuid,nodev,noexec,auto,nouser,async,relatime fstype=swap dump=0 passno=0
+  mount: name=/dev/shm src=tmpfs state=present opts=rw,nosuid,nodev,noexec,auto,nouser,async,relatime fstype=swap dump=1 passno=2
   when: ansible_distribution_major_version == "6"
   tags:
   - conf-low
