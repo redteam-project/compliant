@@ -1,7 +1,7 @@
 - name: SC-5,SC-7 Disable Kernel Parameter for Sending ICMP Redirects by Default
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.default.send_redirects ='
+    regexp='^net.ipv4.conf.default.send_redirects.*'
     line='net.ipv4.conf.default.send_redirects = 0'
   tags:
   - conf-low
@@ -14,7 +14,7 @@
 - name: SC-5 Disable Kernel Parameter for IP Forwarding
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.ip_forward ='
+    regexp='^net.ipv4.ip_forward.*'
     line='net.ipv4.ip_forward = 0'
   tags:
   - conf-low
@@ -27,7 +27,7 @@
 - name: SC-5,SC-7 Disable Kernel Parameter for Accepting Source-Routed Packets By Default
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.default.accept_source_route ='
+    regexp='^net.ipv4.conf.default.accept_source_route.*'
     line='net.ipv4.conf.default.accept_source_route = 0'
   tags:
   - conf-low
@@ -41,7 +41,7 @@
 - name: SC-5,SC-7 Disable Kernel Parameter for Accepting Secure Redirects By Default
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.default.secure_redirects ='
+    regexp='^net.ipv4.conf.default.secure_redirects.*'
     line='net.ipv4.conf.default.secure_redirects = 0'
   tags:
   - conf-low
@@ -54,7 +54,7 @@
 - name: SC-5,SC-7 Disable Kernel Parameter for Accepting ICMP Redirects By Default
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.default.accept_redirects ='
+    regexp='^net.ipv4.conf.default.accept_redirects.*'
     line='net.ipv4.conf.default.accept_redirects = 0'
   tags:
   - conf-low
@@ -67,7 +67,7 @@
 - name: SC-5 Enable Kernel Parameter to Ignore ICMP Broadcast Echo Requests
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.icmp_echo_ignore_broadcasts ='
+    regexp='^net.ipv4.icmp_echo_ignore_broadcasts.*'
     line='net.ipv4.icmp_echo_ignore_broadcasts = 1'
   tags:
   - conf-low
@@ -80,7 +80,7 @@
 - name: SC-5 Enable Kernel Parameter to Ignore Bogus ICMP Error Responses
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.icmp_ignore_bogus_error_responses ='
+    regexp='^net.ipv4.icmp_ignore_bogus_error_responses.*'
     line='net.ipv4.icmp_ignore_bogus_error_responses = 1'
   tags:
   - conf-low
@@ -94,7 +94,7 @@
 - name: SC-5,SC-7 Enable Kernel Parameter to Use Reverse Path Filtering for All Interfaces
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.all.rp_filter ='
+    regexp='^net.ipv4.conf.all.rp_filter.*'
     line='net.ipv4.conf.all.rp_filter = 1'
   tags:
   - conf-low
@@ -107,7 +107,7 @@
 - name: SC-5,SC-7 Enable Kernel Parameter to Use Reverse Path Filtering by Default
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.default.rp_filter ='
+    regexp='^net.ipv4.conf.default.rp_filter.*'
     line='net.ipv4.conf.default.rp_filter = 1'
   tags:
   - conf-low
@@ -131,6 +131,19 @@
 
 - name: SC-2 Disable Interactive Boot
   lineinfile: dest=/etc/sysconfig/init regexp=".*PROMPT.*" line="PROMPT=no"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: SC-5(3) Enable Kernel Parameter to Log Martian Packets
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='^net.ipv4.conf.all.log_martians.*'
+    line='net.ipv4.conf.all.log_martians = 1'
   tags:
   - conf-low
   - conf-medium

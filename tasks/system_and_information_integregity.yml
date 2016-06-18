@@ -60,3 +60,32 @@
 
 - name: SI-7 Use Only Approved Ciphers
   lineinfile: dest=/etc/ssh/sshd_config regexp=".*Ciphers.*" line="Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc"
+
+#- name: Find All Log Files
+#  shell: cat /etc/rsyslog.conf | grep -v "^#" | grep -v "^$" | grep -v "^\$[A-Z]*" | tr -s ' ' | cut -d' ' -f2 | sed -r 's/-//' | sed -r 's/\*//' | grep -v "^$"
+#  args:
+#    executable: /bin/bash
+#  register: log_files
+#  tags:
+#  - log_files
+#
+#- name: Display Paths to Log Files
+#  debug: msg="Log file => {{ item }}"
+#  with_items: "{{ log_files }}"
+#  tags:
+#  - log_files
+#
+#- name: SI-11 Ensure System Log Files Have Correct Permissions
+#  file: path={{ item }} mode=0600 state=file
+#  with_items: "{{ log_files }}"
+#  tags:
+#  - conf-low
+#  - conf-medium
+#  - conf-high
+#  - int-low
+#  - int-medium
+#  - int-high
+#  - avail-low
+#  - avail-medium
+#  - avail-high
+#  - log_files

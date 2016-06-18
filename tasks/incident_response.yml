@@ -10,3 +10,59 @@
   - avail-low
   - avail-medium
   - avail-high
+
+- name: Ensure audit is Installed
+  yum:
+    name=audit
+- name: Enable auditd service
+  service:
+    name=auditd
+    state=running
+    enabled=yes
+
+- name: IR-5 Configure auditd space_left Action on Low Disk Space
+  lineinfile:
+    dest=/etc/audit/auditd.conf
+    line="space_left_action = email"
+  notify: reload auditd
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IR-5 Configure auditd admin_space_left Action on Low Disk Space
+  lineinfile:
+    dest=/etc/audit/auditd.conf
+    line="admin_space_left_action = email"
+  notify: reload auditd
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name:  IR-5 Add Audit Rules
+  copy: src=audit.rules.tmp dest=/etc/audit/audit.rules force=yes
+  notify: reload auditd
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: IR-5 System Audit Logs Must Have Mode 0640 or Less Permissive (1/4)
+  file: path=/var/log/audit/audit.log mode=0640 state=file group=root owner=root
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high

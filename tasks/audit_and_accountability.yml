@@ -95,3 +95,62 @@
   - int-medium
   - int-high
 
+- name: AU-1(b), AU-4, AU-5(b) Configure auditd space_left Action on Low Disk Space
+  lineinfile: 
+    dest=/etc/audit/auditd.conf 
+    line="space_left_action = email"
+  notify: reload auditd
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AU-1(b), AU-4, AU-5(b) Configure auditd admin_space_left Action on Low Disk Space
+  lineinfile:
+    dest=/etc/audit/auditd.conf
+    line="admin_space_left_action = email"
+  notify: reload auditd
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: Ensure audit is Installed
+  yum:
+    name=audit
+- name: Enable auditd service
+  service:
+    name=auditd
+    state=running
+    enabled=yes
+
+- name: AU-1(b), AU-2(a), AU-2(c), AU-2(d), AU-12(a), AU-12(c) Add Audit Rules
+  copy: src=audit.rules.tmp dest=/etc/audit/audit.rules force=yes
+  notify: reload auditd
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AU-1(b), AU-9 System Audit Logs Must Have Mode 0640 or Less Permissive (1/4)
+  file: path=/var/log/audit/audit.log mode=0640 state=file group=root owner=root
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+  
+
+

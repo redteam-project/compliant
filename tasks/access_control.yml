@@ -312,10 +312,10 @@
   - int-medium
   - int-high
 
-- name: AC-4 Disable Kernel Parameter for Sending ICMP Redirects by Default
+- name: AC-4 Disable Kernel Parameter for Sending ICMP Redirects by Default (1/2)
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.default.send_redirects ='
+    regexp='^net.ipv4.conf.default.send_redirects.*'
     line='net.ipv4.conf.default.send_redirects = 0'
   tags:
   - conf-medium
@@ -323,10 +323,20 @@
   - int-medium
   - int-high
 
-- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces
+- name: AC-4 Disable Kernel Parameter for Sending ICMP Redirects by Default (2/2)
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.all.secure_redirects ='
+    line='net.ipv4.conf.default.send_redirects = 0'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces (1/2)
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='^net.ipv4.conf.all.secure_redirects.*'
     line='net.ipv4.conf.all.secure_redirects = 0'
   tags:
   - conf-medium
@@ -334,10 +344,20 @@
   - int-medium
   - int-high
 
-- name: AC-17(7) Enable Kernel Parameter to Log Martian Packets
+- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces (2/2)
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.all.log_martians ='
+    line='net.ipv4.conf.all.secure_redirects = 0'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-17(7) Enable Kernel Parameter to Log Martian Packets (1/2)
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='^net.ipv4.conf.all.log_martians.*'
     line='net.ipv4.conf.all.log_martians = 1'
   tags:
   - conf-low
@@ -347,10 +367,22 @@
   - int-medium
   - int-high
 
-- name: AC-4 Disable Kernel Parameter for Accepting Source-Routed Packets By Default
+- name: AC-17(7) Enable Kernel Parameter to Log Martian Packets (2/2)
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.default.accept_source_route ='
+    line='net.ipv4.conf.all.log_martians = 1'
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-4 Disable Kernel Parameter for Accepting Source-Routed Packets By Default (1/2)
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='^net.ipv4.conf.default.accept_source_route.*'
     line='net.ipv4.conf.default.accept_source_route = 0'
   tags:
   - conf-medium
@@ -358,10 +390,20 @@
   - int-medium
   - int-high
 
-- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects By Default
+- name: AC-4 Disable Kernel Parameter for Accepting Source-Routed Packets By Default (2/2)
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.default.secure_redirects ='
+    line='net.ipv4.conf.default.accept_source_route = 0'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects By Default (1/2)
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='^net.ipv4.conf.default.secure_redirects.*'
     line='net.ipv4.conf.default.secure_redirects = 0'
   tags:
   - conf-medium
@@ -369,10 +411,20 @@
   - int-medium
   - int-high
 
-- name: AC-4 Disable Kernel Parameter for Accepting ICMP Redirects By Default
+- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects By Default (2/2)
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.default.accept_redirects ='
+    line='net.ipv4.conf.default.secure_redirects = 0'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Disable Kernel Parameter for Accepting ICMP Redirects By Default (1/2)
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='^net.ipv4.conf.default.accept_redirects.*'
     line='net.ipv4.conf.default.accept_redirects = 0'
   tags:
   - conf-medium
@@ -380,10 +432,20 @@
   - int-medium
   - int-high
 
-- name: AC-4 Enable Kernel Parameter to Use TCP Syncookies
+- name: AC-4 Disable Kernel Parameter for Accepting ICMP Redirects By Default (2/2)
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.tcp_syncookies ='
+    line='net.ipv4.conf.default.accept_redirects = 0'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Enable Kernel Parameter to Use TCP Syncookies (1/2)
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='^net.ipv4.tcp_syncookies.*'
     line='net.ipv4.tcp_syncookies = 1'
   tags:
   - conf-medium
@@ -391,10 +453,20 @@
   - int-medium
   - int-high
 
-- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering for All Interfaces
+- name: AC-4 Enable Kernel Parameter to Use TCP Syncookies (2/2)
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.all.rp_filter ='
+    line='net.ipv4.tcp_syncookies = 1'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering for All Interfaces (1/2)
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='^net.ipv4.conf.all.rp_filter.*'
     line='net.ipv4.conf.all.rp_filter = 1'
   tags:
   - conf-medium
@@ -402,10 +474,30 @@
   - int-medium
   - int-high
 
-- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering by Default
+- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering for All Interfaces (2/2)
   lineinfile:
     dest=/etc/sysctl.conf
-    regexp='net.ipv4.conf.default.rp_filter ='
+    line='net.ipv4.conf.all.rp_filter = 1'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering by Default (1/2)
+  lineinfile:
+    dest=/etc/sysctl.conf
+    regexp='^net.ipv4.conf.default.rp_filter.*'
+    line='net.ipv4.conf.default.rp_filter = 1'
+  tags:
+  - conf-medium
+  - conf-high
+  - int-medium
+  - int-high
+
+- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering by Default (2/2)
+  lineinfile:
+    dest=/etc/sysctl.conf
     line='net.ipv4.conf.default.rp_filter = 1'
   tags:
   - conf-medium
@@ -452,7 +544,8 @@
 
 - name: Set SELinux to Enforcing
   command: /usr/sbin/setenforce 1
-  when: ansible_selinux.mode == "permissive"
+  when: ansible_selinux.mode == 'permissive'
+
 - name: AC-17(8) Remove Rsh Trust Files - /etc/hosts.equiv
   file:
     dest=/etc/hosts.equiv
@@ -563,3 +656,33 @@
 
 - name: AC-3, AC-17(2) Use Only Approved Ciphers
   lineinfile: dest=/etc/ssh/sshd_config regexp=".*Ciphers.*" line="Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc"
+
+- name: Ensure audit is Installed
+  yum:
+    name=audit
+- name: Enable auditd service
+  service:
+    name=auditd
+    state=running
+    enabled=yes
+
+- name: AC-3(10) Add Audit Rules
+  copy: src=audit.rules.tmp dest=/etc/audit/audit.rules force=yes
+  notify: restart auditd
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: AC-9 System Audit Logs Must Have Mode 0640 or Less Permissive (1/4)
+  file: path=/var/log/audit/audit.log mode=0640 state=file group=root owner=root
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high

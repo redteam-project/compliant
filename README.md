@@ -1,9 +1,9 @@
 800-53
 =========
 
-This role endeavors to apply relavent NIST 800-53 controls to an Enterprise Linux host.
+This role endeavors to apply relevant NIST 800-53 controls to an Enterprise Linux host.
 
-This is not a "scanner" per-se.  If you wish to assess the application of this role to your host, check out the Scap Security Guide and Open SCAP projects.  Both of these will provide you tools with which you can scan your host.
+This is not a "scanner" per-se.  If you wish to assess the application of this role to your host, check out the SCAP Security Guide and Open SCAP projects.  Both of these will provide you tools with which you can scan your host.
 
 Requirements
 ------------
@@ -17,14 +17,6 @@ Role Variables
 ```yaml
 ---
 # vars file for 800-53
-
-#The location where to place the audit rules file on the host
-audit_rules: /etc/audit/rules.d/audit.rules
-
-#The architecture(s) to for which the audit rules should apply
-audit_arch:
-  - b32
-  - b64
 
 #The schedule for AIDE
 aide_minute: 05
@@ -57,11 +49,19 @@ None
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+	---
+	# file: scap.yaml
+	- hosts: scap_hosts
+	  roles:
+	  - ansible-role-800-53
+	  vars:
+    	scap_reports_dir: ~/scap_reports
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+Example Run
+-----------
+```bash
+ansible-playbook -u admin -b -i scap_inventory scap.yaml
+```
 
 License
 -------
