@@ -1,4 +1,4 @@
-- name: CM-7 Disable Kernel Parameter for Sending ICMP Redirects by Default (1/2)
+- name: CM-7 Disable Kernel Parameter for Sending ICMP Redirects by Default
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.default.send_redirects.*'
@@ -11,19 +11,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Disable Kernel Parameter for Sending ICMP Redirects by Default (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.default.send_redirects = 0'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: CM-7 Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces (1/2)
+- name: CM-7 Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.all.send_redirects.*'
@@ -36,19 +24,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.all.send_redirects = 0'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: CM-7 Disable Kernel Parameter for IP Forwarding (1/2)
+- name: CM-7 Disable Kernel Parameter for IP Forwarding
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.ip_forward.*'
@@ -61,19 +37,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Disable Kernel Parameter for IP Forwarding (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.ip_forward = 0'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: CM-7 Disable Kernel Parameter for Accepting Source-Routed Packets for All Interfaces (1/2)
+- name: CM-7 Disable Kernel Parameter for Accepting Source-Routed Packets for All Interfaces
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.all.accept_source_route.*'
@@ -86,19 +50,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Disable Kernel Parameter for Accepting Source-Routed Packets for All Interfaces (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.all.accept_source_route = 0'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: CM-7 Disable Kernel Parameter for Accepting ICMP Redirects for All Interfaces (1/2)
+- name: CM-7 Disable Kernel Parameter for Accepting ICMP Redirects for All Interfaces
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.all.accept_redirects.*'
@@ -111,19 +63,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Disable Kernel Parameter for Accepting ICMP Redirects for All Interfaces (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.all.accept_redirects = 0'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: CM-7 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces (1/2)
+- name: CM-7 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.all.secure_redirects.*'
@@ -136,19 +76,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.all.secure_redirects = 0'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: CM-7 Enable Kernel Parameter to Log Martian Packets (1/2)
+- name: CM-7 Enable Kernel Parameter to Log Martian Packets
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.all.log_martians.*'
@@ -161,20 +89,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Enable Kernel Parameter to Log Martian Packets (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.all.log_martians = 1'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-
-- name: CM-7 Disable Kernel Parameter for Accepting Source-Routed Packets By Default (1/2)
+- name: CM-7 Disable Kernel Parameter for Accepting Source-Routed Packets By Default
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.default.accept_source_route.*'
@@ -187,19 +102,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Disable Kernel Parameter for Accepting Source-Routed Packets By Default (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.default.accept_source_route = 0'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: CM-7 Disable Kernel Parameter for Accepting Secure Redirects By Default (1/2)
+- name: CM-7 Disable Kernel Parameter for Accepting Secure Redirects By Default
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.default.secure_redirects.*'
@@ -212,19 +115,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Disable Kernel Parameter for Accepting Secure Redirects By Default (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.default.secure_redirects = 0'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: CM-7 Disable Kernel Parameter for Accepting ICMP Redirects By Default (1/2)
+- name: CM-7 Disable Kernel Parameter for Accepting ICMP Redirects By Default
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.default.accept_redirects.*'
@@ -237,19 +128,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Disable Kernel Parameter for Accepting ICMP Redirects By Default (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.default.accept_redirects = 0'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: CM-7 Enable Kernel Parameter to Ignore ICMP Broadcast Echo Requests (1/2)
+- name: CM-7 Enable Kernel Parameter to Ignore ICMP Broadcast Echo Requests
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.icmp_echo_ignore_broadcasts.*'
@@ -262,19 +141,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Enable Kernel Parameter to Ignore ICMP Broadcast Echo Requests (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.icmp_echo_ignore_broadcasts = 1'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: CM-7 Enable Kernel Parameter to Ignore Bogus ICMP Error Responses (1/2)
+- name: CM-7 Enable Kernel Parameter to Ignore Bogus ICMP Error Responses
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.icmp_ignore_bogus_error_responses.*'
@@ -287,19 +154,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Enable Kernel Parameter to Ignore Bogus ICMP Error Responses (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.icmp_ignore_bogus_error_responses = 1'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: CM-7 Disable IPv6 Networking Support Automatic Loading (1/2)
+- name: CM-7 Disable IPv6 Networking Support Automatic Loading
   lineinfile:
     dest=/etc/modprobe.d/disabled.conf
     create=yes
@@ -313,20 +168,7 @@
   - int-medium
   - int-high
 
-- name: CM-7 Disable IPv6 Networking Support Automatic Loading (2/2)
-  lineinfile:
-    dest=/etc/modprobe.d/disabled.conf
-    create=yes
-    line='options ipv6 disable=1'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: CM-7 Disable Accepting IPv6 Redirects (1/2)
+- name: CM-7 Disable Accepting IPv6 Redirects
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv6.conf.default.accept_redirects.*'
@@ -338,18 +180,6 @@
   - int-low
   - int-medium
   - int-high  
-
-- name: CM-7 Disable Accepting IPv6 Redirects (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv6.conf.default.accept_redirects = 0'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
 
 - name: CM-7 Disable DCCP Support
   lineinfile:

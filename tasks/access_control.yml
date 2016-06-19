@@ -312,7 +312,7 @@
   - int-medium
   - int-high
 
-- name: AC-4 Disable Kernel Parameter for Sending ICMP Redirects by Default (1/2)
+- name: AC-4 Disable Kernel Parameter for Sending ICMP Redirects by Default
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.default.send_redirects.*'
@@ -323,17 +323,7 @@
   - int-medium
   - int-high
 
-- name: AC-4 Disable Kernel Parameter for Sending ICMP Redirects by Default (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.default.send_redirects = 0'
-  tags:
-  - conf-medium
-  - conf-high
-  - int-medium
-  - int-high
-
-- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces (1/2)
+- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.all.secure_redirects.*'
@@ -344,17 +334,7 @@
   - int-medium
   - int-high
 
-- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.all.secure_redirects = 0'
-  tags:
-  - conf-medium
-  - conf-high
-  - int-medium
-  - int-high
-
-- name: AC-17(7) Enable Kernel Parameter to Log Martian Packets (1/2)
+- name: AC-17(7) Enable Kernel Parameter to Log Martian Packets
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.all.log_martians.*'
@@ -367,19 +347,7 @@
   - int-medium
   - int-high
 
-- name: AC-17(7) Enable Kernel Parameter to Log Martian Packets (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.all.log_martians = 1'
-  tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-
-- name: AC-4 Disable Kernel Parameter for Accepting Source-Routed Packets By Default (1/2)
+- name: AC-4 Disable Kernel Parameter for Accepting Source-Routed Packets By Default
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.default.accept_source_route.*'
@@ -390,17 +358,7 @@
   - int-medium
   - int-high
 
-- name: AC-4 Disable Kernel Parameter for Accepting Source-Routed Packets By Default (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.default.accept_source_route = 0'
-  tags:
-  - conf-medium
-  - conf-high
-  - int-medium
-  - int-high
-
-- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects By Default (1/2)
+- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects By Default
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.default.secure_redirects.*'
@@ -411,17 +369,7 @@
   - int-medium
   - int-high
 
-- name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects By Default (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.default.secure_redirects = 0'
-  tags:
-  - conf-medium
-  - conf-high
-  - int-medium
-  - int-high
-
-- name: AC-4 Disable Kernel Parameter for Accepting ICMP Redirects By Default (1/2)
+- name: AC-4 Disable Kernel Parameter for Accepting ICMP Redirects By Default
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.default.accept_redirects.*'
@@ -432,17 +380,7 @@
   - int-medium
   - int-high
 
-- name: AC-4 Disable Kernel Parameter for Accepting ICMP Redirects By Default (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.default.accept_redirects = 0'
-  tags:
-  - conf-medium
-  - conf-high
-  - int-medium
-  - int-high
-
-- name: AC-4 Enable Kernel Parameter to Use TCP Syncookies (1/2)
+- name: AC-4 Enable Kernel Parameter to Use TCP Syncookies
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.tcp_syncookies.*'
@@ -453,7 +391,7 @@
   - int-medium
   - int-high
 
-- name: AC-4 Enable Kernel Parameter to Use TCP Syncookies (2/2)
+- name: AC-4 Enable Kernel Parameter to Use TCP Syncookies
   lineinfile:
     dest=/etc/sysctl.conf
     line='net.ipv4.tcp_syncookies = 1'
@@ -463,7 +401,7 @@
   - int-medium
   - int-high
 
-- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering for All Interfaces (1/2)
+- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering for All Interfaces
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.all.rp_filter.*'
@@ -474,30 +412,10 @@
   - int-medium
   - int-high
 
-- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering for All Interfaces (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
-    line='net.ipv4.conf.all.rp_filter = 1'
-  tags:
-  - conf-medium
-  - conf-high
-  - int-medium
-  - int-high
-
-- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering by Default (1/2)
+- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering by Default
   lineinfile:
     dest=/etc/sysctl.conf
     regexp='^net.ipv4.conf.default.rp_filter.*'
-    line='net.ipv4.conf.default.rp_filter = 1'
-  tags:
-  - conf-medium
-  - conf-high
-  - int-medium
-  - int-high
-
-- name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering by Default (2/2)
-  lineinfile:
-    dest=/etc/sysctl.conf
     line='net.ipv4.conf.default.rp_filter = 1'
   tags:
   - conf-medium
