@@ -295,6 +295,21 @@
   failed_when: "stop_disabled_services | failed and 'no service or tool found for: {{ item }}' not in stop_disabled_services.msg"
   register: stop_disabled_services
   with_items: "{{ cm_disable_services }}"
+  when: ansible_distribution_major_version == "6"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: "CM-7  Stop and disable services"
+  service: name={{ item }} enabled=no state=stopped
+  failed_when: "stop_disabled_services | failed and 'systemd could not find the requested service' not in stop_disabled_services.msg"
+  register: stop_disabled_services
+  with_items: "{{ cm_disable_services }}"
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium

@@ -68,6 +68,7 @@
   copy:
     src=control-alt-delete.override 
     dest=/etc/init/control-alt-delete.override
+  when: ansible_distribution_major_version == "6"
 
 - name: Do Not Allow SSH Environment Options
   lineinfile:
@@ -77,3 +78,12 @@
 
 - name: Set Last Login/Access Notification
   lineinfile: dest=/etc/pam.d/system-auth line="session\t    required\t  pam_lastlog.so showfailed" state=present
+
+- name: Remove sendmail
+  yum: name=sendmail state=absent
+
+- name: Install postfix
+  yum: name=postfix state=present
+
+- name: Start and enable postfix
+  service: name=postfix enabled=yes state=started

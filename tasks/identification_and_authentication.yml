@@ -405,6 +405,21 @@
   failed_when: "stop_disabled_services | failed and 'no service or tool found for: {{ item }}' not in stop_disabled_services.msg"
   register: stop_disabled_services
   with_items: "{{ ia_disable_services }}"
+  when: ansible_distribution_major_version == "6"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+
+- name: "IA-5(1)(c)  Stop and disable services"
+  service: name={{ item }} enabled=no state=stopped
+  failed_when: "stop_disabled_services | failed and 'systemd could not find the requested service' not in stop_disabled_services.msg"
+  register: stop_disabled_services
+  with_items: "{{ ia_disable_services }}"
+  when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
   - conf-medium
@@ -428,3 +443,6 @@
 
 - name: IA-5(1)(c),IA-7 Use Only Approved Ciphers
   lineinfile: dest=/etc/ssh/sshd_config regexp=".*Ciphers.*" line="Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc"
+
+- name: IA-5(f), IA-5(1)(e) Limit Password Reuse
+  lineinfile: dest=/etc/pam.d/system-auth regexp="(^password.*sufficient.*pam_unix.so.*)(remember *= *[^ $]*)" line="\1remember=5" backrefs=yes

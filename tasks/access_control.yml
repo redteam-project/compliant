@@ -428,6 +428,7 @@
   failed_when: "stop_disabled_services | failed and 'no service or tool found for: {{ item }}' not in stop_disabled_services.msg"
   register: stop_disabled_services
   with_items: "{{ ac_disable_services }}"
+  when: ansible_distribution_major_version == "6"
   tags:
   - conf-low
   - conf-medium
@@ -436,6 +437,19 @@
   - int-medium
   - int-high
 
+- name: " AC-19(a),AC-19(d),AC-19(e),AC-17(8)  Stop and disable services"
+  service: name={{ item }} enabled=no state=stopped
+  failed_when: "stop_disabled_services | failed and 'systemd could not find the requested service' not in stop_disabled_services.msg"
+  register: stop_disabled_services
+  with_items: "{{ ac_disable_services }}"
+  when: ansible_distribution_major_version == "7"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
 
 - name: AC-17(8) Uninstall Unnecessary Package
   yum:
@@ -604,3 +618,21 @@
   - int-low
   - int-medium
   - int-high
+
+- name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/system-auth (1/3)
+  lineinfile: dest=/etc/pam.d/system-auth insertbefore="^auth.*pam_unix.so.*" line="auth         required      pam_faillock.so preauth silent deny=3 unlock_time=604800 fail_interval=900" 
+
+- name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/system-auth (2/3)
+  lineinfile: dest=/etc/pam.d/system-auth insertafter="^auth.*pam_unix.so.*" line="auth      [default=die] pam_faillock.so authfail deny=3 unlock_time=604800 fail_interval=900"
+
+- name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/system-auth (3/3)
+  lineinfile: dest=/etc/pam.d/system-auth insertbefore="^account.*pam_unix.so.*" line="account     required      pam_faillock.so"
+
+- name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/password-auth (1/3)
+  lineinfile: dest=/etc/pam.d/password-auth insertbefore="^auth.*pam_unix.so.*" line="auth         required    pam_faillock.so preauth silent deny=3 unlock_time=604800 fail_interval=900" 
+
+- name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/password-auth (2/3)
+  lineinfile: dest=/etc/pam.d/password-auth insertafter="^auth.*pam_unix.so.*" line="auth      [default=die] pam_faillock.so authfail deny=3 unlock_time=604800 fail_interval=900"
+
+- name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/password-auth (3/3)
+  lineinfile: dest=/etc/pam.d/password-auth insertbefore="^account.*pam_unix.so.*" line="account       required      pam_faillock.so"
