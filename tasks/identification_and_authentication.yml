@@ -237,7 +237,7 @@
   lineinfile:
     dest=/etc/security/pwquality.conf
     regexp='^difok ='
-    line="difok = 4"
+    line="difok = 15"
   when: ansible_distribution_major_version == "7"
   tags:
   - conf-low
@@ -445,4 +445,4 @@
   lineinfile: dest=/etc/ssh/sshd_config regexp=".*Ciphers.*" line="Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc"
 
 - name: IA-5(f), IA-5(1)(e) Limit Password Reuse
-  lineinfile: dest=/etc/pam.d/system-auth regexp="(^password.*sufficient.*pam_unix.so.*)(remember *= *[^ $]*)" line="\1remember=5" backrefs=yes
+  lineinfile: dest=/etc/pam.d/system-auth regexp="(^password.*sufficient.*pam_unix.so.*)(remembers*=\s*[^ $]*)*" line="\1 remember=5" backrefs=yes

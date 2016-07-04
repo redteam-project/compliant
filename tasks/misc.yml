@@ -17,28 +17,6 @@
   tags:
     - CCE-27007-4
 
-- name: Ensure audit is Installed
-  yum:
-    name=audit
-- name: Enable auditd service
-  service:
-    name=auditd
-    state=running
-    enabled=yes
-
-- name: Find commands with setuid/setgid bit set on /
-  shell: sudo find / -xdev -type f -perm -4000 -o -type f -perm -2000 2>/dev/null
-  always_run: True
-  register: find_result
-- name: Ensure auditd Collects Information on the Use of Privileged Commands
-  with_items: "{{ find_result.stdout_lines }}"
-  lineinfile:
-    dest=/tmp/audit.rules.tmp
-    regexp="-a always,exit -F path={{item}} -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged"
-    create=yes
-    line="-a always,exit -F path={{item}} -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged"
-  notify: reload auditd
-
 - name: Disable Network Router Discovery Daemon (rdisc)
   service:
     name=rdisc

@@ -45,8 +45,8 @@ ac_uninstall_packages:
 cm_disable_services:
 - atd
 - avahi-daemon
-- oddjobd
-- qpidd
+#- oddjobd
+#- qpidd
 - rdisc
 - rexec
 - rlogin

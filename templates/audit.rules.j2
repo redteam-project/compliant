@@ -38,6 +38,9 @@
 -a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k export
 -a always,exit -F arch=b32 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete
 -a always,exit -F arch=b64 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete
+{% for executable in find_result.stdout_lines %}
+-a always,exit -F path={{ executable }} -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+{% endfor %}
 -w /etc/sudoers -p wa -k actions
 -w /usr/sbin/insmod -p x -k modules
 -w /usr/sbin/rmmod -p x -k modules

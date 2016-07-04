@@ -3,9 +3,10 @@
     name=sshd
     state=reloaded
 - name: reload auditd
-  service:
-    name=auditd
-    state=reloaded
+  shell: /sbin/augenrules --load
+#  service:
+#    name=auditd
+#    state=reloaded
 - name: apply grub2 changes
   shell: grub2-mkconfig -o /boot/grub2/grub.cfg
 - name: start lvm2polld
