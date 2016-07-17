@@ -1,34 +1,33 @@
 - name: SI-7 Ensure Red Hat GPG Key Installed
   rpm_key:
-    state=present
-    key=/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+    state: present
+    key: /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
   tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-  - avail-low
-  - avail-medium
-  - avail-high
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
 
 - name: SI-7 Ensure gpgcheck Enabled In Main Yum Configuration
   replace:
-    dest=/etc/yum.conf
-    regexp='gpgcheck=0'
-    replace='gpgcheck=1'
+    dest: /etc/yum.conf
+    regexp: 'gpgcheck=0'
+    replace: 'gpgcheck=1'
   tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-  - avail-low
-  - avail-medium
-  - avail-high
-
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
 
 - name: Find All Yum Repos - EL 6
   shell: "/bin/ls /etc/yum.repos.d/*.repo"
@@ -45,22 +44,25 @@
 - name: SI-7 Ensure gpgcheck Enabled For All Yum Package Repositories
   with_items: "{{ yum_repos.stdout_lines }}"
   replace:
-    dest="{{ item }}"
-    regexp='gpgcheck=0'
-    replace='gpgcheck=1'
+    dest: "{{ item }}"
+    regexp: 'gpgcheck=0'
+    replace: 'gpgcheck=1'
   tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
-  - avail-low
-  - avail-medium
-  - avail-high
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
 
 - name: SI-7 Use Only Approved Ciphers
-  lineinfile: dest=/etc/ssh/sshd_config regexp=".*Ciphers.*" line="Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc"
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ".*Ciphers.*"
+    line: "Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc"
 
 #- name: Find All Log Files
 #  shell: cat /etc/rsyslog.conf | grep -v "^#" | grep -v "^$" | grep -v "^\$[A-Z]*" | tr -s ' ' | cut -d' ' -f2 | sed -r 's/-//' | sed -r 's/\*//' | grep -v "^$"

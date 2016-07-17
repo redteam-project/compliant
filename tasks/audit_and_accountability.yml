@@ -3,12 +3,12 @@
     path: /var/log/audit/audit.log 
     mode: 640
   tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
 
 
 - name: AU-9 Enable SELinux
@@ -16,12 +16,12 @@
     policy: targeted 
     state: enforcing
   tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
 
 - name: AU-9 Ensure SELinux Not Disabled in /etc/grub.conf
   replace:
@@ -29,12 +29,12 @@
     regexp: "selinux=0"
   when: ansible_distribution_major_version == 6
   tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
 
 - name: AU-9 Ensure SELinux Not Disabled in /etc/grub2.conf
   replace:
@@ -43,12 +43,12 @@
   notify: apply grub2 changes
   when: ansible_distribution_major_version == 7
   tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
 
 - name: AU-1(b), AU-4, AU-5(b) Configure auditd space_left Action on Low Disk Space
   lineinfile: 
@@ -56,12 +56,12 @@
     line: "space_left_action = email"
   notify: reload auditd
   tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
 
 - name: AU-1(b), AU-4, AU-5(b) Configure auditd admin_space_left Action on Low Disk Space
   lineinfile:
@@ -69,12 +69,12 @@
     line: "admin_space_left_action = email"
   notify: reload auditd
   tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
 
 - name: Ensure audit is Installed
   yum:
@@ -84,7 +84,7 @@
 - name: Enable auditd service
   service:
     name: auditd
-    state: running
+    state: started
     enabled: yes
 
 - name: Find commands with setuid/setgid bit set on /
@@ -98,12 +98,12 @@
     dest: /etc/audit/rules.d/stig.rules
   notify: reload auditd
   tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
 
 - name: AU-1(b), AU-9 System Audit Logs Must Have Mode 0640 or Less Permissive (1/4)
   file: 
@@ -113,12 +113,12 @@
     group: root 
     owner: root
   tags:
-  - conf-low
-  - conf-medium
-  - conf-high
-  - int-low
-  - int-medium
-  - int-high
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
 
   
 
