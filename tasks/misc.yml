@@ -1,67 +1,84 @@
 - name: Install the screen Package
-  yum: name=screen
+  yum:
+    name: screen
+    state: present
   tags:
     - CCE-26940-7
+
 - name: Enable Randomized Layout of Virtual Address Space
   lineinfile:
-    dest=/etc/sysctl.conf
-    regexp='kernel.randomize_va_space ='
-    line='kernel.randomize_va_space = 2'
+    dest: /etc/sysctl.conf
+    regexp: 'kernel.randomize_va_space ='
+    line: 'kernel.randomize_va_space = 2'
   tags:
     - CCE-26999-3
+
 - name: Enable ExecShield
   lineinfile:
-    dest=/etc/sysctl.conf
-    regexp='kernel.exec-shield ='
-    line='kernel.exec-shield = 1'
+    dest: /etc/sysctl.conf
+    regexp: 'kernel.exec-shield ='
+    line: 'kernel.exec-shield = 1'
   tags:
     - CCE-27007-4
 
 - name: Disable Network Router Discovery Daemon (rdisc)
   service:
-    name=rdisc
-    state=stopped
-    enabled=no
+    name: rdisc
+    state: stopped
+    enabled: no
 
 - name: Ensure rsyslog is Installed
   yum:
-    name=rsyslog
+    name: rsyslog
+    state: present
+
 - name: Enable rsyslog Service
   service:
-    name=rsyslog
-    state=running
-    enabled=yes
+    name: rsyslog
+    state: started
+    enabled: yes
 
 - name: Disable PRELINKING by Default
   lineinfile:
-    dest=/etc/sysconfig/preling
-    create=yes
-    regexp='PRELINKING=yes'
-    line='PRELINKING=yes'
+    dest: /etc/sysconfig/preling
+    create: yes
+    regexp: 'PRELINKING=yes'
+    line: 'PRELINKING=yes'
+
 - name: Disable existing PRELINKING
   command: /usr/sbin/prelink -ua
   ignore_errors: yes
 
 - name: Disable Ctrl-Alt-Del Reboot Activation
   copy:
-    src=control-alt-delete.override 
-    dest=/etc/init/control-alt-delete.override
+    src: control-alt-delete.override
+    dest: /etc/init/control-alt-delete.override
   when: ansible_distribution_major_version == "6"
 
 - name: Do Not Allow SSH Environment Options
   lineinfile:
-    dest=/etc/ssh/sshd_config
-    regexp=".*PermitUserEnvironment.*"
-    line="PermitUserEnvironment no"
+    dest: /etc/ssh/sshd_config
+    regexp: ".*PermitUserEnvironment.*"
+    line: "PermitUserEnvironment no"
 
 - name: Set Last Login/Access Notification
-  lineinfile: dest=/etc/pam.d/system-auth line="session\t    required\t  pam_lastlog.so showfailed" state=present
+  lineinfile:
+    dest: /etc/pam.d/system-auth
+    line: "session\t    required\t  pam_lastlog.so showfailed"
+    state: present
 
 - name: Remove sendmail
-  yum: name=sendmail state=absent
+  yum:
+    name: sendmail
+    state: absent
 
 - name: Install postfix
-  yum: name=postfix state=present
+  yum:
+    name: postfix
+    state: present
 
 - name: Start and enable postfix
-  service: name=postfix enabled=yes state=started
+  service:
+    name: postfix
+    enabled: yes
+    state: started
