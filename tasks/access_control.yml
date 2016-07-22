@@ -1,5 +1,5 @@
 - name: Ensure libselinux-python bindings are installed
-  package: name=libselinux-python state=present
+  yum: name=libselinux-python state=present
 
 - name: AC-6(2) Restrict Virtual Console Root Logins
   lineinfile:
@@ -683,7 +683,7 @@
     src: audit.rules.j2 
     dest: /etc/audit/rules.d/stig.rules 
     force: yes
-  notify: restart auditd
+  notify: reload auditd
   tags:
     - conf-low
     - conf-medium
