@@ -40,7 +40,7 @@
 
 - name: Disable PRELINKING by Default
   lineinfile:
-    dest: /etc/sysconfig/preling
+    dest: /etc/sysconfig/prelink
     create: yes
     regexp: 'PRELINKING=yes'
     line: 'PRELINKING=yes'
