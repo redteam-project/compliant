@@ -50,32 +50,6 @@
     - int-medium
     - int-high
 
-- name: AU-1(b), AU-4, AU-5(b) Configure auditd space_left Action on Low Disk Space
-  lineinfile: 
-    dest: /etc/audit/auditd.conf 
-    line: "space_left_action = email"
-  notify: reload auditd
-  tags:
-    - conf-low
-    - conf-medium
-    - conf-high
-    - int-low
-    - int-medium
-    - int-high
-
-- name: AU-1(b), AU-4, AU-5(b) Configure auditd admin_space_left Action on Low Disk Space
-  lineinfile:
-    dest: /etc/audit/auditd.conf
-    line: "admin_space_left_action = email"
-  notify: reload auditd
-  tags:
-    - conf-low
-    - conf-medium
-    - conf-high
-    - int-low
-    - int-medium
-    - int-high
-
 - name: Ensure audit is Installed
   yum:
     name: audit
@@ -120,6 +94,30 @@
     - int-medium
     - int-high
 
-  
+- name: AU-1(b), AU-4, AU-5(b) Configure auditd space_left Action on Low Disk Space
+  lineinfile:
+    dest: /etc/audit/auditd.conf
+    regexp: ^space_left_action\s*=.*
+    line: "space_left_action = email"
+  notify: reload auditd
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
 
-
+- name: AU-1(b), AU-4, AU-5(b) Configure auditd admin_space_left Action on Low Disk Space
+  lineinfile:
+    dest: /etc/audit/auditd.conf
+    regexp: ^admin_space_left_action\s*=.*
+    line: "admin_space_left_action = single"
+  notify: reload auditd
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
