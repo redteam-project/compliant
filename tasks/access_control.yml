@@ -683,7 +683,7 @@
     src: audit.rules.j2 
     dest: /etc/audit/rules.d/stig.rules 
     force: yes
-  notify: restart auditd
+  notify: reload auditd
   tags:
     - conf-low
     - conf-medium

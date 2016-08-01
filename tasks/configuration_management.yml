@@ -452,7 +452,7 @@
     day: "{{ aide_day_of_month }}"
     weekday: "{{ aide_day_of_week }}"
     month: "{{ aide_month }}"
-    cron_file: /etc/crontab
+    cron_file: aide
     user: root
     job: "/sbin/aide --check"
   when: ansible_distribution_major_version == "7"
@@ -472,7 +472,7 @@
     day: "{{ aide_day_of_month }}"
     weekday: "{{ aide_day_of_week }}"
     month: "{{ aide_month }}"
-    cron_file: /etc/crontab
+    cron_file: aide
     user: root
     job: "/usr/sbin/aide --check"
   when: ansible_distribution_major_version == "6"
