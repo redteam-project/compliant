@@ -9,11 +9,13 @@ aide_hour: 03
 aide_day_of_month: '*'
 aide_month: '*'
 aide_day_of_week: '*'
+
 shared_lib_path:
   - /lib
   - /lib64
   - /usr/lib
   - /usr/lib64
+
 executables_path:
   - /bin
   - /usr/bin
@@ -21,6 +23,9 @@ executables_path:
   - /sbin
   - /usr/sbin
   - /usr/local/sbin
+
+ac_install_packages:
+- 'dracut-fips'
 
 ac_disable_services:
 - autofs
@@ -62,6 +67,7 @@ cm_uninstall_packages:
 - rsh-server
 - ypserv
 - tftp-server
+- lftp
 
 ia_disable_services:
 - telnet
@@ -75,3 +81,6 @@ scap_profile:
 - stig-rhel{{ ansible_distribution_major_version }}-server-upstream
 
 scap_reports_dir: /tmp
+
+
+
