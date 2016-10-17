@@ -509,7 +509,7 @@
 - name: Check snmp status
   shell: rpm -q net-snmp
   register: result
-  ignore_error: True
+  ignore_errors: True
 
 - name: IA5.1(ii),366, RHEL-07-000480
   lineinfile:
