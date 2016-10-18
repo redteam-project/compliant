@@ -1,3 +1,16 @@
+- name: CM-2(1)(b), 366 Enable X11 Forwarding
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^#X11Forwarding'
+    line: 'X11Forwarding yes'
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+
 - name: CM-7 Disable Kernel Parameter for Sending ICMP Redirects by Default
   lineinfile:
     dest: /etc/sysctl.conf
@@ -501,3 +514,4 @@
     - int-low
     - int-medium
     - int-high
+
