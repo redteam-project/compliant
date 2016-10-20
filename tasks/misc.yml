@@ -82,3 +82,49 @@
     name: postfix
     enabled: yes
     state: started
+
+- name: Checking if gdm exists
+  stat: path=/etc/gmd
+  register: gdm
+
+
+- name: RHEL-07-010430 operating system must not allow an unattended or automatic logon   
+  lineinfile:
+    dest: /etc/gdm/custom.conf
+    regexp: "^AutomaticLoginEnabled"
+    insertafter: "^.daemon]"
+    line: "AutomaticLoginEnabled=false"
+  when: gdm.stat.exists == true
+  tags:
+    - cat-I  
+  
+- name: RHEL-07-010431 operating system must not allow guest logon
+  lineinfile:
+    dest: /etc/gdm/custom.conf
+    regexp: "^TimedLoginEnabled"
+    insertafter: "^.daemon]"
+    line: "TimedLoginEnabled=false"
+  when: gdm.stat.exists == true
+  tags:
+    - cat-I    
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
