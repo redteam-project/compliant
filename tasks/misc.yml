@@ -1,10 +1,3 @@
-- name: Install the screen Package
-  yum:
-    name: screen
-    state: present
-  tags:
-    - CCE-26940-7
-
 - name: Enable Randomized Layout of Virtual Address Space
   lineinfile:
     dest: /etc/sysctl.conf
@@ -87,7 +80,6 @@
   stat: path=/etc/gmd
   register: gdm
 
-
 - name: RHEL-07-010430 operating system must not allow an unattended or automatic logon   
   lineinfile:
     dest: /etc/gdm/custom.conf
@@ -96,7 +88,7 @@
     line: "AutomaticLoginEnabled=false"
   when: gdm.stat.exists == true
   tags:
-    - cat-I  
+    - CAT-I  
   
 - name: RHEL-07-010431 operating system must not allow guest logon
   lineinfile:
@@ -106,13 +98,65 @@
     line: "TimedLoginEnabled=false"
   when: gdm.stat.exists == true
   tags:
-    - cat-I    
-      
-      
+    - CAT-I    
+
+- name: RHEL-07-010030 Display DoD banner via graphical user logon
+  copy:
+    src: 01-banner-message
+    dest: /etc/dconf/db/local.d/01-banner-message
+  when: gdm.stat.exists == true
+  tags:
+    - CAT-I
+        
+- name: RHEL-07-010060 Enable user session lock
+  blockinfile:
+    dest: /etc/dconf/db/local.d/00-screensaver     
+    block: |
+      [org/gnome/desktop/screensaver] 
+      lock-enabled=true
+    create: yes      
+  when: gdm.stat.exists == true
+  tags:
+    - CAT-II   
+
+- name: RHEL-07-010073 Initiate lock session after 15 minutes of inactivity
+  lineinfile:
+    dest: /etc/dconf/db/local.d/00-screensaver
+    insertafter: "lock-enabled=true"   
+    line: "idle-activation-enabled=true"
+  when: gdm.stat.exists == true
+  tags:
+    - CAT-II
+  
+- name: RHEL-07-010071 Initiate session lock after 15 minutes
+  blockinfile:
+    dest: /etc/dconf/db/local.d/locks/session
+    block: |
+      /org/gnome/desktop/screensaver/idle-delay 
+      /org/gnome/desktop/screensaver/lock-delay 
+      /org/gnome/desktop/session/idle-delay        
+    create: yes
+  when: gdm.stat.exists == true
+  tags:
+    - CAT-II   
     
+- name: RHEL-07-010070 Initiate screensaver after 15 minutes
+  lineinfile:
+    dest: /etc/dconf/db/local.d/00-screensaver
+    insertafter: "idle-activation-enabled=true"   
+    line: "idle-delay=uint32 900"
+  when: gdm.stat.exists == true
+  tags:
+    - CAT-II   
     
-    
-    
+- name: RHEL-07-010074 Initiate session lock when screensaver is activated
+  lineinfile:
+    dest: /etc/dconf/db/local.d/00-screensaver
+    insertafter: "lock-delay=uint32 5"   
+    line: "lock-delay=uint32 5"
+  when: gdm.stat.exists == true
+  tags:
+    - CAT-II    
     
     
     

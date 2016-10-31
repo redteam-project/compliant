@@ -25,7 +25,8 @@ executables_path:
   - /usr/local/sbin
 
 ac_install_packages:
-- 'dracut-fips'
+- dracut-fips
+- screen
 
 ac_disable_services:
 - autofs
@@ -46,6 +47,7 @@ ac_uninstall_packages:
 - rsh-server
 - ypserv
 - tftp-server
+- lftp
 
 cm_disable_services:
 - atd
