@@ -1,8 +1,8 @@
 - name: CM-2(1)(b), 366 Enable X11 Forwarding
   lineinfile:
     dest: /etc/ssh/sshd_config
-    regexp: '^#X11Forwarding'
     line: 'X11Forwarding yes'
+    state: present
   tags:
     - conf-low
     - conf-medium

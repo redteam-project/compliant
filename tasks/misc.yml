@@ -77,7 +77,7 @@
     state: started
 
 - name: Checking if gdm exists
-  stat: path=/etc/gmd
+  stat: path=/etc/gdm
   register: gdm
 
 - name: RHEL-07-010430 operating system must not allow an unattended or automatic logon   
