@@ -11,15 +11,16 @@ Requirements
 ------------
 
 Per 800-53 Audit and Accountability requirements, you are recommended to have the following partitions:
-1. /var
-2. /var/log
-3. /var/log/audit
-4. /home
-5. /tmp
+
+1. `/var`
+2. `/var/log`
+3. `/var/log/audit`
+4. `/home`
+5. `/tmp`
 
 These scripts will not create these partitions for you.
 
-<strong>NOTE:</strong> This will make sweeping changes to your host.  It is recommended you apply this role to a freshly provisioned host.
+**NOTE:** This will make sweeping changes to your host.  It is recommended you apply this role to a freshly provisioned host.
 
 Role Variables
 --------------
@@ -120,11 +121,13 @@ Example Playbook
 
 ```yaml
 # file: scap.yaml
+---
 - hosts: scap_hosts
-  roles:
-  - ansible-role-800-53
+  become: yes
   vars:
     scap_reports_dir: ~/scap_reports
+  roles:
+    - ansible-role-800-53
 ```
 Example Inventory
 -----------------
@@ -135,7 +138,7 @@ Example Inventory
 Example Run
 -----------
 ```bash
-ansible-playbook -u admin -b -i scap_inventory scap.yaml
+ansible-playbook -u admin -i scap_inventory scap.yaml
 ```
 
 License
