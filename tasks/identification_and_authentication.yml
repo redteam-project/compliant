@@ -406,7 +406,7 @@
     - int-medium
     - int-high
 
-- name: SSH Permit Root Login
+- name: AC-3,AC-6(2),IA-2(1),IA-2(5),366,RHEL-07-040310SSH Permit Root Login
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: "^PermitRootLogin "
@@ -420,6 +420,7 @@
     - int-low
     - int-medium
     - int-high
+    - CAT-II
 
 - name: SSH Permit Empty Passwords
   lineinfile:

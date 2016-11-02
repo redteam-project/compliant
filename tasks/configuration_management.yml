@@ -37,7 +37,7 @@
     - int-medium
     - int-high
 
-- name: CM-7 Disable Kernel Parameter for IP Forwarding
+- name: CM-7,RHEL-07-040730 Disable Kernel Parameter for IP Forwarding
   lineinfile:
     dest: /etc/sysctl.conf
     regexp: '^net.ipv4.ip_forward.*'
@@ -49,8 +49,9 @@
     - int-low
     - int-medium
     - int-high
+    - CAT-II
 
-- name: CM-7 Disable Kernel Parameter for Accepting Source-Routed Packets for All Interfaces
+- name: CM-7,RHEL-07-040350 Disable Kernel Parameter for Accepting Source-Routed Packets for All Interfaces
   lineinfile:
     dest: /etc/sysctl.conf
     regexp: '^net.ipv4.conf.all.accept_source_route.*'
@@ -62,6 +63,7 @@
     - int-low
     - int-medium
     - int-high
+    - CAT-II
 
 - name: CM-7 Disable Kernel Parameter for Accepting ICMP Redirects for All Interfaces
   lineinfile:
@@ -102,7 +104,7 @@
     - int-medium
     - int-high
 
-- name: CM-7 Disable Kernel Parameter for Accepting Source-Routed Packets By Default
+- name: CM-7,RHEL-07-040351 Disable Kernel Parameter for Accepting Source-Routed Packets By Default
   lineinfile:
     dest: /etc/sysctl.conf
     regexp: '^net.ipv4.conf.default.accept_source_route.*'
@@ -114,6 +116,7 @@
     - int-low
     - int-medium
     - int-high
+    - CAT-II
 
 - name: CM-7 Disable Kernel Parameter for Accepting Secure Redirects By Default
   lineinfile:
@@ -141,7 +144,7 @@
     - int-medium
     - int-high
 
-- name: CM-7 Enable Kernel Parameter to Ignore ICMP Broadcast Echo Requests
+- name: CM-7,RHEL-07-040380 Enable Kernel Parameter to Ignore ICMP Broadcast Echo Requests
   lineinfile:
     dest: /etc/sysctl.conf
     regexp: '^net.ipv4.icmp_echo_ignore_broadcasts.*'
@@ -153,6 +156,7 @@
     - int-low
     - int-medium
     - int-high
+    - CAT-II
 
 - name: CM-7 Enable Kernel Parameter to Ignore Bogus ICMP Error Responses
   lineinfile:
@@ -250,9 +254,11 @@
     - int-medium
     - int-high
 
-- name: CM-7 Install Chrony Service
+- name: CM-7,CM-6(b),366,4.7,RHEL-07-040290 Install CM Packages
   yum:
-    name: chrony
+    name: "{{ item }}"
+    state: installed
+  with_items: "{{ cm_install_packages }}"
   when: ansible_distribution_major_version == "7"
   tags:
     - conf-low
@@ -261,12 +267,14 @@
     - int-low
     - int-medium
     - int-high
+    - CAT-II
 
 - name: CM-7 Enable Chrony Service (chrony)
   service:
-    name: chronyd
+    name: "{{ item }}"
     state: started
     enabled: yes
+  with_items: "{{ cm_enable_services }}"
   when: ansible_distribution_major_version == "7"
   tags:
     - conf-low
@@ -365,9 +373,10 @@
     - int-medium
     - int-high
 
-- name: CM-7 Set SELinux to Enforcing
-  command: /usr/sbin/setenforce 1
-  when: ansible_selinux.mode == "permissive"
+- name: CM-7 Set SELinux to Enforcing RHEL-07-020210, RHEL-07-020211
+  selinux:
+    policy: targeted
+    state: enforcing
   tags:
     - conf-low
     - conf-medium
@@ -375,7 +384,7 @@
     - int-low
     - int-medium
     - int-high
-
+    - CAT-II
 
 - name: CM-7 Remove Rsh Trust Files - /etc/hosts.equiv
   file:
@@ -515,3 +524,11 @@
     - int-medium
     - int-high
 
+- name:  CM-6(b),366,RHEL-07-010441 Do Not Allow SSH Environment Options
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "PermitUserEnvironment no"
+    state: present
+  tags:
+    - CAT-II
+  

@@ -10,6 +10,7 @@
 - include: incident_response.yml
 - include: maintenance.yml
 - include: misc.yml
+- include: gnome.yml
 - include: system_and_communications_protection.yml
 - include: system_and_information_integregity.yml
 - include: system_and_services_acquisition.yml

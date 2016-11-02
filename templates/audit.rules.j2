@@ -10,34 +10,31 @@
 # Make this bigger for busy systems
 -b 320
 
--a always,exit -F arch=b32 -S adjtimex -S settimeofday -S stime -S clock_settime -k audit_time_rules
--a always,exit -F arch=b64 -S adjtimex -S settimeofday -S clock_settime -k audit_time_rules
+
+
 -w /etc/localtime -p wa -k audit_time_rules
--a always,exit -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod
--a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod
--a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod
--a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod
--a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod
--a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b{{ audit_arch }} -S adjtimex -S settimeofday -S clock_settime -k audit_time_rules
+-a always,exit -F arch=b{{ audit_arch }} -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b{{ audit_arch }} -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b{{ audit_arch }} -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b{{ audit_arch }} -S sethostname -S setdomainname -k audit_rules_networkconfig_modification
+-a always,exit -F arch=b{{ audit_arch }} -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
+-a always,exit -F arch=b{{ audit_arch }} -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
+-a always,exit -F arch=b{{ audit_arch }} -S mount -F auid>=1000 -F auid!=4294967295 -k export
+-a always,exit -F arch=b{{ audit_arch }} -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete
+-a always,exit -F arch=b{{ audit_arch }} -S init_module -S delete_module -k modules
 -w /etc/group -p wa -k audit_rules_usergroup_modification
 -w /etc/passwd -p wa -k audit_rules_usergroup_modification
 -w /etc/gshadow -p wa -k audit_rules_usergroup_modification
 -w /etc/shadow -p wa -k audit_rules_usergroup_modification
 -w /etc/security/opasswd -p wa -k audit_rules_usergroup_modification
--a always,exit -F arch=b64 -S sethostname -S setdomainname -k audit_rules_networkconfig_modification
+
 -w /etc/issue -p wa -k audit_rules_networkconfig_modification
 -w /etc/issue.net -p wa -k audit_rules_networkconfig_modification
 -w /etc/hosts -p wa -k audit_rules_networkconfig_modification
 -w /etc/sysconfig/network -p wa -k audit_rules_networkconfig_modification
 -w /etc/selinux/ -p wa -k MAC-policy
--a always,exit -F arch=b32 -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
--a always,exit -F arch=b32 -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
--a always,exit -F arch=b64 -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
--a always,exit -F arch=b64 -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
--a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k export
--a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k export
--a always,exit -F arch=b32 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete
--a always,exit -F arch=b64 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete
+
 {% for executable in find_result.stdout_lines %}
 -a always,exit -F path={{ executable }} -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
 {% endfor %}
@@ -45,4 +42,4 @@
 -w /usr/sbin/insmod -p x -k modules
 -w /usr/sbin/rmmod -p x -k modules
 -w /usr/sbin/modprobe -p x -k modules
--a always,exit -F arch=b64 -S init_module -S delete_module -k modules
+
