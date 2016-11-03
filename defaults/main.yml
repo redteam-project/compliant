@@ -64,11 +64,11 @@ cm_disable_services:
 
 cm_install_packages:
 - firewalld
-#- chrony
+- chrony
 
 cm_enable_services:
 - firewalld
-#- chrony
+- chronyd
 
 cm_uninstall_packages:
 - xinetd

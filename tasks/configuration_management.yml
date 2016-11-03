@@ -1,4 +1,4 @@
-- name: CM-2(1)(b), 366 Enable X11 Forwarding
+- name: CM-2(1)(b),366,RHEL-07-040540 Enable X11 Forwarding
   lineinfile:
     dest: /etc/ssh/sshd_config
     line: 'X11Forwarding yes'
@@ -10,6 +10,7 @@
     - int-low
     - int-medium
     - int-high
+    - CAT-I
 
 - name: CM-7 Disable Kernel Parameter for Sending ICMP Redirects by Default
   lineinfile:
@@ -269,7 +270,7 @@
     - int-high
     - CAT-II
 
-- name: CM-7 Enable Chrony Service (chrony)
+- name: CM-7 Enable CM services
   service:
     name: "{{ item }}"
     state: started

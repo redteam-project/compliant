@@ -91,11 +91,11 @@
     mode: 0644
   when: gdm.stat.exists == true
   tags:
-  - CAT-II   
+    - CAT-II   
        
 - name: Updating dconf
   shell: dconf update
   register: result
   when: gdm.stat.exists == true
   tags:
-  - CAT-II
+    - CAT-II
