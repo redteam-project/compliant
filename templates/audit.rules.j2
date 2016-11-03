@@ -18,7 +18,6 @@
 -a always,exit -F arch=b{{ audit_arch }} -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b{{ audit_arch }} -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b{{ audit_arch }} -S sethostname -S setdomainname -k audit_rules_networkconfig_modification
--a always,exit -F arch=b{{ audit_arch }} -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
 -a always,exit -F arch=b{{ audit_arch }} -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
 -a always,exit -F arch=b{{ audit_arch }} -S mount -F auid>=1000 -F auid!=4294967295 -k export
 -a always,exit -F arch=b{{ audit_arch }} -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete
