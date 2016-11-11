@@ -1,5 +1,5 @@
 - name: Ensure libselinux-python bindings are installed
-  yum: name=libselinux-python state=present
+  yum: name=libselinux-python state=present disablerepo=epel
 
 - name: AC-6(2) Restrict Virtual Console Root Logins
   lineinfile:
@@ -580,6 +580,7 @@
   yum: 
     name: "{{ vpn_package }}" 
     state: present
+    disablerepo: epel
 
 - name: AC-2(5) Set SSH Idle Timeout Interval
   lineinfile: 
@@ -602,6 +603,7 @@
 - name: Ensure audit is Installed
   yum:
     name: audit
+    disablerepo: epel
 
 - name: Enable auditd service
   service:
