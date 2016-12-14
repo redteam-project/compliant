@@ -1,19 +1,20 @@
 ---
 # defaults file for 800-53
 audit_rules: /etc/audit/rules.d/audit.rules
-audit_arch:
-  - b32
-  - b64
+audit_arch: "{{ ansible_userspace_bits }}" 
+
 aide_minute: 05
 aide_hour: 03
 aide_day_of_month: '*'
 aide_month: '*'
 aide_day_of_week: '*'
+
 shared_lib_path:
   - /lib
   - /lib64
   - /usr/lib
   - /usr/lib64
+
 executables_path:
   - /bin
   - /usr/bin
@@ -21,6 +22,10 @@ executables_path:
   - /sbin
   - /usr/sbin
   - /usr/local/sbin
+
+ac_install_packages:
+- dracut-fips
+- screen
 
 ac_disable_services:
 - autofs
@@ -41,6 +46,7 @@ ac_uninstall_packages:
 - rsh-server
 - ypserv
 - tftp-server
+- lftp
 
 cm_disable_services:
 - atd
@@ -56,12 +62,21 @@ cm_disable_services:
 - xinetd
 - ypbind
 
+cm_install_packages:
+- firewalld
+- chrony
+
+cm_enable_services:
+- firewalld
+- chronyd
+
 cm_uninstall_packages:
 - xinetd
 - telnet-server
 - rsh-server
 - ypserv
 - tftp-server
+- lftp
 
 ia_disable_services:
 - telnet
@@ -75,3 +90,6 @@ scap_profile:
 - stig-rhel{{ ansible_distribution_major_version }}-server-upstream
 
 scap_reports_dir: /tmp
+
+
+

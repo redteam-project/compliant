@@ -21,8 +21,8 @@
     path: /tmp/scap_reports
     state: directory
     mode: 0700
-    owner: "{{ ansible_env.SUDO_USER }}"
-    group: "{{ ansible_env.SUDO_USER }}"
+    owner: root
+    group: root
   tags:
     - scap
 

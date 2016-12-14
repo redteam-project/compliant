@@ -1,5 +1,13 @@
 - name: Ensure libselinux-python bindings are installed
-  yum: name=libselinux-python state=present
+  yum: name=libselinux-python state=present disablerepo=epel
+
+- name: Check for pub key files
+  find:
+    paths: /
+    patterns: "^.*?(?:.pub)$"
+    recurse: yes
+    use_regex: True
+  register: result
 
 - name: AC-6(2) Restrict Virtual Console Root Logins
   lineinfile:
@@ -195,89 +203,25 @@
     - int-medium
     - int-high
 
-- name: Find Shared Library Files That Are Group or World Writeable
-  shell: "find /lib /lib64 /usr/lib /usr/lib64 -perm -go=w -print"
-  register: shared_libs
-  changed_when: False
-  always_run: true
+- name: AC-6 Verify that Shared Library Files Have Restrictive Permissions
+  with_items: "{{ shared_lib_path }}"
+  file: path="{{ item }}" state=directory follow=yes recurse=yes mode="go-w"
+  ignore_errors: true
 
 - name: AC-6 Verify that Shared Library Files Have Restrictive Permissions
-  with_items: "{{shared_libs.stdout_lines}}"
-  file: 
-    path: "{{ item }}" 
-    mode: "go-w" 
-    follow: true
+  with_items: "{{ shared_lib_path }}"
+  file: path="{{ item }}" state=directory follow=yes recurse=yes owner=root group=root
   ignore_errors: true
-  tags:
-    - conf-low
-    - conf-medium
-    - conf-high
-    - int-low
-    - int-medium
-    - int-high
-
-- name: Find Shared Library Files That Are Not Owned By Root
-  shell: "find /lib /lib64 /usr/lib /usr/lib64 \\! -user root -print"
-  register: shared_libs
-  changed_when: False
-  always_run: True
-
-- name: AC-6 Verify that Shared Library Files Have Root Ownership
-  with_lines: "{{ shared_libs.stdout_lines }}"
-  file: 
-    path: "{{ item }}" 
-    owner: root 
-    follow: true
-  ignore_errors: true
-  tags:
-    - conf-low
-    - conf-medium
-    - conf-high
-    - int-low
-    - int-medium
-    - int-high
-
-- name: Find System Executables Are Group or World Writeable
-  shell: "find /bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin -perm -go=w"
-  register: executable_files
-  changed_when: False
-  always_run: True
 
 - name: AC-6 Verify that System Executables Have Restrictive Permissions
-  with_items: "{{ executable_files.stdout_lines }}"
-  file: 
-    path: "{{ item }}" 
-    mode: "go-w" 
-    follow: true
-  ignore_errors: True
-  tags:
-    - conf-low
-    - conf-medium
-    - conf-high
-    - int-low
-    - int-medium
-    - int-high
-
-- name: Find System Executables That Are Not Owned By Root
-  shell: 'find /bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin \! -user root -print'
-  register: executable_files
-  changed_when: False
-  always_run: True
+  with_items: "{{ executables_path }}"
+  file: path="{{ item }}" state=directory follow=yes recurse=yes mode="go-w"
+  ignore_errors: true
 
 - name: AC-6 Verify that System Executables Have Root Ownership
-  with_lines: "{{ executable_files.stdout_lines }}"
-  file: 
-    path: "{{ item }}" 
-    owner: root 
-    follow: true
-  ignore_errors: True
-  tags:
-    - conf-low
-    - conf-medium
-    - conf-high
-    - int-low
-    - int-medium
-    - int-high
+  with_items: "{{ executables_path }}"
+  file: path="{{ item }}" state=directory follow=yes recurse=yes owner=root group=root
+  ignore_errors: true
 
 - name: AC-6 System Audit Logs Must Have Mode 0640 or Less Permissive
   file: 
@@ -644,18 +588,23 @@
   yum: 
     name: "{{ vpn_package }}" 
     state: present
+    disablerepo: epel
 
-- name: AC-2(5) Set SSH Idle Timeout Interval
+- name: AC-2(5),RHEL-07-040190 Set SSH Idle Timeout Interval
   lineinfile: 
     dest: /etc/ssh/sshd_config 
     regexp: ".*ClientAliveInterval.*" 
-    line: "ClientAliveInterval 900"
+    line: "ClientAliveInterval 600"
+  tags:
+    - CAT-II
 
-- name: AC-2(5) Set SSH Idle Timeout Interval
+- name: AC-2(5, RHEL-07-040191 Set SSH Idle Timeout Interval
   lineinfile: 
     dest: /etc/ssh/sshd_config 
     regexp: ".*ClientAliveCountMax.*" 
     line: "ClientAliveCountMax 0"
+  tags:
+    - CAT-II
 
 - name: AC-3, AC-17(2) Use Only Approved Ciphers
   lineinfile: 
@@ -666,6 +615,7 @@
 - name: Ensure audit is Installed
   yum:
     name: audit
+    disablerepo: epel
 
 - name: Enable auditd service
   service:
@@ -742,3 +692,47 @@
     dest: /etc/pam.d/password-auth 
     insertbefore: "^account.*pam_unix.so.*" 
     line: "account       required      pam_faillock.so"
+
+- name: AC-17(2),68,2450
+  yum: name="{{ item }}" state=latest
+  with_items: "{{ ac_install_packages }}"
+  
+- name: AC-3, 213 Set the UEFI Boot Loader Password RHEL-07-010470
+  stat: path=/sys/firmware/efi
+  register: efi
+ 
+- name: Checking if efi exists
+  stat: path=/boot/efi
+  register: efi
+
+- name: AC-3, 213 Set the UEFI Boot Loader Password RHEL-07-010470
+  shell: grep "password_pbkdf2" /etc/efi/EFI/redhat/grub.cfg
+  when: efi.stat.exists == true
+  
+- debug: msg="EFI does not exist"
+  when: efi.stat.exists == false
+   
+- name: AC-3,CM-6(b),366,RHEL-07-010442 Disable Host-Based Authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: "HostbasedAuthentication no"
+    state: present
+  tags:
+    - CAT-II
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
