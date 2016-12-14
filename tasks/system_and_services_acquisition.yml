@@ -46,11 +46,29 @@
     - avail-medium
     - avail-high
 
+- name: SA-6(b),RHEL-07-021060,RHEL-07-020230 Ensure the Default Umask is Set Correctly in login.defs
+  replace:
+    dest: /etc/login.defs
+    regexp: '^UMASK [0-7]*$'
+    replace: 'UMASK 077'
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
+    - CAT-II
+
+
 - name: SA-8 Set SSH Idle Timeout Interval
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: ".*ClientAliveInterval.*"
-    line: "ClientAliveInterval 900"
+    line: "ClientAliveInterval 600"
   tags:
     - conf-low
     - conf-medium

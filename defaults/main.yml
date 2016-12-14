@@ -1,9 +1,8 @@
 ---
 # defaults file for 800-53
 audit_rules: /etc/audit/rules.d/audit.rules
-audit_arch:
-  - b32
-  - b64
+audit_arch: "{{ ansible_userspace_bits }}" 
+
 aide_minute: 05
 aide_hour: 03
 aide_day_of_month: '*'
@@ -25,7 +24,8 @@ executables_path:
   - /usr/local/sbin
 
 ac_install_packages:
-- 'dracut-fips'
+- dracut-fips
+- screen
 
 ac_disable_services:
 - autofs
@@ -46,6 +46,7 @@ ac_uninstall_packages:
 - rsh-server
 - ypserv
 - tftp-server
+- lftp
 
 cm_disable_services:
 - atd
@@ -60,6 +61,14 @@ cm_disable_services:
 - tftp
 - xinetd
 - ypbind
+
+cm_install_packages:
+- firewalld
+- chrony
+
+cm_enable_services:
+- firewalld
+- chronyd
 
 cm_uninstall_packages:
 - xinetd

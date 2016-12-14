@@ -167,6 +167,21 @@
     - int-medium
     - int-high
 
+- name:  IA-5(b), IA-5(c), IA-5(1)(c), IA-7, 196 RHEL-07-010180 Set Password Hashing Algorithm login.defs    
+  lineinfile:
+    dest: /etc/login.defs
+    regexp: "^ENCRYPT_METHOD*"
+    line: "ENCRYPT_METHOD SHA512"
+    state: present     
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II        
+
 - name: IA-5(f),IA-5(1)(a) Set Password Minimum Length
   lineinfile:
     dest: /etc/security/pwquality.conf
@@ -376,7 +391,7 @@
     - conf-high
     - int-low
     - int-medium
-    - int-high
+    - int-high  
 
 - name: IA-5(b),IA-5(c),IA-5(1)(a) Prevent Log In to Accounts With Empty Password - /etc/pam.d/password-auth
   replace:
@@ -391,7 +406,7 @@
     - int-medium
     - int-high
 
-- name: SSH Permit Root Login
+- name: AC-3,AC-6(2),IA-2(1),IA-2(5),366,RHEL-07-040310SSH Permit Root Login
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: "^PermitRootLogin "
@@ -405,6 +420,7 @@
     - int-low
     - int-medium
     - int-high
+    - CAT-II
 
 - name: SSH Permit Empty Passwords
   lineinfile:
@@ -527,11 +543,43 @@
     - int-medium
     - int-high
 
+- name: IA-5(f),IA-5(1)(e),IA-5(b),IA-5(c),IA-5(1)(c),IA-7,196 RHEL-07-010240 Limit Password Reuse /  RHEL-07-010170 Set Password Hashing Algorithm
+  lineinfile:
+    dest: /etc/pam.d/system-auth
+    insertafter: "^password requisite pam_pwquality.so"
+    regexp: "^password sufficient pam_unix.so*"
+    line: "password sufficient pam_unix.so use_authtok sha512 shadow remember=5"
+    state: present
+    follow: true
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II    
+     
+- name: Checking BIOS boot settings
+  stat: path=/boot/grub2
+  register: bios
 
-# TODO fix syntax error at remembers*= (problem with =)
-#- name: IA-5(f), IA-5(1)(e) Limit Password Reuse
-#  lineinfile:
-#    dest: /etc/pam.d/system-auth
-#    regexp: "(^password.*sufficient.*pam_unix.so.*)(remembers*=\s*[^ $]*)*"
-#    line: "\1 remember=5"
-#    backrefs: yes
+- name: IA-2(1), IA-5(e), AC-3, 213 RHEL-07-010460
+  shell: grep "password_pbkdf2" /etc/grub.d/01_users
+  register: grubpw_result
+  when: bios.stat.exists == true
+  ignore_errors: yes  
+  
+- debug: msg="WARNING!!!! GRUB PASSWORD DOES NOT EXIT"
+  when: grubpw_result.rc != 0
+  
+- name:  IA-5(b), IA-5(c), IA-5(1)(c), IA-7, 196 RHEL-07-010190 Set Password Hashing Algorithm in /etc/libuser.conf
+  lineinfile:
+    dest: /etc/libuser.conf
+    insertafter: "^.default]"
+    regexp: "^crypt_style"
+    line: "crypt_style = sha512"
+    state: present
+  tags:
+    - CAT-II
+
