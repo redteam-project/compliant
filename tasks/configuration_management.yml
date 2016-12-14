@@ -258,7 +258,9 @@
 - name: CM-7,CM-6(b),366,4.7,RHEL-07-040290 Install CM Packages
   yum:
     name: "{{ item }}"
-    state: installed
+    state: present
+    disablerepo: '*'
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
   with_items: "{{ cm_install_packages }}"
   when: ansible_distribution_major_version == "7"
   tags:
@@ -288,6 +290,9 @@
 - name: CM-7 Install NTP Service
   yum:
     name: ntp
+    state: present
+    disablerepo: '*'
+    enablerepo: rhel-6-server-rpms
   when: ansible_distribution_major_version == "6"
   tags:
     - conf-low
@@ -421,6 +426,9 @@
 - name: CM-3(d),CM-3(e),CM-6(d),CM-6(3) Install AIDE
   yum:
     name: aide
+    state: present
+    disablerepo: '*'
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
   tags:
     - conf-low
     - conf-medium
@@ -532,4 +540,3 @@
     state: present
   tags:
     - CAT-II
-  

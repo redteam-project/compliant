@@ -1,5 +1,9 @@
 - name: Ensure libselinux-python bindings are installed
-  yum: name=libselinux-python state=present disablerepo=epel
+  yum:
+    name: libselinux-python
+    state: present
+    disablerepo: "*"
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
 
 - name: Check for pub key files
   find:
@@ -49,8 +53,8 @@
   with_together:
     - "{{ system_users.stdout_lines }}"
     - "{{ system_uids.stdout_lines }}"
-  user: 
-    name: "{{ item.0 }}" 
+  user:
+    name: "{{ item.0 }}"
     shell: /sbin/nologin
   when: (item.1 < 500) and (item.1 > 0)
   tags:
@@ -65,8 +69,8 @@
   with_together:
     - "{{ system_users.stdout_lines }}"
     - "{{ system_uids.stdout_lines }}"
-  user: 
-    name: "{{ item.0 }}" 
+  user:
+    name: "{{ item.0 }}"
     state: absent
   when: (item.1 == 0) and (item.0 != "root")
   tags:
@@ -148,10 +152,10 @@
     - int-high
 
 - name: AC-6 Check ownership and permissions on /etc/shadow
-  file: 
-    path: /etc/shadow 
-    owner: root 
-    group: root 
+  file:
+    path: /etc/shadow
+    owner: root
+    group: root
     mode: 0000
   tags:
     - conf-low
@@ -162,10 +166,10 @@
     - int-high
 
 - name: AC-6 Check ownership and permissions on /etc/group
-  file: 
-    path: /etc/group 
-    owner: root 
-    group: root 
+  file:
+    path: /etc/group
+    owner: root
+    group: root
     mode: 0644
   tags:
     - conf-low
@@ -176,10 +180,10 @@
     - int-high
 
 - name: AC-6 Check ownership and permissions on /etc/passwd
-  file: 
-    path: /etc/passwd 
-    owner: root 
-    group: root 
+  file:
+    path: /etc/passwd
+    owner: root
+    group: root
     mode: 0644
   tags:
     - conf-low
@@ -190,10 +194,10 @@
     - int-high
 
 - name: AC-6 Check ownership and permissions on /etc/group
-  file: 
-    path: /etc/passwd 
-    owner: root 
-    group: root 
+  file:
+    path: /etc/passwd
+    owner: root
+    group: root
     mode: 0644
   tags:
     - conf-low
@@ -224,8 +228,8 @@
   ignore_errors: true
 
 - name: AC-6 System Audit Logs Must Have Mode 0640 or Less Permissive
-  file: 
-    path: /var/log/audit/audit.log 
+  file:
+    path: /var/log/audit/audit.log
     mode: 640
   tags:
     - conf-low
@@ -410,9 +414,9 @@
     - int-high
 
 - name: AC-19(a),AC-19(d),AC-19(e),AC-17(8)  Stop and disable services
-  service: 
-    name: "{{ item }}" 
-    enabled: no 
+  service:
+    name: "{{ item }}"
+    enabled: no
     state: stopped
 #  failed_when: "stop_disabled_services | failed and 'no service or tool found for: {{ item }}' not in stop_disabled_services.msg"
   ignore_errors: true
@@ -428,9 +432,9 @@
     - int-high
 
 - name: AC-19(a),AC-19(d),AC-19(e),AC-17(8)  Stop and disable services
-  service: 
-    name: "{{ item }}" 
-    enabled: no 
+  service:
+    name: "{{ item }}"
+    enabled: no
     state: stopped
 #  failed_when: "stop_disabled_services | failed and 'systemd could not find the requested service' not in stop_disabled_services.msg"
   ignore_errors: true
@@ -459,8 +463,8 @@
     - int-high
 
 - name: AC-3,AC-3(3),AC-4,AC-6 Enable SELinux
-  selinux: 
-    policy: targeted 
+  selinux:
+    policy: targeted
     state: enforcing
   tags:
     - conf-low
@@ -534,11 +538,11 @@
     - int-high
 
 - name: AC-19(a), AC-19(d), AC-19(e) Disable Modprobe Loading of USB Storage Driver - Ensure usb-storage.conf is present
-  copy: 
-    src: usb-storage.conf 
+  copy:
+    src: usb-storage.conf
     dest: /etc/modprobe.d/usb-storage.conf
 
-- name: AC-6 Set Daemon Umask 
+- name: AC-6 Set Daemon Umask
   replace:
     dest: /etc/init.d/functions
     regexp: 'umask.*'
@@ -555,21 +559,21 @@
     - avail-high
 
 - name: AC-2(2),AC-2(3) Set Account Expiration Following Inactivity
-  lineinfile: 
-    dest: /etc/default/useradd 
-    regexp: '.*INACTIVE.*' 
+  lineinfile:
+    dest: /etc/default/useradd
+    regexp: '.*INACTIVE.*'
     line: 'INACTIVE=35'
 
 - name: AC-10 Limit the Number of Concurrent Login Sessions Allowed Per User
-  lineinfile: 
-    dest: /etc/security/limits.conf 
-    regexp: '.* hard maxlogins .*' 
+  lineinfile:
+    dest: /etc/security/limits.conf
+    regexp: '.* hard maxlogins .*'
     line: "* hard maxlogins 10"
 
 - name: AC-3 Disable Interactive Boot
-  lineinfile: 
-    dest: /etc/sysconfig/init 
-    regexp: '.*PROMPT.*' 
+  lineinfile:
+    dest: /etc/sysconfig/init
+    regexp: '.*PROMPT.*'
     line: 'PROMPT=no'
   tags:
     - conf-low
@@ -580,42 +584,45 @@
     - int-high
 
 - name: AC-18(a),AC-18(d),AC-18(3) Disable Bluetooth Kernel Modules
-  copy: 
-    src: bluetooth.conf 
+  copy:
+    src: bluetooth.conf
     dest: /etc/modprobe.d/bluetooth.conf
 
 - name: AC-17 Install openswan or libreswan Package
-  yum: 
-    name: "{{ vpn_package }}" 
+  yum:
+    name: "{{ vpn_package }}"
     state: present
-    disablerepo: epel
+    disablerepo: '*'
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
 
 - name: AC-2(5),RHEL-07-040190 Set SSH Idle Timeout Interval
-  lineinfile: 
-    dest: /etc/ssh/sshd_config 
-    regexp: ".*ClientAliveInterval.*" 
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ".*ClientAliveInterval.*"
     line: "ClientAliveInterval 600"
   tags:
     - CAT-II
 
 - name: AC-2(5, RHEL-07-040191 Set SSH Idle Timeout Interval
-  lineinfile: 
-    dest: /etc/ssh/sshd_config 
-    regexp: ".*ClientAliveCountMax.*" 
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ".*ClientAliveCountMax.*"
     line: "ClientAliveCountMax 0"
   tags:
     - CAT-II
 
 - name: AC-3, AC-17(2) Use Only Approved Ciphers
-  lineinfile: 
-    dest: /etc/ssh/sshd_config 
-    regexp: ".*Ciphers.*" 
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ".*Ciphers.*"
     line: "Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc"
 
 - name: Ensure audit is Installed
   yum:
     name: audit
-    disablerepo: epel
+    state: present
+    disablerepo: '*'
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
 
 - name: Enable auditd service
   service:
@@ -629,9 +636,9 @@
   register: find_result
 
 - name: AC-3(10) Add Audit Rules
-  template: 
-    src: audit.rules.j2 
-    dest: /etc/audit/rules.d/stig.rules 
+  template:
+    src: audit.rules.j2
+    dest: /etc/audit/rules.d/stig.rules
     force: yes
   notify: reload auditd
   tags:
@@ -643,11 +650,11 @@
     - int-high
 
 - name: AC-9 System Audit Logs Must Have Mode 0640 or Less Permissive (1/4)
-  file: 
-    path: /var/log/audit/audit.log 
-    mode: 0640 
-    state: file 
-    group: root 
+  file:
+    path: /var/log/audit/audit.log
+    mode: 0640
+    state: file
+    group: root
     owner: root
   tags:
     - conf-low
@@ -658,49 +665,49 @@
     - int-high
 
 - name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/system-auth (1/3)
-  lineinfile: 
-    dest: /etc/pam.d/system-auth 
-    insertbefore: "^auth.*pam_unix.so.*" 
-    line: "auth         required      pam_faillock.so preauth silent deny=3 unlock_time=604800 fail_interval=900" 
+  lineinfile:
+    dest: /etc/pam.d/system-auth
+    insertbefore: "^auth.*pam_unix.so.*"
+    line: "auth         required      pam_faillock.so preauth silent deny=3 unlock_time=604800 fail_interval=900"
 
 - name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/system-auth (2/3)
-  lineinfile: 
-    dest: /etc/pam.d/system-auth 
-    insertafter: "^auth.*pam_unix.so.*" 
+  lineinfile:
+    dest: /etc/pam.d/system-auth
+    insertafter: "^auth.*pam_unix.so.*"
     line: "auth      [default=die] pam_faillock.so authfail deny=3 unlock_time=604800 fail_interval=900"
 
 - name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/system-auth (3/3)
-  lineinfile: 
-    dest: /etc/pam.d/system-auth 
-    insertbefore: "^account.*pam_unix.so.*" 
+  lineinfile:
+    dest: /etc/pam.d/system-auth
+    insertbefore: "^account.*pam_unix.so.*"
     line: "account     required      pam_faillock.so"
 
 - name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/password-auth (1/3)
-  lineinfile: 
-    dest: /etc/pam.d/password-auth 
-    insertbefore: "^auth.*pam_unix.so.*" 
-    line: "auth         required    pam_faillock.so preauth silent deny=3 unlock_time=604800 fail_interval=900" 
+  lineinfile:
+    dest: /etc/pam.d/password-auth
+    insertbefore: "^auth.*pam_unix.so.*"
+    line: "auth         required    pam_faillock.so preauth silent deny=3 unlock_time=604800 fail_interval=900"
 
 - name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/password-auth (2/3)
-  lineinfile: 
-    dest: /etc/pam.d/password-auth 
-    insertafter: "^auth.*pam_unix.so.*" 
+  lineinfile:
+    dest: /etc/pam.d/password-auth
+    insertafter: "^auth.*pam_unix.so.*"
     line: "auth      [default=die] pam_faillock.so authfail deny=3 unlock_time=604800 fail_interval=900"
 
 - name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/password-auth (3/3)
-  lineinfile: 
-    dest: /etc/pam.d/password-auth 
-    insertbefore: "^account.*pam_unix.so.*" 
+  lineinfile:
+    dest: /etc/pam.d/password-auth
+    insertbefore: "^account.*pam_unix.so.*"
     line: "account       required      pam_faillock.so"
 
 - name: AC-17(2),68,2450
   yum: name="{{ item }}" state=latest
   with_items: "{{ ac_install_packages }}"
-  
+
 - name: AC-3, 213 Set the UEFI Boot Loader Password RHEL-07-010470
   stat: path=/sys/firmware/efi
   register: efi
- 
+
 - name: Checking if efi exists
   stat: path=/boot/efi
   register: efi
@@ -708,10 +715,10 @@
 - name: AC-3, 213 Set the UEFI Boot Loader Password RHEL-07-010470
   shell: grep "password_pbkdf2" /etc/efi/EFI/redhat/grub.cfg
   when: efi.stat.exists == true
-  
+
 - debug: msg="EFI does not exist"
   when: efi.stat.exists == false
-   
+
 - name: AC-3,CM-6(b),366,RHEL-07-010442 Disable Host-Based Authentication
   lineinfile:
     dest: /etc/ssh/sshd_config
@@ -719,20 +726,3 @@
     state: present
   tags:
     - CAT-II
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  

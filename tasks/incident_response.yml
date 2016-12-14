@@ -16,6 +16,9 @@
 - name: Ensure audit is Installed
   yum:
     name: audit
+    state: present
+    disablerepo: '*'
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
 
 - name: Enable auditd service
   service:
@@ -50,12 +53,12 @@
     - int-medium
     - int-high
 
-- name: AU-1(b),AU-4,AU-5(1),AU-5(a),IR-5,RHEL-07-030352 Configure auditd mail_acct Action on Low Disk Space 
+- name: AU-1(b),AU-4,AU-5(1),AU-5(a),IR-5,RHEL-07-030352 Configure auditd mail_acct Action on Low Disk Space
   lineinfile:
     dest: /etc/audit/auditd.conf
     line: "action_mail_acct = root"
     state: present
-  notify: reload auditd    
+  notify: reload auditd
   tags:
     - conf-low
     - conf-medium

@@ -1,6 +1,6 @@
 - name: AU-6,AU-1(b),AU-9 System Audit Logs Must Have Mode 0640 or Less Permissive
-  file: 
-    path: /var/log/audit/audit.log 
+  file:
+    path: /var/log/audit/audit.log
     mode: 640
   tags:
     - conf-low
@@ -12,8 +12,8 @@
 
 
 - name: AU-9 Enable SELinux
-  selinux: 
-    policy: targeted 
+  selinux:
+    policy: targeted
     state: enforcing
   tags:
     - conf-low
@@ -53,7 +53,9 @@
 - name: Ensure audit is Installed
   yum:
     name: audit
-    state: installed
+    state: present
+    disablerepo: '*'
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
 
 - name: Enable auditd service
   service:
@@ -67,8 +69,8 @@
   register: find_result
 
 - name: AU-1(b), AU-2(a), AU-2(c), AU-2(d), AU-12(a), AU-12(c) Add Audit Rules
-  template: 
-    src: audit.rules.j2 
+  template:
+    src: audit.rules.j2
     dest: /etc/audit/rules.d/stig.rules
   notify: reload auditd
   tags:
@@ -80,11 +82,11 @@
     - int-high
 
 - name: AU-1(b), AU-9 System Audit Logs Must Have Mode 0640 or Less Permissive (1/4)
-  file: 
-    path: /var/log/audit/audit.log 
-    mode: 0640 
-    state: file 
-    group: root 
+  file:
+    path: /var/log/audit/audit.log
+    mode: 0640
+    state: file
+    group: root
     owner: root
   tags:
     - conf-low
@@ -94,8 +96,8 @@
     - int-medium
     - int-high
 - name: AU-1(b), AU-4, AU-5(b) Configure auditd space_left Action on Low Disk Space
-  lineinfile: 
-    dest: /etc/audit/auditd.conf 
+  lineinfile:
+    dest: /etc/audit/auditd.conf
     line: "space_left_action = email"
   notify: reload auditd
   tags:
@@ -121,7 +123,7 @@
     - int-high
     - CAT-II
 
-- name: AU-1(b),AU-4,AU-5(1),AU-5(a),IR-5,RHEL-07-030352 Configure auditd mail_acct Action on Low Disk Space 
+- name: AU-1(b),AU-4,AU-5(1),AU-5(a),IR-5,RHEL-07-030352 Configure auditd mail_acct Action on Low Disk Space
   lineinfile:
     dest: /etc/audit/auditd.conf
     line: "action_mail_acct = root"
@@ -135,4 +137,3 @@
     - int-medium
     - int-high
     - CAT-II
-

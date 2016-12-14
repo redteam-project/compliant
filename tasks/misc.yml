@@ -24,6 +24,8 @@
   yum:
     name: rsyslog
     state: present
+    disablerepo: '*'
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
 
 - name: Enable rsyslog Service
   service:
@@ -64,11 +66,15 @@
   yum:
     name: sendmail
     state: absent
+    disablerepo: '*'
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
 
 - name: Install postfix
   yum:
     name: postfix
     state: present
+    disablerepo: '*'
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
 
 - name: Start and enable postfix
   service:
@@ -81,19 +87,3 @@
     dest: /etc/login.defs
     line: "CREATE_HOME yes"
     state: present
-    
-   
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
