@@ -70,7 +70,7 @@
 
 - name: Find commands with setuid/setgid bit set on /
   shell: find / -xdev -type f -perm -4000 -o -type f -perm -2000 2>/dev/null
-  always_run: True
+  check_mode: no
   register: find_result
 
 - name:  IR-5 Add Audit Rules

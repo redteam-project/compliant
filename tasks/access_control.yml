@@ -302,11 +302,14 @@
     - int-medium
     - int-high
 
+
 - name: AC-4 Disable Kernel Parameter for Sending ICMP Redirects by Default
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.send_redirects.*'
-    line: 'net.ipv4.conf.default.send_redirects = 0'
+  sysctl:
+    name: net.ipv4.conf.default.send_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-medium
     - conf-high
@@ -314,10 +317,12 @@
     - int-high
 
 - name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.secure_redirects.*'
-    line: 'net.ipv4.conf.all.secure_redirects = 0'
+  sysctl:
+    name: net.ipv4.conf.all.secure_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-medium
     - conf-high
@@ -325,23 +330,25 @@
     - int-high
 
 - name: AC-17(7) Enable Kernel Parameter to Log Martian Packets
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.log_martians.*'
-    line: 'net.ipv4.conf.all.log_martians = 1'
+  sysctl:
+    name: net.ipv4.conf.all.log_martians
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
-    - conf-low
     - conf-medium
     - conf-high
-    - int-low
     - int-medium
     - int-high
 
 - name: AC-4 Disable Kernel Parameter for Accepting Source-Routed Packets By Default
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.accept_source_route.*'
-    line: 'net.ipv4.conf.default.accept_source_route = 0'
+  sysctl:
+    name: net.ipv4.conf.default.accept_source_route
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-medium
     - conf-high
@@ -349,10 +356,12 @@
     - int-high
 
 - name: AC-4 Disable Kernel Parameter for Accepting Secure Redirects By Default
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.secure_redirects.*'
-    line: 'net.ipv4.conf.default.secure_redirects = 0'
+  sysctl:
+    name: net.ipv4.conf.default.secure_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-medium
     - conf-high
@@ -360,10 +369,12 @@
     - int-high
 
 - name: AC-4 Disable Kernel Parameter for Accepting ICMP Redirects By Default
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.accept_redirects.*'
-    line: 'net.ipv4.conf.default.accept_redirects = 0'
+  sysctl:
+    name: net.ipv4.conf.default.accept_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-medium
     - conf-high
@@ -371,20 +382,12 @@
     - int-high
 
 - name: AC-4 Enable Kernel Parameter to Use TCP Syncookies
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.tcp_syncookies.*'
-    line: 'net.ipv4.tcp_syncookies = 1'
-  tags:
-    - conf-medium
-    - conf-high
-    - int-medium
-    - int-high
-
-- name: AC-4 Enable Kernel Parameter to Use TCP Syncookies
-  lineinfile:
-    dest: /etc/sysctl.conf
-    line: 'net.ipv4.tcp_syncookies = 1'
+  sysctl:
+    name: net.ipv4.tcp_syncookies
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-medium
     - conf-high
@@ -392,10 +395,12 @@
     - int-high
 
 - name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering for All Interfaces
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.rp_filter.*'
-    line: 'net.ipv4.conf.all.rp_filter = 1'
+  sysctl:
+    name: net.ipv4.conf.all.rp_filter
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-medium
     - conf-high
@@ -403,10 +408,12 @@
     - int-high
 
 - name: AC-4 Enable Kernel Parameter to Use Reverse Path Filtering by Default
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.rp_filter.*'
-    line: 'net.ipv4.conf.default.rp_filter = 1'
+  sysctl:
+    name: net.ipv4.conf.all.rp_filter
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-medium
     - conf-high
@@ -493,7 +500,7 @@
 - name: Find User Rsh Trust Files
   shell: "find /home -name '.rhosts' -print"
   register: user_rhosts
-  always_run: True
+  check_mode: no
   changed_when: False
 
 - name: AC-17(8) Remove Rsh Trust Files - ~/.rhosts
@@ -588,6 +595,13 @@
     src: bluetooth.conf
     dest: /etc/modprobe.d/bluetooth.conf
 
+- name: AC-18(a),AC-18(d),AC-18(3) Disable Bluetooth Service
+  service:
+    name: bluetooth
+    enabled: no
+    state: stopped
+  ignore_errors: yes
+
 - name: AC-17 Install openswan or libreswan Package
   yum:
     name: "{{ vpn_package }}"
@@ -632,7 +646,7 @@
 
 - name: Find commands with setuid/setgid bit set on /
   shell: find / -xdev -type f -perm -4000 -o -type f -perm -2000 2>/dev/null
-  always_run: True
+  check_mode: no
   register: find_result
 
 - name: AC-3(10) Add Audit Rules
@@ -714,7 +728,9 @@
 
 - name: AC-3, 213 Set the UEFI Boot Loader Password RHEL-07-010470
   shell: grep "password_pbkdf2" /etc/efi/EFI/redhat/grub.cfg
-  when: efi.stat.exists == true
+  when:
+  - efi.stat.exists == true
+  - ansible_distribution_major_version == "7"
 
 - debug: msg="EFI does not exist"
   when: efi.stat.exists == false
@@ -726,3 +742,73 @@
     state: present
   tags:
     - CAT-II
+
+- name: AC-6,RHEL-06-000518 Verify and Correct File Permissions with RPM
+  shell: for FILE_PATH in $(rpm -Va | grep '^.M'); do rpm --setperms $(rpm -qf "$FILE_PATH"); done
+
+- name: Check if GConf2 is installed
+  command: rpm -q GConf2
+  register: rpm_check
+  when:
+  - ansible_distribution_major_version == "6"
+
+#- debug:
+#    var: rpm_check.stdout.find('is not installed')
+
+#- name: AC-11(a) Set GNOME Login Inactivity Timeout
+#  command: gconftool-2 --direct --config-source "xml:readwrite:/etc/gconf/gconf.xml.mandatory" --type int --set /desktop/gnome/session/idle_delay 15
+#  when:
+#  - ansible_distribution_major_version == "6"
+#  - rpm_check.stdout.find('is not installed') == -1
+
+#  - name: AC-11(a) Set GNOME Desktop Screensaver Mandatory Use
+#    shell: gconftool-2 --direct \
+#            --config-source "xml:readwrite:/etc/gconf/gconf.xml.mandatory" \
+#            --type bool \
+#            --set /apps/gnome-screensaver/idle_activation_enabled true
+#    when:
+#    - ansible_distribution_major_version == "6"
+#    - rpm_check.stdout.find('is not installed') == -1
+
+#- name: AC-11(a) Enable Screen Lock Activation After Idle Period
+#  shell: gconftool-2 --direct \
+#            --config-source "xml:readwrite:/etc/gconf/gconf.xml.mandatory" \
+#            --type bool \
+#            --set /apps/gnome-screensaver/lock_enabled true
+#  when:
+#  - ansible_distribution_major_version == "6"
+#  - rpm_check.stdout.find('is not installed') == -1
+
+#- name: AC-11(b) Enable Screen Lock Activation After Idle Period
+#  shell: gconftool-2 --direct \
+#            --config-source "xml:readwrite:/etc/gconf/gconf.xml.mandatory" \
+#            --type string \
+#            --set /apps/gnome-screensaver/mode blank-only
+#  when:
+#  - ansible_distribution_major_version == "6"
+#  - rpm_check.stdout.find('is not installed') == -1
+
+#- name: AC-8(a),AC-8(b),AC-8(c) Enable GUI Warning Banner
+#  shell: gconftool-2 --direct \
+#            --config-source "xml:readwrite:/etc/gconf/gconf.xml.mandatory" \
+#            --type bool \
+#            --set /apps/gdm/simple-greeter/banner_message_enable true
+#  when:
+#  - ansible_distribution_major_version == "6"
+#  - rpm_check.stdout.find('is not installed') == -1
+
+#- name: AC-8(a),AC-8(b),AC-8(c) Set GUI Warning Banner Text (1/2)
+#  shell: echo "{{ login_banner_text }}" | sed 's/\[\\s\\n\][*+]/ /g;s/\\//g;'
+#  register: banner_expanded
+#  when:
+#  - ansible_distribution_major_version == "6"
+#  - rpm_check.stdout.find('is not installed') == -1
+
+#- name: AC-8(a),AC-8(b),AC-8(c) Set GUI Warning Banner Text (2/2)
+#  shell: gconftool-2 --direct \
+#            --config-source "xml:readwrite:/etc/gconf/gconf.xml.mandatory" \
+#            --type string \
+#            --set /apps/gdm/simple-greeter/banner_message_text "{{ banner_expanded.stdout }}"
+#  when:
+#  - ansible_distribution_major_version == "6"
+#  - rpm_check.stdout.find('is not installed') == -1

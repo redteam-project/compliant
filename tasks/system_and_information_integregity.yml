@@ -83,6 +83,9 @@
     regexp: ".*Ciphers.*"
     line: "Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc"
 
+- name: SI-7,RHEL-06-000518 Verify and Correct File Permissions with RPM
+  shell: for FILE_PATH in $(rpm -Va | grep '^.M'); do rpm --setperms $(rpm -qf "$FILE_PATH"); done
+
 #- name: Find All Log Files
 #  shell: cat /etc/rsyslog.conf | grep -v "^#" | grep -v "^$" | grep -v "^\$[A-Z]*" | tr -s ' ' | cut -d' ' -f2 | sed -r 's/-//' | sed -r 's/\*//' | grep -v "^$"
 #  args:

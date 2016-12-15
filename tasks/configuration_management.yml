@@ -13,36 +13,51 @@
     - CAT-I
 
 - name: CM-7 Disable Kernel Parameter for Sending ICMP Redirects by Default
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.send_redirects.*'
-    line: 'net.ipv4.conf.default.send_redirects = 0'
+  sysctl:
+    name: net.ipv4.conf.default.send_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
-    - conf-low
     - conf-medium
     - conf-high
-    - int-low
     - int-medium
     - int-high
 
 - name: CM-7 Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.send_redirects.*'
-    line: 'net.ipv4.conf.all.send_redirects = 0'
+  sysctl:
+    name: net.ipv4.conf.all.send_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
-    - conf-low
     - conf-medium
     - conf-high
-    - int-low
+    - int-medium
+    - int-high
+
+- name: CM-7 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces
+  sysctl:
+    name: net.ipv4.conf.all.secure_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
+  tags:
+    - conf-medium
+    - conf-high
     - int-medium
     - int-high
 
 - name: CM-7,RHEL-07-040730 Disable Kernel Parameter for IP Forwarding
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.ip_forward.*'
-    line: 'net.ipv4.ip_forward = 0'
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-low
     - conf-medium
@@ -53,10 +68,12 @@
     - CAT-II
 
 - name: CM-7,RHEL-07-040350 Disable Kernel Parameter for Accepting Source-Routed Packets for All Interfaces
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.accept_source_route.*'
-    line: 'net.ipv4.conf.all.accept_source_route = 0'
+  sysctl:
+    name: net.ipv4.conf.all.accept_source_route
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-low
     - conf-medium
@@ -67,10 +84,12 @@
     - CAT-II
 
 - name: CM-7 Disable Kernel Parameter for Accepting ICMP Redirects for All Interfaces
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.accept_redirects.*'
-    line: 'net.ipv4.conf.all.accept_redirects = 0'
+  sysctl:
+    name: net.ipv4.conf.all.accept_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-low
     - conf-medium
@@ -80,10 +99,12 @@
     - int-high
 
 - name: CM-7 Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.secure_redirects.*'
-    line: 'net.ipv4.conf.all.secure_redirects = 0'
+  sysctl:
+    name: net.ipv4.conf.all.secure_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-low
     - conf-medium
@@ -93,10 +114,12 @@
     - int-high
 
 - name: CM-7 Enable Kernel Parameter to Log Martian Packets
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.all.log_martians.*'
-    line: 'net.ipv4.conf.all.log_martians = 1'
+  sysctl:
+    name: net.ipv4.conf.all.log_martians
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-low
     - conf-medium
@@ -106,10 +129,12 @@
     - int-high
 
 - name: CM-7,RHEL-07-040351 Disable Kernel Parameter for Accepting Source-Routed Packets By Default
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.accept_source_route.*'
-    line: 'net.ipv4.conf.default.accept_source_route = 0'
+  sysctl:
+    name: net.ipv4.conf.default.accept_source_route
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-low
     - conf-medium
@@ -120,10 +145,12 @@
     - CAT-II
 
 - name: CM-7 Disable Kernel Parameter for Accepting Secure Redirects By Default
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.secure_redirects.*'
-    line: 'net.ipv4.conf.default.secure_redirects = 0'
+  sysctl:
+    name: net.ipv4.conf.default.secure_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-low
     - conf-medium
@@ -133,10 +160,12 @@
     - int-high
 
 - name: CM-7 Disable Kernel Parameter for Accepting ICMP Redirects By Default
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.conf.default.accept_redirects.*'
-    line: 'net.ipv4.conf.default.accept_redirects = 0'
+  sysctl:
+    name: net.ipv4.conf.default.accept_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-low
     - conf-medium
@@ -146,10 +175,12 @@
     - int-high
 
 - name: CM-7,RHEL-07-040380 Enable Kernel Parameter to Ignore ICMP Broadcast Echo Requests
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.icmp_echo_ignore_broadcasts.*'
-    line: 'net.ipv4.icmp_echo_ignore_broadcasts = 1'
+  sysctl:
+    name: net.ipv4.icmp_echo_ignore_broadcasts
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-low
     - conf-medium
@@ -160,10 +191,12 @@
     - CAT-II
 
 - name: CM-7 Enable Kernel Parameter to Ignore Bogus ICMP Error Responses
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv4.icmp_ignore_bogus_error_responses.*'
-    line: 'net.ipv4.icmp_ignore_bogus_error_responses = 1'
+  sysctl:
+    name: net.ipv4.icmp_ignore_bogus_error_responses
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-low
     - conf-medium
@@ -187,10 +220,12 @@
     - int-high
 
 - name: CM-7 Disable Accepting IPv6 Redirects
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: '^net.ipv6.conf.default.accept_redirects.*'
-    line: 'net.ipv6.conf.default.accept_redirects = 0'
+  sysctl:
+    name: net.ipv6.conf.default.accept_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - conf-low
     - conf-medium
@@ -407,7 +442,7 @@
 - name: Find User Rsh Trust Files
   shell: "find /home -name '.rhosts' -print"
   register: user_rhosts
-  always_run: True
+  check_mode: no
   changed_when: False
 
 - name: CM-7 Remove Rsh Trust Files - ~/.rhosts
@@ -540,3 +575,13 @@
     state: present
   tags:
     - CAT-II
+
+- name: CM-6(d),RHEL-06-000518 Verify and Correct File Permissions with RPM
+  shell: for FILE_PATH in $(rpm -Va | grep '^.M'); do rpm --setperms $(rpm -qf "$FILE_PATH"); done
+
+- name: CM-7 Disable Bluetooth Service
+  service:
+    name: bluetooth
+    enabled: no
+    state: stopped
+  ignore_errors: yes

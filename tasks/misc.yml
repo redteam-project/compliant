@@ -1,16 +1,20 @@
 - name: Enable Randomized Layout of Virtual Address Space
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: 'kernel.randomize_va_space ='
-    line: 'kernel.randomize_va_space = 2'
+  sysctl:
+    name: kernel.randomize_va_space
+    value: 2
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - CCE-26999-3
 
 - name: Enable ExecShield
-  lineinfile:
-    dest: /etc/sysctl.conf
-    regexp: 'kernel.exec-shield ='
-    line: 'kernel.exec-shield = 1'
+  sysctl:
+    name: kernel.exec-shield
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
   tags:
     - CCE-27007-4
 

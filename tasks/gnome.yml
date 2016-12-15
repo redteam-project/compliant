@@ -2,7 +2,7 @@
   stat: path=/etc/gdm
   register: gdm
 
-- name: RHEL-07-010430 operating system must not allow an unattended or automatic logon   
+- name: RHEL-07-010430 operating system must not allow an unattended or automatic logon
   lineinfile:
     dest: /etc/gdm/custom.conf
     regexp: "^AutomaticLoginEnabled"
@@ -10,8 +10,8 @@
     line: "AutomaticLoginEnabled=false"
   when: gdm.stat.exists == true
   tags:
-    - CAT-I  
-  
+    - CAT-I
+
 - name: RHEL-07-010431 operating system must not allow guest logon
   lineinfile:
     dest: /etc/gdm/custom.conf
@@ -20,7 +20,7 @@
     line: "TimedLoginEnabled=false"
   when: gdm.stat.exists == true
   tags:
-    - CAT-I    
+    - CAT-I
 
 - name: Removing additional gdm profiles
   lineinfile:
@@ -28,8 +28,10 @@
     regexp: '(^(user-db:(?!user)))|(^(system-db:(?!local)))'
     state: absent
     mode: 0644
-    backup: yes    
-  when: gdm.stat.exists == true
+    backup: yes
+  when:
+  - gdm.stat.exists == true
+  - ansible_distribution_major_version == "7"
   tags:
     - CAT-II
 
@@ -43,18 +45,22 @@
   with_items:
     - user-db:user
     - system-db:local
-  when: gdm.stat.exists == true
+  when:
+  - gdm.stat.exists == true
+  - ansible_distribution_major_version == "7"
   tags:
     - CAT-II
-    
+
 - name: RHEL-07-010030 Display DoD banner via graphical user logon
   copy:
     src: 01-banner-message
     dest: /etc/dconf/db/local.d/01-banner-message
-  when: gdm.stat.exists == true
+  when:
+  - gdm.stat.exists == true
+  - ansible_distribution_major_version == "7"
   tags:
-    - CAT-II               
-             
+    - CAT-II
+
 - name: RHEL-07-010060,RHEL-07-010070,RHEL-07-010073,RHEL-07-010074
   blockinfile:
     dest: /etc/dconf/db/local.d/00-screensaver
@@ -67,35 +73,43 @@
     create: yes
     mode: 0644
     backup: yes
-  when: gdm.stat.exists == true
+  when:
+  - gdm.stat.exists == true
+  - ansible_distribution_major_version == "7"
   tags:
-    - CAT-II  
-  
+    - CAT-II
+
 - name: RHEL-07-010071 Initiate session lock after 15 minutes
   blockinfile:
     dest: /etc/dconf/db/local.d/locks/session
     block: |
-      /org/gnome/desktop/screensaver/idle-delay 
-      /org/gnome/desktop/screensaver/lock-delay 
-      /org/gnome/desktop/session/idle-delay        
+      /org/gnome/desktop/screensaver/idle-delay
+      /org/gnome/desktop/screensaver/lock-delay
+      /org/gnome/desktop/session/idle-delay
     create: yes
     mode: 0644
     backup: yes
-  when: gdm.stat.exists == true
+  when:
+  - gdm.stat.exists == true
+  - ansible_distribution_major_version == "7"
   tags:
-    - CAT-II   
+    - CAT-II
 
 - name: Setting gdm local permissions
   file:
     path: /etc/dconf/db/local
     mode: 0644
-  when: gdm.stat.exists == true
+  when:
+  - gdm.stat.exists == true
+  - ansible_distribution_major_version == "7"
   tags:
-    - CAT-II   
-       
+    - CAT-II
+
 - name: Updating dconf
   shell: dconf update
   register: result
-  when: gdm.stat.exists == true
+  when:
+  - gdm.stat.exists == true
+  - ansible_distribution_major_version == "7"
   tags:
     - CAT-II
