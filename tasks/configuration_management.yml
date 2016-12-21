@@ -226,6 +226,7 @@
     state: present
     sysctl_set: yes
     reload: yes
+  ignore_errors: yes
   tags:
     - conf-low
     - conf-medium
@@ -585,3 +586,37 @@
     enabled: no
     state: stopped
   ignore_errors: yes
+
+- name: Check if /etc/sysconfig/iptables exists
+  stat:
+    path: /etc/sysconfig/iptables
+  register: st_ip
+
+- name: RHEL-06-000120 Set Default Policy for Incoming Packets
+  lineinfile:
+    dest: /etc/sysconfig/iptables
+    line: ":INPUT DROP [0:0]"
+    state: present
+    regexp: "^:INPUT ACCEPT.*"
+  when: st_ip.stat.exists
+
+- name: RHEL-06-000320 Set Default iptables Policy for Forwarded Packets
+  lineinfile:
+    dest: /etc/sysconfig/iptables
+    line: ":FORWARD DROP [0:0]"
+    state: present
+    regexp: "^:FORWARD ACCEPT.*"
+  when: st_ip.stat.exists
+
+- name: Check if /etc/sysconfig/ip6tables exists
+  stat:
+    path: /etc/sysconfig/ip6tables
+  register: st_ip6
+
+- name: RHEL-06-000523 Set Default ip6tables Policy for Incoming Packets
+  lineinfile:
+    dest: /etc/sysconfig/ip6tables
+    line: ":INPUT DROP [0:0]"
+    state: present
+    regexp: "^:INPUT ACCEPT.*"
+  when: st_ip6.stat.exists

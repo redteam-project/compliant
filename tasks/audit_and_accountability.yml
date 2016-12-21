@@ -68,10 +68,41 @@
   check_mode: no
   register: find_result
 
-- name: AU-1(b), AU-2(a), AU-2(c), AU-2(d), AU-12(a), AU-12(c) Add Audit Rules
-  template:
-    src: audit.rules.j2
-    dest: /etc/audit/rules.d/stig.rules
+- name: Get Underlying Architecture for Audit Rules
+  shell: getconf LONG_BIT
+  register: audit_arch
+
+- name: AU-1(b), AU-2(a), AU-2(c), AU-2(d), AU-12(a), AU-12(c) Add Audit Rules - b32
+  copy:
+    src: audit-800-53-b32.rules
+    dest: /etc/audit/rules.d/audit-800-53-b32.rules
+  notify: reload auditd
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+
+- name: AU-1(b), AU-2(a), AU-2(c), AU-2(d), AU-12(a), AU-12(c) Add Audit Rules - b64
+  copy:
+    src: audit-800-53-b32.rules
+    dest: /etc/audit/rules.d/audit-800-53-b64.rules
+  notify: reload auditd
+  when: audit_arch.stdout == '64'
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+
+- name: AU-1(b), AU-2(a), AU-2(c), AU-2(d), AU-12(a), AU-12(c) Add Audit Rules - common
+  copy:
+    src: audit-800-53-common.rules
+    dest: /etc/audit/rules.d/audit-800-53-common.rules
   notify: reload auditd
   tags:
     - conf-low
@@ -99,6 +130,7 @@
   lineinfile:
     dest: /etc/audit/auditd.conf
     line: "space_left_action = email"
+    regexp: "^space_left_action*"
   notify: reload auditd
   tags:
     - conf-low
@@ -113,6 +145,7 @@
   lineinfile:
     dest: /etc/audit/auditd.conf
     line: "admin_space_left_action = email"
+    regexp: "^admin_space_left_action*"
   notify: reload auditd
   tags:
     - conf-low

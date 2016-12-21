@@ -73,11 +73,43 @@
   check_mode: no
   register: find_result
 
-- name:  IR-5 Add Audit Rules
-  template:
-    src: audit.rules.j2
-    dest: /etc/audit/rules.d/stig.rules
+- name: Get Underlying Architecture for Audit Rules
+  shell: getconf LONG_BIT
+  register: audit_arch
+
+- name: IR-5 Add Audit Rules - b32
+  copy:
+    src: audit-800-53-b32.rules
+    dest: /etc/audit/rules.d/audit-800-53-b32.rules
     force: yes
+  notify: reload auditd
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+
+- name: IR-5 Add Audit Rules - b64
+  copy:
+    src: audit-800-53-b64.rules
+    dest: /etc/audit/rules.d/audit-800-53-b64.rules
+    force: yes
+  notify: reload auditd
+  when: audit_arch.stdout == '64'
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+
+- name: IR-5 Add Audit Rules - common
+  copy:
+    src: audit-800-53-common.rules
+    dest: /etc/audit/rules.d/audit-800-53-common.rules
   notify: reload auditd
   tags:
     - conf-low

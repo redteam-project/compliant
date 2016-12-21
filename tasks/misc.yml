@@ -91,3 +91,16 @@
     dest: /etc/login.defs
     line: "CREATE_HOME yes"
     state: present
+
+- name: Check if /etc/samba/smb.conf exists
+  stat:
+    path: /etc/samba/smb.conf
+  register: st_smb
+
+- name: RHEL-06-000272 Require Client SMB Packet Signing, if using smbclient
+  lineinfile:
+    dest: /etc/samba/smb.conf
+    line: "client signing = mandatory"
+    state: present
+    insertafter: "[global]"
+  when: st_smb.stat.exists
