@@ -644,11 +644,6 @@
     state: started
     enabled: yes
 
-- name: Find commands with setuid/setgid bit set on /
-  shell: find / -xdev -type f -perm -4000 -o -type f -perm -2000 2>/dev/null
-  check_mode: no
-  register: find_result
-
 - name: Get Underlying Architecture for Audit Rules
   shell: getconf LONG_BIT
   register: audit_arch
@@ -695,6 +690,24 @@
     - int-medium
     - int-high
 
+- name: Find commands with setuid/setgid bit set on /
+  shell: find / -xdev -type f -perm -4000 -o -type f -perm -2000 2>/dev/null
+  check_mode: no
+  register: find_result
+
+- name: AC-3(10)) Ensure auditd Collects Information on the Use of Privileged Commands
+  template:
+    src: privileged-commands.rules.j2
+    dest: /etc/audit/rules.d/privileged-commands.rules
+  notify: reload auditd
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+
 - name: AC-9 System Audit Logs Must Have Mode 0640 or Less Permissive (1/4)
   file:
     path: /var/log/audit/audit.log
@@ -709,6 +722,9 @@
     - int-low
     - int-medium
     - int-high
+
+- name: AC-17(1) Enable Auditing for Processes Which Start Prior to the Audit Daemon
+  shell: /sbin/grubby --update-kernel=ALL --args="audit=1"
 
 - name: AC-7(a) Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/system-auth (1/3)
   lineinfile:
@@ -777,70 +793,3 @@
 
 - name: AC-6,RHEL-06-000518 Verify and Correct File Permissions with RPM
   shell: for FILE_PATH in $(rpm -Va | grep '^.M'); do rpm --setperms $(rpm -qf "$FILE_PATH"); done
-
-- name: Check if GConf2 is installed
-  command: rpm -q GConf2
-  register: rpm_check
-  when:
-  - ansible_distribution_major_version == "6"
-
-#- debug:
-#    var: rpm_check.stdout.find('is not installed')
-
-#- name: AC-11(a) Set GNOME Login Inactivity Timeout
-#  command: gconftool-2 --direct --config-source "xml:readwrite:/etc/gconf/gconf.xml.mandatory" --type int --set /desktop/gnome/session/idle_delay 15
-#  when:
-#  - ansible_distribution_major_version == "6"
-#  - rpm_check.stdout.find('is not installed') == -1
-
-#  - name: AC-11(a) Set GNOME Desktop Screensaver Mandatory Use
-#    shell: gconftool-2 --direct \
-#            --config-source "xml:readwrite:/etc/gconf/gconf.xml.mandatory" \
-#            --type bool \
-#            --set /apps/gnome-screensaver/idle_activation_enabled true
-#    when:
-#    - ansible_distribution_major_version == "6"
-#    - rpm_check.stdout.find('is not installed') == -1
-
-#- name: AC-11(a) Enable Screen Lock Activation After Idle Period
-#  shell: gconftool-2 --direct \
-#            --config-source "xml:readwrite:/etc/gconf/gconf.xml.mandatory" \
-#            --type bool \
-#            --set /apps/gnome-screensaver/lock_enabled true
-#  when:
-#  - ansible_distribution_major_version == "6"
-#  - rpm_check.stdout.find('is not installed') == -1
-
-#- name: AC-11(b) Enable Screen Lock Activation After Idle Period
-#  shell: gconftool-2 --direct \
-#            --config-source "xml:readwrite:/etc/gconf/gconf.xml.mandatory" \
-#            --type string \
-#            --set /apps/gnome-screensaver/mode blank-only
-#  when:
-#  - ansible_distribution_major_version == "6"
-#  - rpm_check.stdout.find('is not installed') == -1
-
-#- name: AC-8(a),AC-8(b),AC-8(c) Enable GUI Warning Banner
-#  shell: gconftool-2 --direct \
-#            --config-source "xml:readwrite:/etc/gconf/gconf.xml.mandatory" \
-#            --type bool \
-#            --set /apps/gdm/simple-greeter/banner_message_enable true
-#  when:
-#  - ansible_distribution_major_version == "6"
-#  - rpm_check.stdout.find('is not installed') == -1
-
-#- name: AC-8(a),AC-8(b),AC-8(c) Set GUI Warning Banner Text (1/2)
-#  shell: echo "{{ login_banner_text }}" | sed 's/\[\\s\\n\][*+]/ /g;s/\\//g;'
-#  register: banner_expanded
-#  when:
-#  - ansible_distribution_major_version == "6"
-#  - rpm_check.stdout.find('is not installed') == -1
-
-#- name: AC-8(a),AC-8(b),AC-8(c) Set GUI Warning Banner Text (2/2)
-#  shell: gconftool-2 --direct \
-#            --config-source "xml:readwrite:/etc/gconf/gconf.xml.mandatory" \
-#            --type string \
-#            --set /apps/gdm/simple-greeter/banner_message_text "{{ banner_expanded.stdout }}"
-#  when:
-#  - ansible_distribution_major_version == "6"
-#  - rpm_check.stdout.find('is not installed') == -1

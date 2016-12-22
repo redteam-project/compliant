@@ -5,14 +5,14 @@ galaxy_info:
 
   license: license (GPLv2)
 
-  min_ansible_version: 1.6
+  min_ansible_version: 2.2
 
   platforms:
   - name: EL
     versions:
     - 6
     - 7
-  galaxy_tags: 
+  galaxy_tags:
   - SCAP
   - EL
   - Red Hat

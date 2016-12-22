@@ -11,3 +11,5 @@
 -w /sbin/rmmod -p x -k modules
 -w /sbin/modprobe -p x -k modules
 -w /etc/localtime -p wa -k audit_time_rules
+-w /etc/selinux/ -p wa -k MAC-policy
+-w /etc/sudoers -p wa -k actions

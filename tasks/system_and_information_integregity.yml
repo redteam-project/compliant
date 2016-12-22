@@ -86,31 +86,78 @@
 - name: SI-7,RHEL-06-000518 Verify and Correct File Permissions with RPM
   shell: for FILE_PATH in $(rpm -Va | grep '^.M'); do rpm --setperms $(rpm -qf "$FILE_PATH"); done
 
-#- name: Find All Log Files
-#  shell: cat /etc/rsyslog.conf | grep -v "^#" | grep -v "^$" | grep -v "^\$[A-Z]*" | tr -s ' ' | cut -d' ' -f2 | sed -r 's/-//' | sed -r 's/\*//' | grep -v "^$"
-#  args:
-#    executable: /bin/bash
-#  register: log_files
-#  tags:
-#  - log_files
+- name: Find Log Files
+  shell: grep -e "\$IncludeConfig[[:space:]]\+[^[:space:];]\+" /etc/rsyslog.conf | cut -d ' ' -f 2
+  register: log_files
+
+- name: SI-11 Ensure System Log Files Have Correct Permissions
+  shell: chmod 600 {{ item }}
+  args:
+    executable: /bin/bash
+  with_items: "{{ log_files.stdout_lines }}"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+  - avail-low
+  - avail-medium
+  - avail-high
+  - log_files
+
+- name: SI-11 Ensure /etc/rc.d/rc.local has user-executable permission (in order to be actually executed during boot)
+  file:
+    path: /etc/rc.d/rc.local
+    mode: "u+x"
+
+- name: SI-11 Ensure /var/log/boot.log has correct permissions
+  file:
+    path: /var/log/boot.log
+    mode: 0600
+  when: ansible_distribution_major_version == "6"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+  - avail-low
+  - avail-medium
+  - avail-high
+  - log_files
+
+- name: SI-11 Ensure /var/log/boot.log has correct permissions at boot
+  lineinfile:
+    dest: /etc/rc.local
+    line: '/bin/chmod 600 /var/log/boot.log'
+  when: ansible_distribution_major_version == "6"
+  tags:
+  - conf-low
+  - conf-medium
+  - conf-high
+  - int-low
+  - int-medium
+  - int-high
+  - avail-low
+  - avail-medium
+  - avail-high
+  - log_files
 #
-#- name: Display Paths to Log Files
-#  debug: msg="Log file => {{ item }}"
-#  with_items: "{{ log_files }}"
-#  tags:
-#  - log_files
-#
-#- name: SI-11 Ensure System Log Files Have Correct Permissions
-#  file: path={{ item }} mode=0600 state=file
-#  with_items: "{{ log_files }}"
-#  tags:
-#  - conf-low
-#  - conf-medium
-#  - conf-high
-#  - int-low
-#  - int-medium
-#  - int-high
-#  - avail-low
-#  - avail-medium
-#  - avail-high
-#  - log_files
+# - name: SI-11 Ensure System Log Files Have Correct Permissions - /var/log/boot.log
+  # shell: echo "/bin/chmod 600 /var/log/boot.log" >> /etc/rc.local
+  # args:
+    # executable: /bin/bash
+  # when: ansible_distribution_major_version == "6"
+  # tags:
+  # - conf-low
+  # - conf-medium
+  # - conf-high
+  # - int-low
+  # - int-medium
+  # - int-high
+  # - avail-low
+  # - avail-medium
+  # - avail-high
