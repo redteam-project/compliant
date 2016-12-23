@@ -1,0 +1,13 @@
+- name: Install openswan or libreswan Package
+  yum:
+    name: "{{ vpn_package }}"
+    state: present
+    disablerepo: '*'
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
+  tags:
+    - AC
+    - AC-17
+    - MA
+    - MA-4
+    - SC
+    - SC-8

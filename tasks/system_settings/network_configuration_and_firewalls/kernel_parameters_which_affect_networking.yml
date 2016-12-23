@@ -1,0 +1,331 @@
+- name: Disable Kernel Parameter for Sending ICMP Redirects by Default
+  sysctl:
+    name: net.ipv4.conf.default.send_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-medium
+    - conf-high
+    - int-medium
+    - int-high
+    - AC
+    - AC-4
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+    - SC-7
+
+- name: Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces
+  sysctl:
+    name: net.ipv4.conf.all.send_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-medium
+    - conf-high
+    - int-medium
+    - int-high
+    - CM
+    - SC
+    - SC-5
+    - SC-5(1)
+
+- name: Disable Kernel Parameter for IP Forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - RHEL-07-040730
+    - SC
+    - SC-5
+
+- name: Configure Kernel Parameter for Accepting Source-Routed Packets for All Interfaces
+  sysctl:
+    name: net.ipv4.conf.all.accept_source_route
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+
+- name: Configure Kernel Parameter for Accepting ICMP Redirects for All Interfaces
+  sysctl:
+    name: net.ipv4.conf.all.accept_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+
+- name: Configure Kernel Parameter for Accepting Secure Redirects for All Interfaces
+  sysctl:
+    name: net.ipv4.conf.all.secure_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+    - AC
+    - AC-4
+
+- name: Configure Kernel Parameter to Log Martian Packets
+  sysctl:
+    name: net.ipv4.conf.all.log_martians
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+    - SC-5(a)
+    - AC
+    - AC-3
+    - AC-3(10)
+
+- name: Configure Kernel Parameter for Accepting Source-Routed Packets By Default
+  sysctl:
+    name: net.ipv4.conf.default.accept_source_route
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+    - SC-7
+    - AC
+    - AC-4
+
+- name: Configure Kernel Parameter for Accepting ICMP Redirects By Default
+  sysctl:
+    name: net.ipv4.conf.default.accept_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+    - SC-7
+    - AC
+    - AC-4
+
+- name: Configure Kernel Parameter to Ignore Bogus ICMP Error Responses
+  sysctl:
+    name: net.ipv4.icmp_ignore_bogus_error_responses
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+
+- name: Configure Kernel Parameter for Accepting Secure Redirects By Default
+  sysctl:
+    name: net.ipv4.conf.default.secure_redirects
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+    - SC-7
+    - AC
+    - AC-4
+
+- name: Configure Kernel Parameter to Ignore ICMP Broadcast Echo Requests
+  sysctl:
+    name: net.ipv4.icmp_echo_ignore_broadcasts
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+
+- name: Configure Kernel Parameter to Use TCP Syncookies
+  sysctl:
+    name: net.ipv4.tcp_syncookies
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - AC
+    - CM-4
+    - SC
+    - SC-5
+    - SC-5(2)
+    - SC-5(3)
+
+- name: Configure Kernel Parameter to Use Reverse Path Filtering for All Interfaces
+  sysctl:
+    name: net.ipv4.conf.all.rp_filter
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - AC
+    - CM-4
+    - SC
+    - SC-5
+    - SC-7
+
+- name: Configure Kernel Parameter to Use Reverse Path Filtering by Default
+  sysctl:
+    name: net.ipv4.conf.default.rp_filter
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when: ansible_distribution_major_version == 6
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - AC
+    - CM-4
+    - SC
+    - SC-5
+    - SC-7

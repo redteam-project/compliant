@@ -1,0 +1,23 @@
+- name: Disable Modprobe Loading of USB Storage Driver - Ensure usb-storage.conf is present
+  copy:
+    src: usb-storage.conf
+    dest: /etc/modprobe.d/usb-storage.conf
+  tags:
+  - AC
+  - AC-19
+  - AC-19(a)
+  - AC-19(d)
+  - AC-19(e)
+
+- name: Disable the Automounter
+  service:
+    name: autofs
+    state: stopped
+    enabled: no
+  ignore_errors: yes
+  tags:
+  - AC
+  - AC-19
+  - AC-19(a)
+  - AC-19(d)
+  - AC-19(e)
