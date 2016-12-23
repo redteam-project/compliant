@@ -30,7 +30,7 @@
   tags:
     - scap
 
-- name: reload auditd for good measure
+- name: Reload auditd for good measure
   shell: /sbin/augenrules --load
 
 - name: Run an SCAP scan and Generate Report EL 6

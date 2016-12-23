@@ -1,0 +1,9 @@
+---
+- include: account_access_control.yml
+- include: configure_syslog.yml
+- include: file_permissions_and_masks.yml
+- include: installing_and_maintaining_software.yml
+- include: network_configuration_and_firewalls.yml
+- include: protect_physical_console_access.yml
+- include: selinux.yml
+- include: system_accounting_with_auditd.yml

@@ -1,0 +1,138 @@
+- name: Disable Automatic Bug Reporting Tool (abrtd)
+  service:
+    name: abrtd
+    state: stopped
+    enabled: false
+  ignore_errors: true
+  tags:
+  - CM
+  - CM-7
+
+- name: Disable Network Console (netconsole)
+  service:
+    name: netconsole
+    state: stopped
+    enabled: false
+  ignore_errors: true
+  tags:
+  - CM
+  - CM-7
+
+- name: Disable ntpdate Service (ntpdate)
+  service:
+    name: ntpdate
+    state: stopped
+    enabled: false
+  ignore_errors: true
+  tags:
+  - CM
+  - CM-7
+
+- name: Disable Odd Job Daemon (oddjobd)
+  service:
+    name: oddjobd
+    state: stopped
+    enabled: false
+  ignore_errors: true
+  tags:
+  - CM
+  - CM-7
+
+- name: Disable Apache Qpid (qpidd)
+  service:
+    name: qpidd
+    state: stopped
+    enabled: false
+  ignore_errors: true
+  tags:
+  - CM
+  - CM-7
+
+- name: Disable Network Router Discovery Daemon (rdisc)
+  service:
+    name: rdisc
+    state: stopped
+    enabled: false
+  ignore_errors: true
+  tags:
+  - CM
+  - CM-7
+
+- name: Disable Red Hat Network Service (rhnsd)
+  service:
+    name: rhnsd
+    state: stopped
+    enabled: false
+  ignore_errors: true
+  tags:
+  - CM
+  - CM-7
+
+- name: Enable cron Service
+  service:
+    name: crond
+    state: started
+    enabled: true
+  ignore_errors: true
+  tags:
+  - CM
+  - CM-7
+
+- name: Ensure ntp Presrnt
+  package:
+    name: ntpd
+    state: present
+  when: ansible_distribution_major_version == 6
+
+- name: Enable the NTP Daemon
+  service:
+    name: ntpd
+    state: started
+    enabled: yes
+  when: ansible_distribution_major_version == 6
+
+- name: Ensure chronyd present
+  package:
+    name: chronyd
+    state: present
+  when: ansible_distribution_major_version == 7
+
+- name: Enable the chronyd Daemon
+  service:
+    name: chronyd
+    state: started
+    enabled: yes
+  when: ansible_distribution_major_version == 7
+
+- name: Install postfix
+  yum:
+    name: postfix
+    state: present
+    disablerepo: '*'
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
+
+- name: Start and enable postfix
+  service:
+    name: postfix
+    enabled: yes
+    state: started
+
+- name: Remove sendmail
+  package:
+    name: sendmail
+    state: absent
+
+- name: Check if /etc/samba/smb.conf exists
+  stat:
+    path: /etc/samba/smb.conf
+  register: st_smb
+
+- name: Require Client SMB Packet Signing, if using smbclient
+  lineinfile:
+    dest: /etc/samba/smb.conf
+    line: "client signing = mandatory"
+    state: present
+    insertafter: "[global]"
+  when: st_smb.stat.exists
+  tags:
+    - RHEL-06-000272 
