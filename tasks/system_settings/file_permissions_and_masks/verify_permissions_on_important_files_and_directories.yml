@@ -140,6 +140,8 @@
     state: present
     sysctl_set: yes
     reload: yes
+  when:
+  - ansible_distribution_major_version == 6
   tags:
     - CCE-27007-4
     - SC
@@ -152,6 +154,8 @@
     state: present
     sysctl_set: yes
     reload: yes
+  when:
+  - ansible_distribution_major_version == 6
   tags:
     - CCE-26999-3
     - SC

@@ -230,7 +230,7 @@
     executable: /bin/bash
   register: GROUP
   when:
-  - log_group.stdout != ""
+  - log_group.stdout is defined
   - ansible_distribution_major_version == "6"
 
 - name: System Audit Logs Must Have Mode 0640 or Less Permissive when log_group is root (1/4)
@@ -286,7 +286,7 @@
   args:
     executable: /bin/bash
   when:
-  - log_group.stdout != ""
+  - log_group.stdout is defined
   - ansible_distribution_major_version == "6"
   tags:
     - AC
@@ -297,7 +297,7 @@
   args:
     executable: /bin/bash
   when:
-  - log_group.stdout != ""
+  - log_group.stdout is defined
   - ansible_distribution_major_version == "6"
   tags:
     - AC
@@ -308,6 +308,7 @@
     path: /var/log/audit/audit.log
     mode: 0600
   when:
+  - log_group.stdout is defined
   - log_group.stdout == ""
   - ansible_distribution_major_version == "6"
   tags:
@@ -325,6 +326,7 @@
   args:
     executable: /bin/bash
   when:
+  - log_group.stdout is defined
   - log_group.stdout == ""
   - ansible_distribution_major_version == "6"
   tags:
@@ -336,6 +338,7 @@
   args:
     executable: /bin/bash
   when:
+  - log_group.stdout is defined
   - log_group.stdout == ""
   - ansible_distribution_major_version == "6"
   tags:
@@ -347,6 +350,7 @@
   args:
     executable: /bin/bash
   when:
+  - log_group.stdout is defined
   - log_group.stdout == ""
   - ansible_distribution_major_version == "6"
   tags:

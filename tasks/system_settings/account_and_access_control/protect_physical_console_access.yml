@@ -6,6 +6,23 @@
     owner: root
     group: root
     mode: 0600
+  when:
+  - ansible_distribution_major_version == 6
+  tags:
+    - AC
+    - AC-6
+    - AC-6(7)
+
+- name: Verify /etc/grub.conf User Ownership
+  file:
+    path: /etc/grub2.cfg
+    src: /boot/grub2/grub.cfg
+    state: link
+    owner: root
+    group: root
+    mode: 0600
+  when:
+  - ansible_distribution_major_version == 7
   tags:
     - AC
     - AC-6
