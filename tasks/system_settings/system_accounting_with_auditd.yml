@@ -253,6 +253,7 @@
   - GROUP.stdout is defined
   - GROUP.stdout == "root"
   - ansible_distribution_major_version == "6"
+  ignore_errors: yes
   tags:
     - AC
     - AC-6
@@ -277,6 +278,7 @@
   - GROUP.stdout is defined
   - GROUP.stdout != "root"
   - ansible_distribution_major_version == "6"
+  ignore_errors: yes
   tags:
     - AC
     - AC-6
@@ -329,6 +331,7 @@
   - log_group.stdout is defined
   - log_group.stdout == ""
   - ansible_distribution_major_version == "6"
+  ignore_errors: yes
   tags:
     - AC
     - AC-6

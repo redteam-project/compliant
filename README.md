@@ -5,7 +5,11 @@ This role endeavors to apply relevant NIST 800-53 controls to an Enterprise Linu
 
 This is not a "scanner" per-se.  If you wish to assess the application of this role to your host, check out the SCAP Security Guide and Open SCAP projects.  Both of these will provide you tools with which you can scan your host.
 
-The tasks are organized by 800-53 category.  Yes, some tasks are repeated in multiple categories.
+All tasks are tagged with the applicable controls.  To see which tasks are related to the "access control" category in the NIST 800-53 controls, execute the following.
+
+```bash
+$ ansible-playbook -i [inventory] --tags "AC" --list-tasks [playbook.yml]
+```
 
 Requirements
 ------------
@@ -35,73 +39,6 @@ aide_day_of_month: '*'
 aide_month: '*'
 aide_day_of_week: '*'
 
-#The location(s) of the shared libraries on the target host
-shared_lib_path:
-- /lib
-- /lib64
-- /usr/lib
-- /usr/lib64
-
-#The location of the executable(s) on the target host
-executables_path:
-- /bin
-- /usr/bin
-- /usr/local/bin
-- /sbin
-- /usr/sbin
-- /usr/local/sbin
-
-#The services to disable via the access control set of tasks
-ac_disable_services:
-- autofs
-- abrtd
-- rdisc
-- rexec
-- rlogin
-- rsh
-- telnet
-- tftp
-- xinetd
-- ypbind
-- ypserv
-
-#The packages to uninstall via the access control set of tasks
-ac_uninstall_packages:
-- xinetd
-- telnet-server
-- rsh-server
-- ypserv
-- tftp-server
-
-#The services to disable via the configuration management set of tasks
-cm_disable_services:
-- atd
-- avahi-daemon
-- oddjobd
-- qpidd
-- rdisc
-- rexec
-- rlogin
-- rsh
-- telnet
-- tftp
-- xinetd
-- ypbind
-
-#The packages to uninstall via the configuration management set of tasks
-cm_uninstall_packages:
-- xinetd
-- telnet-server
-- rsh-server
-- ypserv
-- tftp-server
-
-#The services to disable via the identification and authentication set of tasks
-ia_disable_services:
-- telnet
-- rlogin
-- rsh
-
 vpn_package: openswan
 #Whether or not to run an SCAP scan
 run_scap: true
@@ -114,7 +51,7 @@ scap_reports_dir: /tmp
 Dependencies
 ------------
 
-None
+ansible 2.2.0.0
 
 Example Playbook
 ----------------

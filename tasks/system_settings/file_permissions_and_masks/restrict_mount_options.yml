@@ -78,21 +78,36 @@
     - MP
     - MP-2
 
+- debug:
+    var: media_parts_src
+
+- debug:
+    var: media_parts_name
+
+- debug:
+    var: media_parts_fs
+
+- debug:
+    var: media_parts_dump
+
+- debug:
+    var: media_parts_passno
+
 - name: Add nodev, nosuid, noguid Options to Removeable Media
   mount:
     name: "{{ item.1 }}"
     src: "{{ item.0 }}"
-    state: mounted
+    state: present
     opts: rw,nosuid,nodev,noexec,auto,nouser,async,relatime
     fstype: "{{ item.2 }}"
     dump: "{{ item.3 }}"
     passno: "{{ item.4 }}"
   with_together:
-    - "{{ media_parts_src }}"
-    - "{{ media_parts_name }}"
-    - "{{ media_parts_fs }}"
-    - "{{ media_parts_dump }}"
-    - "{{ media_parts_passno }}"
+    - "{{ media_parts_src.stdout_lines }}"
+    - "{{ media_parts_name.stdout_lines }}"
+    - "{{ media_parts_fs.stdout_lines }}"
+    - "{{ media_parts_dump.stdout_lines }}"
+    - "{{ media_parts_passno.stdout_lines }}"
   notify: remount fstab
   when: ansible_distribution_major_version == "6"
   tags:
