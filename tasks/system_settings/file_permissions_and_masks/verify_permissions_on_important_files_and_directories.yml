@@ -68,6 +68,10 @@
     follow: yes
     patterns: ! -user root
   register: shared_lib_find
+  tags:
+  - AC
+  - AC-6
+  - finalize
 
 - name: Verify that Shared Library Files Have Restrictive Permissions and Root Ownership
   with_items: "{{ shared_lib_find.files }}"
@@ -80,6 +84,7 @@
   tags:
   - AC
   - AC-6
+  - finalize
 
 - name: Find System Executables
   find:
@@ -88,6 +93,10 @@
     follow: yes
     patterns: ! -user root
   register: system_executable_find
+  tags:
+  - AC
+  - AC-6
+  - finalize
 
 - name: Verify that System Executables Have Restrictive Permissions and Root Ownership
   with_items: "{{ system_executable_find.files }}"
@@ -100,6 +109,7 @@
   tags:
   - AC
   - AC-6
+  - finalize
 
 - name: Set Daemon Umask
   replace:
@@ -141,7 +151,7 @@
     sysctl_set: yes
     reload: yes
   when:
-  - ansible_distribution_major_version == 6
+  - ansible_distribution_major_version == "6"
   tags:
     - CCE-27007-4
     - SC
@@ -155,7 +165,7 @@
     sysctl_set: yes
     reload: yes
   when:
-  - ansible_distribution_major_version == 6
+  - ansible_distribution_major_version == "6"
   tags:
     - CCE-26999-3
     - SC

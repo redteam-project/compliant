@@ -78,27 +78,12 @@
     - MP
     - MP-2
 
-- debug:
-    var: media_parts_src
-
-- debug:
-    var: media_parts_name
-
-- debug:
-    var: media_parts_fs
-
-- debug:
-    var: media_parts_dump
-
-- debug:
-    var: media_parts_passno
-
 - name: Add nodev, nosuid, noguid Options to Removeable Media
   mount:
     name: "{{ item.1 }}"
     src: "{{ item.0 }}"
     state: present
-    opts: rw,nosuid,nodev,noexec,auto,nouser,async,relatime
+    opts: defaults,nosuid,nodev,noexec
     fstype: "{{ item.2 }}"
     dump: "{{ item.3 }}"
     passno: "{{ item.4 }}"
@@ -126,13 +111,30 @@
     name: /dev/shm
     src: tmpfs
     state: present
-    opts: rw,nosuid,nodev,noexec,auto,nouser,async,relatime
+    opts: defaults,nosuid,nodev,noexec
     fstype: swap
     dump: 1
     passno: 2
-  notify: remount fstab
   when: ansible_distribution_major_version == "6"
   tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CM
+    - CM-7
+    - MP
+    - MP-2
+
+- name: Remount Filesystem
+  shell: mount -a
+  args:
+    executable: /bin/bash
+  when: ansible_distribution_major_version == "6"
+  tags:
+    - finalize
     - conf-low
     - conf-medium
     - conf-high

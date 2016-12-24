@@ -82,27 +82,27 @@
   package:
     name: ntpd
     state: present
-  when: ansible_distribution_major_version == 6
+  when: ansible_distribution_major_version == "6"
 
 - name: Enable the NTP Daemon
   service:
     name: ntpd
     state: started
     enabled: yes
-  when: ansible_distribution_major_version == 6
+  when: ansible_distribution_major_version == "6"
 
 - name: Ensure chronyd present
   package:
     name: chronyd
     state: present
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
 
 - name: Enable the chronyd Daemon
   service:
     name: chronyd
     state: started
     enabled: yes
-  when: ansible_distribution_major_version == 7
+  when: ansible_distribution_major_version == "7"
 
 - name: Install postfix
   yum:
@@ -135,4 +135,4 @@
     insertafter: "[global]"
   when: st_smb.stat.exists
   tags:
-    - RHEL-06-000272 
+    - RHEL-06-000272
