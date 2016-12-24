@@ -80,7 +80,7 @@
     - SC
     - SC-5
 
-- name: Configure Kernel Parameter for Accepting ICMP Redirects for All Interfaces
+- name: Configure Kernel Parameter for Accepting ICMP Redirects for All Interfaces - EL6
   sysctl:
     name: net.ipv4.conf.all.accept_redirects
     value: 0
@@ -88,6 +88,26 @@
     sysctl_set: yes
     reload: yes
   when: ansible_distribution_major_version == "6"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+
+- name: Configure Kernel Parameter for Accepting ICMP Redirects for All Interfaces - EL7
+  lineinfile:
+    dest: /etc/sysctl.conf
+    line: net.ipv4.conf.all.accept_redirects = 0
+    regexp: '.*net\.ipv4\.conf\.all\.accept_redirects.*'
+    state: present
+  when: ansible_distribution_major_version == "7"
   tags:
     - conf-low
     - conf-medium
@@ -173,7 +193,18 @@
     - AC
     - AC-4
 
-- name: Configure Kernel Parameter for Accepting ICMP Redirects By Default
+- name: Configure Kernel Parameter for Accepting Source-Routed Packets for All Interfaces - IPv6
+  lineinfile:
+    dest: /etc/sysctl.conf
+    line: net.ipv6.conf.all.accept_source_route = 1
+    regexp: '.*net\.ipv6\.conf\.all\.accept_source_route.*'
+    state: present
+  when: ansible_distribution_major_version == "7"
+  tags:
+  - AC
+  - AC-4
+
+- name: Configure Kernel Parameter for Accepting ICMP Redirects By Default - EL6
   sysctl:
     name: net.ipv4.conf.default.accept_redirects
     value: 0
@@ -196,6 +227,26 @@
     - SC-7
     - AC
     - AC-4
+
+- name: Configure Kernel Parameter for Accepting ICMP Redirects for All Interfaces - EL7
+  lineinfile:
+    dest: /etc/sysctl.conf
+    line: net.ipv4.conf.default.accept_redirects = 0
+    regexp: '.*net\.ipv4\.conf\.default\.accept_redirects.*'
+    state: present
+  when: ansible_distribution_major_version == "7"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - SC
+    - SC-5
 
 - name: Configure Kernel Parameter to Ignore Bogus ICMP Error Responses
   sysctl:

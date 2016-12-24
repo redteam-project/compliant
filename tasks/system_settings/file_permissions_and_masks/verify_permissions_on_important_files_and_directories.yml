@@ -171,3 +171,28 @@
     - SC
     - SC-30
     - SC-30(2)
+
+- name: Disable Core Dumps for SUID programs
+  sysctl:
+    name: fs.suid_dumpable
+    value: 0
+    state: present
+    sysctl_set: yes
+    reload: yes
+  when:
+  - ansible_distribution_major_version == "7"
+  tags:
+  - SI
+  - SI-11
+
+- name: Restrict Access to Kernel Message Buffer
+  lineinfile:
+    line: kernel.dmesg_restrict = 1
+    regexp: '.*kernel.dmesg_restrict.*'
+    state: present
+    dest: /etc/sysctl.conf
+  when:
+  - ansible_distribution_major_version == "7"
+  tags:
+  - SI
+  - SI-11

@@ -53,10 +53,32 @@
     - AU-2
     - AU-10
 
+- name: Add Audit Rules - init
+  copy:
+    src: audit-800-53-init.rules
+    dest: /etc/audit/rules.d/10-audit-800-53-init.rules
+  notify: reload auditd
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - AU
+    - AU-1(b)
+    - AU-2(a)
+    - AU-2(c)
+    - AU-2(d)
+    - AU-2
+    - AU-12
+    - AU-12(a)
+    - AU-12(c)
+
 - name: Add Audit Rules - b32
   copy:
     src: audit-800-53-b32.rules
-    dest: /etc/audit/rules.d/audit-800-53-b32.rules
+    dest: /etc/audit/rules.d/20-audit-800-53-b32.rules
   notify: reload auditd
   tags:
     - conf-low
@@ -77,31 +99,9 @@
 - name: Add Audit Rules - b64
   copy:
     src: audit-800-53-b64.rules
-    dest: /etc/audit/rules.d/audit-800-53-b64.rules
+    dest: /etc/audit/rules.d/30-audit-800-53-b64.rules
   notify: reload auditd
   when: audit_arch.stdout == '64'
-  tags:
-    - conf-low
-    - conf-medium
-    - conf-high
-    - int-low
-    - int-medium
-    - int-high
-    - AU
-    - AU-1(b)
-    - AU-2(a)
-    - AU-2(c)
-    - AU-2(d)
-    - AU-2
-    - AU-12
-    - AU-12(a)
-    - AU-12(c)
-
-- name: Add Audit Rules - common
-  copy:
-    src: audit-800-53-common.rules
-    dest: /etc/audit/rules.d/audit-800-53-common.rules
-  notify: reload auditd
   tags:
     - conf-low
     - conf-medium
@@ -127,7 +127,7 @@
 - name:  Ensure auditd Collects Information on the Use of Privileged Commands
   template:
     src: privileged-commands.rules.j2
-    dest: /etc/audit/rules.d/privileged-commands.rules
+    dest: /etc/audit/rules.d/40-privileged-commands.rules
   notify: reload auditd
   tags:
     - conf-low
@@ -144,6 +144,28 @@
     - AU-2(d)
     - AU-6
     - AU-6(9)
+    - AU-12
+    - AU-12(a)
+    - AU-12(c)
+
+- name: Add Audit Rules - common
+  copy:
+    src: audit-800-53-common.rules
+    dest: /etc/audit/rules.d/50-audit-800-53-common.rules
+  notify: reload auditd
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - AU
+    - AU-1(b)
+    - AU-2(a)
+    - AU-2(c)
+    - AU-2(d)
+    - AU-2
     - AU-12
     - AU-12(a)
     - AU-12(c)

@@ -85,7 +85,7 @@
     - AC
     - AC-3
 
-- name: AC-8(a),AC-8(b),AC-(c) Enable SSH Warning Banner
+- name: Enable SSH Warning Banner
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: 'Banner /etc/issue'
@@ -97,6 +97,11 @@
     - int-low
     - int-medium
     - int-high
+    - AC
+    - AC-8
+    - AC-8(a)
+    - AC-8(b)
+    - AC-8(c)
 
 - name: Do Not Allow SSH Environment Options
   lineinfile:
