@@ -8,8 +8,17 @@
 -w /etc/hosts -p wa -k audit_rules_networkconfig_modification
 -w /etc/sysconfig/network -p wa -k audit_rules_networkconfig_modification
 -w /sbin/insmod -p x -k modules
+-w /usr/sbin/insmod -p x -k modules
 -w /sbin/rmmod -p x -k modules
+-w /usr/sbin/rmmod -p x -k modules
 -w /sbin/modprobe -p x -k modules
+-w /usr/sbin/modprobe -p x -k modules
 -w /etc/localtime -p wa -k audit_time_rules
 -w /etc/selinux/ -p wa -k MAC-policy
 -w /etc/sudoers -p wa -k actions
+-w /var/log/tallylog -p wa -k logins
+-w /var/run/faillock/ -p wa -k logins
+-w /var/log/lastlog -p wa -k logins
+-w /var/run/utmp -p wa -k session
+-w /var/log/btmp -p wa -k session
+-w /var/log/wtmp -p wa -k session

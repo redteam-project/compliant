@@ -76,8 +76,8 @@
     - AU-12(c)
 
 - name: Add Audit Rules - b32
-  copy:
-    src: audit-800-53-b32.rules
+  template:
+    src: audit-800-53-b32.rules.j2
     dest: /etc/audit/rules.d/20-audit-800-53-b32.rules
   notify: reload auditd
   tags:
@@ -97,8 +97,8 @@
     - AU-12(c)
 
 - name: Add Audit Rules - b64
-  copy:
-    src: audit-800-53-b64.rules
+  template:
+    src: audit-800-53-b64.rules.j2
     dest: /etc/audit/rules.d/30-audit-800-53-b64.rules
   notify: reload auditd
   when: audit_arch.stdout == '64'
@@ -235,6 +235,18 @@
     - AU-5(a)
     - IR
     - IR-5
+
+- name: Configure auditd flush priority
+  lineinfile:
+    dest: /etc/audit/auditd.conf
+    regexp: '.*flush.*'
+    line: flush = data
+  when: ansible_distribution_major_version == "7"
+  tags:
+  - AU
+  - AU-9
+  - AU-12
+  - AU-12(1)
 
 - name: Determine if Log Group (log_group) is Set for Audit Logs
   shell: grep -q ^log_group /etc/audit/auditd.conf
@@ -382,6 +394,20 @@
     - AC
     - AC-6
 
+- name: Configure auditd to use audispd's syslog plugin - EL 7
+  lineinfile:
+    dest: /etc/audisp/plugins.d/syslog.conf
+    line: active = yes
+    regexp: '.*acitve.*'
+  when: ansible_distribution_major_version == "7"
+  tags:
+  - AU
+  - AU-1
+  - AU-3
+  - AU-1(b)
+  - AU-3(2)
+  - IR
+  - IR-5
 
 - name: Enable auditd service
   service:

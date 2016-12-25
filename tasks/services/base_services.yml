@@ -136,3 +136,18 @@
   when: st_smb.stat.exists
   tags:
     - RHEL-06-000272
+
+- name: Disable KDump Kernel Crash Analyzer (kdump)
+  service:
+    name: kdump.service
+    enabled: false
+    state: stopped
+  when: ansible_distribution_major_version == "7"
+  tags:
+  - AC
+  - AC-17
+  - AC-17(8)
+  - CM
+  - CM-7
+  - CM-6
+  - CM-6(b)

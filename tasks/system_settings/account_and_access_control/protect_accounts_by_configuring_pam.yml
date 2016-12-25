@@ -7,8 +7,20 @@
   - IA-5(c)
 
 - name: Set Password to Maximum of Three Consecutive Repeating Characters
-  debug:
-    msg: "TO-DO"
+  lineinfile:
+    dest: /etc/security/pwquality.conf
+    regexp: ".*maxrepeat.*"
+    line: "maxrepeat = 2"
+  tags:
+  - IA
+  - IA-5
+  - IA-5(c)
+
+- name: Set Password to Maximum of Consecutive Repeating Characters from Same Character Class
+  lineinfile:
+    dest: /etc/security/pwquality.conf
+    regexp: ".*maxclassrepeat.*"
+    line: "maxclassrepeat = 2"
   tags:
   - IA
   - IA-5
@@ -81,7 +93,7 @@
   lineinfile:
     dest: /etc/security/pwquality.conf
     regexp: '^difok ='
-    line: "difok = 4"
+    line: "difok = 5"
   when: ansible_distribution_major_version == "7"
   tags:
     - conf-low
@@ -92,6 +104,27 @@
     - int-high
     - AC
     - AC-2
+    - IA
+    - IA-5
+    - IA-5(b)
+    - IA-5(c)
+    - IA-5(1)(b)
+
+- name: Set Password Strength Minimum Different Categories
+  lineinfile:
+    dest: /etc/security/pwquality.conf
+    regexp: '^minclass ='
+    line: "minclass = 4"
+  when: ansible_distribution_major_version == "7"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - IA
+    - IA-5
 
 - name: Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/system-auth (1/3)
   lineinfile:

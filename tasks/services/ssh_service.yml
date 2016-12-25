@@ -174,7 +174,7 @@
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: ".*MACs.*"
-    line: MACs hmac-sha2-512,hmac-sha2-256
+    line: MACs hmac-sha2-512,hmac-sha2-256,hmac-sha1
   tags:
   - AC
   - AC-17
@@ -202,7 +202,7 @@
   - AC
   - AC-6
 
-- name: Restart sshd
-  service:
-    name: sshd
-    state: restarted
+# - name: Restart sshd
+  # service:
+    # name: sshd
+    # state: restarted

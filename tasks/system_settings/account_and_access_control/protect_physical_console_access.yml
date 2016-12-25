@@ -252,6 +252,15 @@
     dest: /etc/init/control-alt-delete.override
   when: ansible_distribution_major_version == "6"
 
+- name: Disable Ctrl-Alt-Del Reboot Activation
+  shell: systemctl mask ctrl-alt-del.target
+  args:
+    executable: /bin/bash
+  when: ansible_distribution_major_version == "7"
+  tags:
+  - AC
+  - AC-6
+
 - name: Disable Interactive Boot
   lineinfile:
     dest: /etc/sysconfig/init

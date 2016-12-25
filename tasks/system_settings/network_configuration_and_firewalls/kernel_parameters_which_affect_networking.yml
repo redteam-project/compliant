@@ -19,6 +19,25 @@
     - SC-5
     - SC-7
 
+- name: Disable Kernel Parameter for Sending ICMP Redirects by Default
+  lineinfile:
+    dest: /etc/sysctl.conf
+    regexp: '.*net\.ipv4\.conf\.default\.send_redirects.*'
+    line: 'net.ipv4.conf.default.send_redirects = 0'
+  when: ansible_distribution_major_version == "7"
+  tags:
+    - conf-medium
+    - conf-high
+    - int-medium
+    - int-high
+    - AC
+    - AC-4
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+    - SC-7
+
 - name: Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces
   sysctl:
     name: net.ipv4.conf.all.send_redirects
@@ -27,6 +46,22 @@
     sysctl_set: yes
     reload: yes
   when: ansible_distribution_major_version == "6"
+  tags:
+    - conf-medium
+    - conf-high
+    - int-medium
+    - int-high
+    - CM
+    - SC
+    - SC-5
+    - SC-5(1)
+
+- name: Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces - EL 7
+  lineinfile:
+    dest: /etc/sysctl.conf
+    line: net.ipv4.conf.all.send_redirects = 0
+    regexp: '.*net\.ipv4\.conf\.all\.send_redirects.*'
+  when: ansible_distribution_major_version == "7"
   tags:
     - conf-medium
     - conf-high
@@ -196,7 +231,7 @@
 - name: Configure Kernel Parameter for Accepting Source-Routed Packets for All Interfaces - IPv6
   lineinfile:
     dest: /etc/sysctl.conf
-    line: net.ipv6.conf.all.accept_source_route = 1
+    line: net.ipv6.conf.all.accept_source_route = 0
     regexp: '.*net\.ipv6\.conf\.all\.accept_source_route.*'
     state: present
   when: ansible_distribution_major_version == "7"
@@ -422,3 +457,9 @@
     - SC
     - SC-5
     - SC-7
+
+- name: Reload /etc/sysctl.conf - EL7
+  shell: sysctl -p
+  args:
+    executable: /bin/bash
+  when: ansible_distribution_major_version == "7"
