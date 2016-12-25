@@ -122,6 +122,86 @@
     - AC-17
     - AC-17(2)
 
+- name: Disable GSSAPI Authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ".*GSSAPIAuthentication.*"
+    line: GSSAPIAuthentication no
+  tags:
+  - CM
+  - CM-6
+  - CM-6(c)
+
+- name: Disable Kerberos Authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ".*KerberosAuthentication.*"
+    line: KerberosAuthentication no
+  tags:
+  - CM
+  - CM-6
+  - CM-6(c)
+
+- name: Enable Use of StrictModes
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ".*StrictModes.*"
+    line: StrictModes yes
+  tags:
+  - AC
+  - AC-6
+
+- name: Enable Use of Privilege Separation
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ".*UsePrivilegeSeparation.*"
+    line: UsePrivilegeSeparation yes
+  tags:
+  - AC
+  - AC-6
+
+- name: Disable Compression Or Set Compression to delayed
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ".*Compression.*"
+    line: Compression delayed
+  tags:
+  - CM
+  - CM-6
+  - CM-6(b)
+
+- name: Use Only FIPS Approved MACs
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ".*MACs.*"
+    line: MACs hmac-sha2-512,hmac-sha2-256
+  tags:
+  - AC
+  - AC-17
+  - AC-17(2)
+  - IA
+  - IA-7
+  - SC
+  - SC-13
+
+- name: Find SSH Keys
+  find:
+    paths: "/etc/ssh/"
+    patterns: "*_key"
+  register: find_ssh
+  tags:
+  - AC
+  - AC-6
+
+- name: Verify Permissions on SSH Server Private *_key Key Files
+  file:
+    dest: "{{ item.path }}"
+    mode: 0600
+  with_items: "{{ find_ssh.files }}"
+  tags:
+  - AC
+  - AC-6
+
 - name: Restart sshd
   service:
     name: sshd

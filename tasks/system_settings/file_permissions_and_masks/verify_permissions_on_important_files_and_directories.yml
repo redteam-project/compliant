@@ -71,7 +71,6 @@
   tags:
   - AC
   - AC-6
-  - finalize
 
 - name: Verify that Shared Library Files Have Restrictive Permissions and Root Ownership
   with_items: "{{ shared_lib_find.files }}"
@@ -84,7 +83,6 @@
   tags:
   - AC
   - AC-6
-  - finalize
 
 - name: Find System Executables
   find:
@@ -96,7 +94,6 @@
   tags:
   - AC
   - AC-6
-  - finalize
 
 - name: Verify that System Executables Have Restrictive Permissions and Root Ownership
   with_items: "{{ system_executable_find.files }}"
@@ -109,7 +106,6 @@
   tags:
   - AC
   - AC-6
-  - finalize
 
 - name: Set Daemon Umask
   replace:

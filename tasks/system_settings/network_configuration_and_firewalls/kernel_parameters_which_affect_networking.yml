@@ -293,7 +293,7 @@
     - AC
     - AC-4
 
-- name: Configure Kernel Parameter to Ignore ICMP Broadcast Echo Requests
+- name: Configure Kernel Parameter to Ignore ICMP Broadcast Echo Requests - EL6
   sysctl:
     name: net.ipv4.icmp_echo_ignore_broadcasts
     value: 1
@@ -301,6 +301,26 @@
     sysctl_set: yes
     reload: yes
   when: ansible_distribution_major_version == "6"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - CM
+    - CM-7
+    - SC
+    - SC-5
+
+- name: Configure Kernel Parameter to Ignore ICMP Broadcast Echo Requests - EL7
+  lineinfile:
+    line: net.ipv4.icmp_echo_ignore_broadcasts = 1
+    regexp: '.*net\.ipv4\.icmp_echo_ignore_broadcasts.*'
+    state: present
+    dest: /etc/sysctl.conf
+  when: ansible_distribution_major_version == "7"
   tags:
     - conf-low
     - conf-medium
@@ -322,6 +342,28 @@
     sysctl_set: yes
     reload: yes
   when: ansible_distribution_major_version == "6"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - AC
+    - CM-4
+    - SC
+    - SC-5
+    - SC-5(2)
+    - SC-5(3)
+
+- name: Configure Kernel Parameter to Use TCP Syncookies
+  lineinfile:
+    dest: /etc/sysctl.conf
+    line: net.ipv4.tcp_syncookies = 1
+    regexp: '.*net.ipv4.tcp_syncookies.*'
+    state: present
+  when: ansible_distribution_major_version == "7"
   tags:
     - conf-low
     - conf-medium

@@ -7,7 +7,6 @@
 - include: system_settings/main.yml
 - include: services/main.yml
 
-- include: system_settings/main.yml tags=finalize
-- include: services/main.yml tags=finalize
 
+- include: finalize.yml
 - include: scap.yml

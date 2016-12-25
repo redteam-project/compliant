@@ -134,7 +134,6 @@
     executable: /bin/bash
   when: ansible_distribution_major_version == "6"
   tags:
-    - finalize
     - conf-low
     - conf-medium
     - conf-high
