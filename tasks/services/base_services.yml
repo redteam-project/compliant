@@ -78,9 +78,9 @@
   - CM
   - CM-7
 
-- name: Ensure ntp Presrnt
+- name: Ensure ntp Present
   package:
-    name: ntpd
+    name: ntp
     state: present
   when: ansible_distribution_major_version == "6"
 
