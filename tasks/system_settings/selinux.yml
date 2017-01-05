@@ -1,9 +1,22 @@
+- stat:
+    path: /etc/yum.repos.d/redhat-rhui.repo
+  register: rhui_repo
+
 - name: Ensure libselinux-python bindings are installed
   yum:
     name: libselinux-python
     state: present
     disablerepo: "*"
     enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
+  when: rhui_repo.stat.isreg == False
+
+- name: Ensure libselinux-python bindings are installed
+  yum:
+    name: libselinux-python
+    state: present
+    disablerepo: "*"
+    enablerepo: rhui-REGION-rhel-server-releases
+  when: rhui_repo.stat.isreg == True
 
 - name: AC-3,AC-3(3),AC-4,AC-6 Enable SELinux
   selinux:

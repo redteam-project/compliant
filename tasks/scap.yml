@@ -1,24 +1,52 @@
 ---
 # file: scap.yml
-- name: Install Open SCAP scanner
-  yum:
-    name: openscap-scanner
-    state: present
-    disablerepo: '*'
-    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
-  when: run_scap
-  tags:
-    - scap
+- stat:
+    path: /etc/yum.repos.d/redhat-rhui.repo
+  register: rhui_repo
 
-- name: Install Open SCAP Security Guide
-  yum:
-    name: scap-security-guide
-    state: present
-    disablerepo: '*'
-    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
-  when: run_scap
-  tags:
-    - scap
+- block:
+  - name: Install Open SCAP scanner
+    yum:
+      name: openscap-scanner
+      state: present
+      disablerepo: '*'
+      enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
+    when: run_scap
+    tags:
+      - scap
+
+  - name: Install Open SCAP Security Guide
+    yum:
+      name: scap-security-guide
+      state: present
+      disablerepo: '*'
+      enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
+    when: run_scap
+    tags:
+      - scap
+  when: rhui_repo.stat.isreg == False
+
+- block:
+  - name: Install Open SCAP scanner
+    yum:
+      name: openscap-scanner
+      state: present
+      disablerepo: '*'
+      enablerepo: rhui-REGION-rhel-server-releases
+    when: run_scap
+    tags:
+      - scap
+
+  - name: Install Open SCAP Security Guide
+    yum:
+      name: scap-security-guide
+      state: present
+      disablerepo: '*'
+      enablerepo: rhui-REGION-rhel-server-releases
+    when: run_scap
+    tags:
+      - scap
+  when: rhui_repo.stat.isreg == True
 
 - name: Ensure the Reports Directory Exists
   file:

@@ -104,12 +104,25 @@
     enabled: yes
   when: ansible_distribution_major_version == "7"
 
+- stat:
+    path: /etc/yum.repos.d/redhat-rhui.repo
+  register: rhui_repo
+
 - name: Install postfix
   yum:
     name: postfix
     state: present
     disablerepo: '*'
     enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
+  when: rhui_repo.stat.isreg == False
+
+- name: Install postfix
+  yum:
+    name: postfix
+    state: present
+    disablerepo: '*'
+    enablerepo: rhui-REGION-rhel-server-releases
+  when: rhui_repo.stat.isreg == True
 
 - name: Start and enable postfix
   service:
