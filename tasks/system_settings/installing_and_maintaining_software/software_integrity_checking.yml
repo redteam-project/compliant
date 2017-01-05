@@ -7,7 +7,7 @@
     name: aide
     state: present
     disablerepo: '*'
-    enablerepo: rhel-{{ansible_distribution_major_version}}-server-extras-rpms
+    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
   when: rhui_repo.stat.isreg == False
   tags:
     - conf-low
@@ -29,7 +29,7 @@
     name: aide
     state: present
     disablerepo: '*'
-    enablerepo: rhui-REGION-rhel-server-extras
+    enablerepo: rhui-REGION-rhel-server-releases
   when: rhui_repo.stat.isreg == True
   tags:
     - conf-low
