@@ -24,7 +24,7 @@
     when: run_scap
     tags:
       - scap
-  when: rhui_repo.stat.isreg == False
+  when: rhui_repo.stat.isreg is undefined or rhui_repo.stat.isreg == False
 
 - block:
   - name: Install Open SCAP scanner
@@ -46,7 +46,7 @@
     when: run_scap
     tags:
       - scap
-  when: rhui_repo.stat.isreg == True
+  when: rhui_repo.stat.isreg is defined and rhui_repo.stat.isreg == True
 
 - name: Ensure the Reports Directory Exists
   file:

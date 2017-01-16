@@ -114,7 +114,7 @@
     state: present
     disablerepo: '*'
     enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
-  when: rhui_repo.stat.isreg == False
+  when: rhui_repo.stat.isreg is undefined or rhui_repo.stat.isreg == False
 
 - name: Install postfix
   yum:
@@ -122,7 +122,7 @@
     state: present
     disablerepo: '*'
     enablerepo: rhui-REGION-rhel-server-releases
-  when: rhui_repo.stat.isreg == True
+  when: rhui_repo.stat.isreg is defined and rhui_repo.stat.isreg == True
 
 - name: Start and enable postfix
   service:
