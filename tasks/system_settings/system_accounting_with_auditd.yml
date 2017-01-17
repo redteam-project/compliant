@@ -411,7 +411,7 @@
   lineinfile:
     dest: /etc/audisp/plugins.d/syslog.conf
     line: active = yes
-    regexp: '.*acitve.*'
+    regexp: '.*active.*'
   when: ansible_distribution_major_version == "7"
   tags:
   - AU
