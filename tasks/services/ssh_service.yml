@@ -122,6 +122,26 @@
     - AC-17
     - AC-17(2)
 
+- name: Disable SSH Support for User Known Hosts
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ".*IgnoreUserKnownHosts.*no.*"
+    line: "IgnoreUserKnownHosts yes"
+  tags:
+    - CM
+    - CM-6
+    - CM-6(a)
+
+- name: Disable SSH Support for Rhosts RSA Authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: ".*RhostsRSAAuthentication.*yes.*"
+    line: "RhostsRSAAuthentication no"
+  tags:
+    - CM
+    - CM-6
+    - CM-6(a)
+
 - name: Disable GSSAPI Authentication
   lineinfile:
     dest: /etc/ssh/sshd_config
