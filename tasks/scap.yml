@@ -65,7 +65,7 @@
   command: /usr/bin/oscap xccdf eval --profile "{{ item }}" --results /tmp/scap_reports/scan-xccdf-results-{{ ansible_date_time.iso8601  }}-{{ item }}.xml --report /tmp/scap_reports/scan-xccdf-report-{{ ansible_date_time.iso8601  }}-{{ item }}.html  /usr/share/xml/scap/ssg/content/ssg-rhel{{ ansible_distribution_major_version }}-xccdf.xml
   failed_when: "result | failed and 'This content points out to the remote resources' not in result.stdout"
   register: result
-  with_items: "{{ scap_profile }}"
+  with_items: "{{ scap_profile_rhel6 }}"
   when: run_scap and ansible_distribution_major_version == "6"
   tags:
     - scap
@@ -74,7 +74,7 @@
   command: /usr/bin/oscap xccdf eval --profile "{{ item }}" --results /tmp/scap_reports/scan-xccdf-results-{{ ansible_date_time.iso8601  }}-{{ item }}.xml --report /tmp/scap_reports/scan-xccdf-report-{{ ansible_date_time.iso8601  }}-{{ item }}.html  /usr/share/xml/scap/ssg/content/ssg-rhel{{ ansible_distribution_major_version }}-xccdf.xml
   failed_when: "result | failed and result.rc == 1"
   register: result
-  with_items: "{{ scap_profile }}"
+  with_items: "{{ scap_profile_rhel7 }}"
   when: run_scap and ansible_distribution_major_version == "7"
   tags:
     - scap

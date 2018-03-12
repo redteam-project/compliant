@@ -26,8 +26,10 @@ executables_path:
 vpn_package: openswan
 
 run_scap: true
-scap_profile:
-- stig-rhel{{ ansible_distribution_major_version }}-server-upstream
+scap_profile_rhel6:
+- stig-rhel6-server-upstream
+scap_profile_rhel7:
+- stig-rhel7-disa
 
 scap_reports_dir: /tmp
 
