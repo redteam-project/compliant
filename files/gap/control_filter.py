@@ -17,5 +17,3 @@ for play in content:
                 if 'NIST-800-53' in tag:
                     control = tag.replace('NIST-800-53-', '')
                     print(control + ',' + task['name'])
-
-1

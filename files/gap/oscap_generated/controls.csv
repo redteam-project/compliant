@@ -1,0 +1,1034 @@
+194,Ensure PAM variable dcredit is set accordingly
+AC-10,Limit the Number of Concurrent Login Sessions Allowed Per User
+AC-11(a),Enable GNOME3 Screensaver Idle Activation
+AC-11(a),Ensure screen is installed
+AC-11(a),Prevent user modification of GNOME idle_activation_enabled
+AC-11(a),Prevent user modification of GNOME idle-delay
+AC-11(a),Prevent user modification of GNOME lock-delay
+AC-11(a),Set GNOME3 Screensaver Inactivity Timeout
+AC-11(a),Set GNOME3 Screensaver Lock Delay After Activation Period
+AC-11(b),Enable GNOME3 Screensaver Lock After Idle Period
+AC-11(b),Prevent user modification of GNOME lock-enabled
+AC-12,Set Interactive Session Timeout
+AC-12,Set SSH Client Alive Count
+AC-12,Set SSH Idle Timeout Interval
+AC-17(1),Enable service auditd
+AC-17(2),Use Only Approved Ciphers
+AC-17(2),Use Only Approved MACs
+AC-17(7),Adds the rule in rules.d
+AC-17(7),Inserts/replaces the chmod rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the chmod rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the chmod rule in rules.d when on x86
+AC-17(7),Inserts/replaces the chmod rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the chown rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the chown rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the chown rule in rules.d when on x86
+AC-17(7),Inserts/replaces the chown rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the creat rule in audit.rules
+AC-17(7),Inserts/replaces the creat rule in rules.d
+AC-17(7),Inserts/replaces the faillock rule in /etc/audit/audit.rules
+AC-17(7),Inserts/replaces the faillock rule in rules.d when on x86
+AC-17(7),Inserts/replaces the fchmodat rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the fchmodat rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the fchmodat rule in rules.d when on x86
+AC-17(7),Inserts/replaces the fchmodat rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the fchmod rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the fchmod rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the fchmod rule in rules.d when on x86
+AC-17(7),Inserts/replaces the fchmod rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the fchownat rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the fchownat rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the fchownat rule in rules.d when on x86
+AC-17(7),Inserts/replaces the fchownat rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the fchown rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the fchown rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the fchown rule in rules.d when on x86
+AC-17(7),Inserts/replaces the fchown rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the fremovexattr rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the fremovexattr rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the fremovexattr rule in rules.d when on x86
+AC-17(7),Inserts/replaces the fremovexattr rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the fsetxattr rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the fsetxattr rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the fsetxattr rule in rules.d when on x86
+AC-17(7),Inserts/replaces the fsetxattr rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the ftruncate rule in audit.rules
+AC-17(7),Inserts/replaces the ftruncate rule in rules.d
+AC-17(7),Inserts/replaces the group rule in /etc/audit/audit.rules
+AC-17(7),Inserts/replaces the group rule in rules.d when on x86
+AC-17(7),Inserts/replaces the gshadow rule in /etc/audit/audit.rules
+AC-17(7),Inserts/replaces the gshadow rule in rules.d when on x86
+AC-17(7),Inserts/replaces the lastlog rule in /etc/audit/audit.rules
+AC-17(7),Inserts/replaces the lastlog rule in rules.d when on x86
+AC-17(7),Inserts/replaces the lchown rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the lchown rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the lchown rule in rules.d when on x86
+AC-17(7),Inserts/replaces the lchown rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the lremovexattr rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the lremovexattr rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the lremovexattr rule in rules.d when on x86
+AC-17(7),Inserts/replaces the lremovexattr rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the lsetxattr rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the lsetxattr rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the lsetxattr rule in rules.d when on x86
+AC-17(7),Inserts/replaces the lsetxattr rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the opasswd rule in /etc/audit/audit.rules
+AC-17(7),Inserts/replaces the opasswd rule in rules.d when on x86
+AC-17(7),Inserts/replaces the openat rule in audit.rules
+AC-17(7),Inserts/replaces the openat rule in rules.d
+AC-17(7),Inserts/replaces the open_by_handle_at rule in audit.rules
+AC-17(7),Inserts/replaces the open_by_handle_at rule in rules.d
+AC-17(7),Inserts/replaces the open rule in audit.rules
+AC-17(7),Inserts/replaces the open rule in rules.d
+AC-17(7),Inserts/replaces the passwd rule in /etc/audit/audit.rules
+AC-17(7),Inserts/replaces the passwd rule in rules.d when on x86
+AC-17(7),Inserts/replaces the removexattr rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the removexattr rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the removexattr rule in rules.d when on x86
+AC-17(7),Inserts/replaces the removexattr rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the rule in audit.rules
+AC-17(7),Inserts/replaces the setxattr rule in audit.rules when on x86_64
+AC-17(7),Inserts/replaces the setxattr rule in /etc/audit/audit.rules when on x86
+AC-17(7),Inserts/replaces the setxattr rule in rules.d when on x86
+AC-17(7),Inserts/replaces the setxattr rule in rules.d when on x86_64
+AC-17(7),Inserts/replaces the shadow rule in /etc/audit/audit.rules
+AC-17(7),Inserts/replaces the shadow rule in rules.d when on x86
+AC-17(7),Inserts/replaces the tallylog rule in /etc/audit/audit.rules
+AC-17(7),Inserts/replaces the tallylog rule in rules.d when on x86
+AC-17(7),Inserts/replaces the truncate rule in audit.rules
+AC-17(7),Inserts/replaces the truncate rule in rules.d
+AC-17(7),Overwrites the rule in rules.d
+AC-17(7),Search /etc/audit/rules.d for audit rule entries
+AC-17(7),Search for privileged commands
+AC-17(8).1(ii),Allow Only SSH Protocol 2
+AC-17(8),Disable service kdump
+AC-17(8),Ensure rsh-server is removed
+AC-17(8),Ensure telnet-server is removed
+AC-17(8),Ensure tftp-server is removed
+AC-17(8),Ensure ypserv is removed
+AC-19(a),Disable service autofs
+AC-19(a),Ensure kernel module 'usb-storage' is disabled
+AC-19(d),Disable service autofs
+AC-19(d),Ensure kernel module 'usb-storage' is disabled
+AC-19(e),Disable service autofs
+AC-19(e),Ensure kernel module 'usb-storage' is disabled
+AC-2(2),Set Account Expiration Following Inactivity
+AC-2(3),Set Account Expiration Following Inactivity
+AC-2(4),Inserts/replaces the group rule in /etc/audit/audit.rules
+AC-2(4),Inserts/replaces the group rule in rules.d when on x86
+AC-2(4),Inserts/replaces the gshadow rule in /etc/audit/audit.rules
+AC-2(4),Inserts/replaces the gshadow rule in rules.d when on x86
+AC-2(4),Inserts/replaces the opasswd rule in /etc/audit/audit.rules
+AC-2(4),Inserts/replaces the opasswd rule in rules.d when on x86
+AC-2(4),Inserts/replaces the passwd rule in /etc/audit/audit.rules
+AC-2(4),Inserts/replaces the passwd rule in rules.d when on x86
+AC-2(4),Inserts/replaces the shadow rule in /etc/audit/audit.rules
+AC-2(4),Inserts/replaces the shadow rule in rules.d when on x86
+AC-2(5),Set SSH Client Alive Count
+AC-2(5),Set SSH Idle Timeout Interval
+AC-3(3),Configure SELinux Policy
+AC-3(3),Ensure SELinux State is Enforcing
+AC-3(4),Configure SELinux Policy
+AC-3(4),Ensure SELinux State is Enforcing
+AC-3,Configure SELinux Policy
+AC-3,Diable SSH Access via Empty Passwords
+AC-3,Disable Host-Based Authentication
+AC-3,Disable SSH Root Login
+AC-3,Disable SSH Support for .rhosts Files
+AC-3,Ensure SELinux State is Enforcing
+AC-3,Use Only Approved Ciphers
+AC-4,Configure SELinux Policy
+AC-4,Ensure SELinux State is Enforcing
+AC-4,Ensure sysctl net.ipv4.conf.all.accept_source_route is set
+AC-4,Ensure sysctl net.ipv4.conf.all.send_redirects is set to 0
+AC-4,Ensure sysctl net.ipv4.conf.default.accept_redirects is set
+AC-4,Ensure sysctl net.ipv4.conf.default.accept_source_route is set
+AC-4,Ensure sysctl net.ipv4.conf.default.send_redirects is set to 0
+AC-4,Ensure sysctl net.ipv4.icmp_echo_ignore_broadcasts is set
+AC-4,Ensure sysctl net.ipv6.conf.all.accept_source_route is set
+AC-6(2),Disable SSH Root Login
+AC-6,Configure SELinux Policy
+AC-6,Correct file permissions with RPM
+AC-6,Diable SSH Access via Empty Passwords
+AC-6,Enable use of Privilege Separation
+AC-6,Enable Use of Strict Mode Checking
+AC-6,Ensure SELinux State is Enforcing
+AC-6,Find /etc/cron.allow file(s)
+AC-6,Find /etc/cron.allow file(s)
+AC-6,Find /etc/ssh/*_key file(s)
+AC-6,Find /etc/ssh/*.pub file(s)
+AC-6,Prevent Log In to Accounts With Empty Password - password-auth
+AC-6,Prevent Log In to Accounts With Empty Password - system-auth
+AC-6,Read list of files with incorrect permissions
+AC-6,Set group ownership to root
+AC-6,Set permissions
+AC-6,Set permissions
+AC-6,Set user ownership to root
+AC-8(a),Enable GNOME3 Login Warning Banner
+AC-8(a),Enable SSH Warning Banner
+AC-8(a),Prevent user modification of GNOME banner-message-enabled
+AC-8(b),Enable GNOME3 Login Warning Banner
+AC-8(b),Enable SSH Warning Banner
+AC-8(b),Prevent user modification of GNOME banner-message-enabled
+AC-8(c)(1),Enable GNOME3 Login Warning Banner
+AC-8(c)(1),Enable SSH Warning Banner
+AC-8(c)(1),Prevent user modification of GNOME banner-message-enabled
+AC-8(c)(2),Enable GNOME3 Login Warning Banner
+AC-8(c)(2),Enable SSH Warning Banner
+AC-8(c)(2),Prevent user modification of GNOME banner-message-enabled
+AC-8(c)(3),Enable GNOME3 Login Warning Banner
+AC-8(c)(3),Enable SSH Warning Banner
+AC-8(c)(3),Prevent user modification of GNOME banner-message-enabled
+AC-9,Print last log
+AU-10(5),Use Only Approved Ciphers
+AU-10,Enable service auditd
+AU-12(a),Adds the rule in rules.d
+AU-12(a),Enable service auditd
+AU-12(a),Inserts/replaces the chmod rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the chmod rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the chmod rule in rules.d when on x86
+AU-12(a),Inserts/replaces the chmod rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the chown rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the chown rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the chown rule in rules.d when on x86
+AU-12(a),Inserts/replaces the chown rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the creat rule in audit.rules
+AU-12(a),Inserts/replaces the creat rule in rules.d
+AU-12(a),Inserts/replaces the faillock rule in /etc/audit/audit.rules
+AU-12(a),Inserts/replaces the faillock rule in rules.d when on x86
+AU-12(a),Inserts/replaces the fchmodat rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the fchmodat rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the fchmodat rule in rules.d when on x86
+AU-12(a),Inserts/replaces the fchmodat rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the fchmod rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the fchmod rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the fchmod rule in rules.d when on x86
+AU-12(a),Inserts/replaces the fchmod rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the fchownat rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the fchownat rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the fchownat rule in rules.d when on x86
+AU-12(a),Inserts/replaces the fchownat rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the fchown rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the fchown rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the fchown rule in rules.d when on x86
+AU-12(a),Inserts/replaces the fchown rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the fremovexattr rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the fremovexattr rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the fremovexattr rule in rules.d when on x86
+AU-12(a),Inserts/replaces the fremovexattr rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the fsetxattr rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the fsetxattr rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the fsetxattr rule in rules.d when on x86
+AU-12(a),Inserts/replaces the fsetxattr rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the ftruncate rule in audit.rules
+AU-12(a),Inserts/replaces the ftruncate rule in rules.d
+AU-12(a),Inserts/replaces the group rule in /etc/audit/audit.rules
+AU-12(a),Inserts/replaces the group rule in rules.d when on x86
+AU-12(a),Inserts/replaces the gshadow rule in /etc/audit/audit.rules
+AU-12(a),Inserts/replaces the gshadow rule in rules.d when on x86
+AU-12(a),Inserts/replaces the lastlog rule in /etc/audit/audit.rules
+AU-12(a),Inserts/replaces the lastlog rule in rules.d when on x86
+AU-12(a),Inserts/replaces the lchown rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the lchown rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the lchown rule in rules.d when on x86
+AU-12(a),Inserts/replaces the lchown rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the lremovexattr rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the lremovexattr rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the lremovexattr rule in rules.d when on x86
+AU-12(a),Inserts/replaces the lremovexattr rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the lsetxattr rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the lsetxattr rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the lsetxattr rule in rules.d when on x86
+AU-12(a),Inserts/replaces the lsetxattr rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the opasswd rule in /etc/audit/audit.rules
+AU-12(a),Inserts/replaces the opasswd rule in rules.d when on x86
+AU-12(a),Inserts/replaces the openat rule in audit.rules
+AU-12(a),Inserts/replaces the openat rule in rules.d
+AU-12(a),Inserts/replaces the open_by_handle_at rule in audit.rules
+AU-12(a),Inserts/replaces the open_by_handle_at rule in rules.d
+AU-12(a),Inserts/replaces the open rule in audit.rules
+AU-12(a),Inserts/replaces the open rule in rules.d
+AU-12(a),Inserts/replaces the passwd rule in /etc/audit/audit.rules
+AU-12(a),Inserts/replaces the passwd rule in rules.d when on x86
+AU-12(a),Inserts/replaces the removexattr rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the removexattr rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the removexattr rule in rules.d when on x86
+AU-12(a),Inserts/replaces the removexattr rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the rule in audit.rules
+AU-12(a),Inserts/replaces the setxattr rule in audit.rules when on x86_64
+AU-12(a),Inserts/replaces the setxattr rule in /etc/audit/audit.rules when on x86
+AU-12(a),Inserts/replaces the setxattr rule in rules.d when on x86
+AU-12(a),Inserts/replaces the setxattr rule in rules.d when on x86_64
+AU-12(a),Inserts/replaces the shadow rule in /etc/audit/audit.rules
+AU-12(a),Inserts/replaces the shadow rule in rules.d when on x86
+AU-12(a),Inserts/replaces the tallylog rule in /etc/audit/audit.rules
+AU-12(a),Inserts/replaces the tallylog rule in rules.d when on x86
+AU-12(a),Inserts/replaces the truncate rule in audit.rules
+AU-12(a),Inserts/replaces the truncate rule in rules.d
+AU-12(a),Overwrites the rule in rules.d
+AU-12(a),Search /etc/audit/rules.d for audit rule entries
+AU-12(a),Search for privileged commands
+AU-12(c),Adds the rule in rules.d
+AU-12(c),Enable service auditd
+AU-12(c),Inserts/replaces the chage rule in audit.rules
+AU-12(c),Inserts/replaces the chage rule in rules.d
+AU-12(c),Inserts/replaces the chcon rule in audit.rules
+AU-12(c),Inserts/replaces the chcon rule in rules.d
+AU-12(c),Inserts/replaces the chmod rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the chmod rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the chmod rule in rules.d when on x86
+AU-12(c),Inserts/replaces the chmod rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the chown rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the chown rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the chown rule in rules.d when on x86
+AU-12(c),Inserts/replaces the chown rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the chsh rule in audit.rules
+AU-12(c),Inserts/replaces the chsh rule in rules.d
+AU-12(c),Inserts/replaces the creat rule in audit.rules
+AU-12(c),Inserts/replaces the creat rule in rules.d
+AU-12(c),Inserts/replaces the crontab rule in audit.rules
+AU-12(c),Inserts/replaces the crontab rule in rules.d
+AU-12(c),Inserts/replaces the faillock rule in /etc/audit/audit.rules
+AU-12(c),Inserts/replaces the faillock rule in rules.d when on x86
+AU-12(c),Inserts/replaces the fchmodat rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the fchmodat rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the fchmodat rule in rules.d when on x86
+AU-12(c),Inserts/replaces the fchmodat rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the fchmod rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the fchmod rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the fchmod rule in rules.d when on x86
+AU-12(c),Inserts/replaces the fchmod rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the fchownat rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the fchownat rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the fchownat rule in rules.d when on x86
+AU-12(c),Inserts/replaces the fchownat rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the fchown rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the fchown rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the fchown rule in rules.d when on x86
+AU-12(c),Inserts/replaces the fchown rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the fremovexattr rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the fremovexattr rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the fremovexattr rule in rules.d when on x86
+AU-12(c),Inserts/replaces the fremovexattr rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the fsetxattr rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the fsetxattr rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the fsetxattr rule in rules.d when on x86
+AU-12(c),Inserts/replaces the fsetxattr rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the ftruncate rule in audit.rules
+AU-12(c),Inserts/replaces the ftruncate rule in rules.d
+AU-12(c),Inserts/replaces the gpasswd rule in audit.rules
+AU-12(c),Inserts/replaces the gpasswd rule in rules.d
+AU-12(c),Inserts/replaces the group rule in /etc/audit/audit.rules
+AU-12(c),Inserts/replaces the group rule in rules.d when on x86
+AU-12(c),Inserts/replaces the gshadow rule in /etc/audit/audit.rules
+AU-12(c),Inserts/replaces the gshadow rule in rules.d when on x86
+AU-12(c),Inserts/replaces the lastlog rule in /etc/audit/audit.rules
+AU-12(c),Inserts/replaces the lastlog rule in rules.d when on x86
+AU-12(c),Inserts/replaces the lchown rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the lchown rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the lchown rule in rules.d when on x86
+AU-12(c),Inserts/replaces the lchown rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the lremovexattr rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the lremovexattr rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the lremovexattr rule in rules.d when on x86
+AU-12(c),Inserts/replaces the lremovexattr rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the lsetxattr rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the lsetxattr rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the lsetxattr rule in rules.d when on x86
+AU-12(c),Inserts/replaces the lsetxattr rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the newgrp rule in audit.rules
+AU-12(c),Inserts/replaces the newgrp rule in rules.d
+AU-12(c),Inserts/replaces the opasswd rule in /etc/audit/audit.rules
+AU-12(c),Inserts/replaces the opasswd rule in rules.d when on x86
+AU-12(c),Inserts/replaces the openat rule in audit.rules
+AU-12(c),Inserts/replaces the openat rule in rules.d
+AU-12(c),Inserts/replaces the open_by_handle_at rule in audit.rules
+AU-12(c),Inserts/replaces the open_by_handle_at rule in rules.d
+AU-12(c),Inserts/replaces the open rule in audit.rules
+AU-12(c),Inserts/replaces the open rule in rules.d
+AU-12(c),Inserts/replaces the pam_timestamp_check rule in audit.rules
+AU-12(c),Inserts/replaces the pam_timestamp_check rule in rules.d
+AU-12(c),Inserts/replaces the passwd rule in audit.rules
+AU-12(c),Inserts/replaces the passwd rule in /etc/audit/audit.rules
+AU-12(c),Inserts/replaces the passwd rule in rules.d
+AU-12(c),Inserts/replaces the passwd rule in rules.d when on x86
+AU-12(c),Inserts/replaces the postdrop rule in audit.rules
+AU-12(c),Inserts/replaces the postdrop rule in rules.d
+AU-12(c),Inserts/replaces the postqueue rule in audit.rules
+AU-12(c),Inserts/replaces the postqueue rule in rules.d
+AU-12(c),Inserts/replaces the pt_chown rule in audit.rules
+AU-12(c),Inserts/replaces the pt_chown rule in rules.d
+AU-12(c),Inserts/replaces the removexattr rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the removexattr rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the removexattr rule in rules.d when on x86
+AU-12(c),Inserts/replaces the removexattr rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the restorecon rule in audit.rules
+AU-12(c),Inserts/replaces the restorecon rule in rules.d
+AU-12(c),Inserts/replaces the rule in audit.rules
+AU-12(c),Inserts/replaces the semanage rule in audit.rules
+AU-12(c),Inserts/replaces the semanage rule in rules.d
+AU-12(c),Inserts/replaces the setsebool rule in audit.rules
+AU-12(c),Inserts/replaces the setsebool rule in rules.d
+AU-12(c),Inserts/replaces the setxattr rule in audit.rules when on x86_64
+AU-12(c),Inserts/replaces the setxattr rule in /etc/audit/audit.rules when on x86
+AU-12(c),Inserts/replaces the setxattr rule in rules.d when on x86
+AU-12(c),Inserts/replaces the setxattr rule in rules.d when on x86_64
+AU-12(c),Inserts/replaces the shadow rule in /etc/audit/audit.rules
+AU-12(c),Inserts/replaces the shadow rule in rules.d when on x86
+AU-12(c),Inserts/replaces the ssh_keysign rule in audit.rules
+AU-12(c),Inserts/replaces the ssh_keysign rule in rules.d
+AU-12(c),Inserts/replaces the sudoedit rule in audit.rules
+AU-12(c),Inserts/replaces the sudoedit rule in rules.d
+AU-12(c),Inserts/replaces the sudo rule in audit.rules
+AU-12(c),Inserts/replaces the sudo rule in rules.d
+AU-12(c),Inserts/replaces the su rule in audit.rules
+AU-12(c),Inserts/replaces the su rule in rules.d
+AU-12(c),Inserts/replaces the tallylog rule in /etc/audit/audit.rules
+AU-12(c),Inserts/replaces the tallylog rule in rules.d when on x86
+AU-12(c),Inserts/replaces the truncate rule in audit.rules
+AU-12(c),Inserts/replaces the truncate rule in rules.d
+AU-12(c),Inserts/replaces the umount rule in audit.rules
+AU-12(c),Inserts/replaces the umount rule in rules.d
+AU-12(c),Inserts/replaces the unix_chkpwd rule in audit.rules
+AU-12(c),Inserts/replaces the unix_chkpwd rule in rules.d
+AU-12(c),Inserts/replaces the userhelper rule in audit.rules
+AU-12(c),Inserts/replaces the userhelper rule in rules.d
+AU-12(c),Overwrites the rule in rules.d
+AU-12(c),Search /etc/audit/rules.d for audit rule entries
+AU-12(c),Search for privileged commands
+AU-14(1),Enable service auditd
+AU-1(b),Adds the rule in rules.d
+AU-1(b),Configure auditd mail_acct Action on Low Disk Space
+AU-1(b),Configure auditd space_left Action on Low Disk Space
+AU-1(b),Enable service auditd
+AU-1(b),Inserts/replaces the chmod rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the chmod rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the chmod rule in rules.d when on x86
+AU-1(b),Inserts/replaces the chmod rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the chown rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the chown rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the chown rule in rules.d when on x86
+AU-1(b),Inserts/replaces the chown rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the creat rule in audit.rules
+AU-1(b),Inserts/replaces the creat rule in rules.d
+AU-1(b),Inserts/replaces the faillock rule in /etc/audit/audit.rules
+AU-1(b),Inserts/replaces the faillock rule in rules.d when on x86
+AU-1(b),Inserts/replaces the fchmodat rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the fchmodat rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the fchmodat rule in rules.d when on x86
+AU-1(b),Inserts/replaces the fchmodat rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the fchmod rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the fchmod rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the fchmod rule in rules.d when on x86
+AU-1(b),Inserts/replaces the fchmod rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the fchownat rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the fchownat rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the fchownat rule in rules.d when on x86
+AU-1(b),Inserts/replaces the fchownat rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the fchown rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the fchown rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the fchown rule in rules.d when on x86
+AU-1(b),Inserts/replaces the fchown rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the fremovexattr rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the fremovexattr rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the fremovexattr rule in rules.d when on x86
+AU-1(b),Inserts/replaces the fremovexattr rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the fsetxattr rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the fsetxattr rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the fsetxattr rule in rules.d when on x86
+AU-1(b),Inserts/replaces the fsetxattr rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the ftruncate rule in audit.rules
+AU-1(b),Inserts/replaces the ftruncate rule in rules.d
+AU-1(b),Inserts/replaces the group rule in /etc/audit/audit.rules
+AU-1(b),Inserts/replaces the group rule in rules.d when on x86
+AU-1(b),Inserts/replaces the gshadow rule in /etc/audit/audit.rules
+AU-1(b),Inserts/replaces the gshadow rule in rules.d when on x86
+AU-1(b),Inserts/replaces the lastlog rule in /etc/audit/audit.rules
+AU-1(b),Inserts/replaces the lastlog rule in rules.d when on x86
+AU-1(b),Inserts/replaces the lchown rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the lchown rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the lchown rule in rules.d when on x86
+AU-1(b),Inserts/replaces the lchown rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the lremovexattr rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the lremovexattr rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the lremovexattr rule in rules.d when on x86
+AU-1(b),Inserts/replaces the lremovexattr rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the lsetxattr rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the lsetxattr rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the lsetxattr rule in rules.d when on x86
+AU-1(b),Inserts/replaces the lsetxattr rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the opasswd rule in /etc/audit/audit.rules
+AU-1(b),Inserts/replaces the opasswd rule in rules.d when on x86
+AU-1(b),Inserts/replaces the openat rule in audit.rules
+AU-1(b),Inserts/replaces the openat rule in rules.d
+AU-1(b),Inserts/replaces the open_by_handle_at rule in audit.rules
+AU-1(b),Inserts/replaces the open_by_handle_at rule in rules.d
+AU-1(b),Inserts/replaces the open rule in audit.rules
+AU-1(b),Inserts/replaces the open rule in rules.d
+AU-1(b),Inserts/replaces the passwd rule in /etc/audit/audit.rules
+AU-1(b),Inserts/replaces the passwd rule in rules.d when on x86
+AU-1(b),Inserts/replaces the removexattr rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the removexattr rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the removexattr rule in rules.d when on x86
+AU-1(b),Inserts/replaces the removexattr rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the rule in audit.rules
+AU-1(b),Inserts/replaces the setxattr rule in audit.rules when on x86_64
+AU-1(b),Inserts/replaces the setxattr rule in /etc/audit/audit.rules when on x86
+AU-1(b),Inserts/replaces the setxattr rule in rules.d when on x86
+AU-1(b),Inserts/replaces the setxattr rule in rules.d when on x86_64
+AU-1(b),Inserts/replaces the shadow rule in /etc/audit/audit.rules
+AU-1(b),Inserts/replaces the shadow rule in rules.d when on x86
+AU-1(b),Inserts/replaces the tallylog rule in /etc/audit/audit.rules
+AU-1(b),Inserts/replaces the tallylog rule in rules.d when on x86
+AU-1(b),Inserts/replaces the truncate rule in audit.rules
+AU-1(b),Inserts/replaces the truncate rule in rules.d
+AU-1(b),Overwrites the rule in rules.d
+AU-1(b),Search /etc/audit/rules.d for audit rule entries
+AU-1(b),Search for privileged commands
+AU-2(4),Adds the rule in rules.d
+AU-2(4),Inserts/replaces the rule in audit.rules
+AU-2(4),Overwrites the rule in rules.d
+AU-2(4),Search /etc/audit/rules.d for audit rule entries
+AU-2(4),Search for privileged commands
+AU-2(a),Adds the rule in rules.d
+AU-2(a),Inserts/replaces the chmod rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the chmod rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the chmod rule in rules.d when on x86
+AU-2(a),Inserts/replaces the chmod rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the chown rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the chown rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the chown rule in rules.d when on x86
+AU-2(a),Inserts/replaces the chown rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the creat rule in audit.rules
+AU-2(a),Inserts/replaces the creat rule in rules.d
+AU-2(a),Inserts/replaces the fchmodat rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the fchmodat rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the fchmodat rule in rules.d when on x86
+AU-2(a),Inserts/replaces the fchmodat rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the fchmod rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the fchmod rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the fchmod rule in rules.d when on x86
+AU-2(a),Inserts/replaces the fchmod rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the fchownat rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the fchownat rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the fchownat rule in rules.d when on x86
+AU-2(a),Inserts/replaces the fchownat rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the fchown rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the fchown rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the fchown rule in rules.d when on x86
+AU-2(a),Inserts/replaces the fchown rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the fremovexattr rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the fremovexattr rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the fremovexattr rule in rules.d when on x86
+AU-2(a),Inserts/replaces the fremovexattr rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the fsetxattr rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the fsetxattr rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the fsetxattr rule in rules.d when on x86
+AU-2(a),Inserts/replaces the fsetxattr rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the ftruncate rule in audit.rules
+AU-2(a),Inserts/replaces the ftruncate rule in rules.d
+AU-2(a),Inserts/replaces the group rule in /etc/audit/audit.rules
+AU-2(a),Inserts/replaces the group rule in rules.d when on x86
+AU-2(a),Inserts/replaces the gshadow rule in /etc/audit/audit.rules
+AU-2(a),Inserts/replaces the gshadow rule in rules.d when on x86
+AU-2(a),Inserts/replaces the lchown rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the lchown rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the lchown rule in rules.d when on x86
+AU-2(a),Inserts/replaces the lchown rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the lremovexattr rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the lremovexattr rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the lremovexattr rule in rules.d when on x86
+AU-2(a),Inserts/replaces the lremovexattr rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the lsetxattr rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the lsetxattr rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the lsetxattr rule in rules.d when on x86
+AU-2(a),Inserts/replaces the lsetxattr rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the opasswd rule in /etc/audit/audit.rules
+AU-2(a),Inserts/replaces the opasswd rule in rules.d when on x86
+AU-2(a),Inserts/replaces the openat rule in audit.rules
+AU-2(a),Inserts/replaces the openat rule in rules.d
+AU-2(a),Inserts/replaces the open_by_handle_at rule in audit.rules
+AU-2(a),Inserts/replaces the open_by_handle_at rule in rules.d
+AU-2(a),Inserts/replaces the open rule in audit.rules
+AU-2(a),Inserts/replaces the open rule in rules.d
+AU-2(a),Inserts/replaces the passwd rule in /etc/audit/audit.rules
+AU-2(a),Inserts/replaces the passwd rule in rules.d when on x86
+AU-2(a),Inserts/replaces the removexattr rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the removexattr rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the removexattr rule in rules.d when on x86
+AU-2(a),Inserts/replaces the removexattr rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the rule in audit.rules
+AU-2(a),Inserts/replaces the setxattr rule in audit.rules when on x86_64
+AU-2(a),Inserts/replaces the setxattr rule in /etc/audit/audit.rules when on x86
+AU-2(a),Inserts/replaces the setxattr rule in rules.d when on x86
+AU-2(a),Inserts/replaces the setxattr rule in rules.d when on x86_64
+AU-2(a),Inserts/replaces the shadow rule in /etc/audit/audit.rules
+AU-2(a),Inserts/replaces the shadow rule in rules.d when on x86
+AU-2(a),Inserts/replaces the truncate rule in audit.rules
+AU-2(a),Inserts/replaces the truncate rule in rules.d
+AU-2(a),Overwrites the rule in rules.d
+AU-2(a),Search /etc/audit/rules.d for audit rule entries
+AU-2(a),Search for privileged commands
+AU-2(c),Adds the rule in rules.d
+AU-2(c),Inserts/replaces the chmod rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the chmod rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the chmod rule in rules.d when on x86
+AU-2(c),Inserts/replaces the chmod rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the chown rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the chown rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the chown rule in rules.d when on x86
+AU-2(c),Inserts/replaces the chown rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the creat rule in audit.rules
+AU-2(c),Inserts/replaces the creat rule in rules.d
+AU-2(c),Inserts/replaces the fchmodat rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the fchmodat rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the fchmodat rule in rules.d when on x86
+AU-2(c),Inserts/replaces the fchmodat rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the fchmod rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the fchmod rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the fchmod rule in rules.d when on x86
+AU-2(c),Inserts/replaces the fchmod rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the fchownat rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the fchownat rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the fchownat rule in rules.d when on x86
+AU-2(c),Inserts/replaces the fchownat rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the fchown rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the fchown rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the fchown rule in rules.d when on x86
+AU-2(c),Inserts/replaces the fchown rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the fremovexattr rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the fremovexattr rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the fremovexattr rule in rules.d when on x86
+AU-2(c),Inserts/replaces the fremovexattr rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the fsetxattr rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the fsetxattr rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the fsetxattr rule in rules.d when on x86
+AU-2(c),Inserts/replaces the fsetxattr rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the ftruncate rule in audit.rules
+AU-2(c),Inserts/replaces the ftruncate rule in rules.d
+AU-2(c),Inserts/replaces the group rule in /etc/audit/audit.rules
+AU-2(c),Inserts/replaces the group rule in rules.d when on x86
+AU-2(c),Inserts/replaces the gshadow rule in /etc/audit/audit.rules
+AU-2(c),Inserts/replaces the gshadow rule in rules.d when on x86
+AU-2(c),Inserts/replaces the lchown rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the lchown rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the lchown rule in rules.d when on x86
+AU-2(c),Inserts/replaces the lchown rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the lremovexattr rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the lremovexattr rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the lremovexattr rule in rules.d when on x86
+AU-2(c),Inserts/replaces the lremovexattr rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the lsetxattr rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the lsetxattr rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the lsetxattr rule in rules.d when on x86
+AU-2(c),Inserts/replaces the lsetxattr rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the opasswd rule in /etc/audit/audit.rules
+AU-2(c),Inserts/replaces the opasswd rule in rules.d when on x86
+AU-2(c),Inserts/replaces the openat rule in audit.rules
+AU-2(c),Inserts/replaces the openat rule in rules.d
+AU-2(c),Inserts/replaces the open_by_handle_at rule in audit.rules
+AU-2(c),Inserts/replaces the open_by_handle_at rule in rules.d
+AU-2(c),Inserts/replaces the open rule in audit.rules
+AU-2(c),Inserts/replaces the open rule in rules.d
+AU-2(c),Inserts/replaces the passwd rule in /etc/audit/audit.rules
+AU-2(c),Inserts/replaces the passwd rule in rules.d when on x86
+AU-2(c),Inserts/replaces the removexattr rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the removexattr rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the removexattr rule in rules.d when on x86
+AU-2(c),Inserts/replaces the removexattr rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the rule in audit.rules
+AU-2(c),Inserts/replaces the setxattr rule in audit.rules when on x86_64
+AU-2(c),Inserts/replaces the setxattr rule in /etc/audit/audit.rules when on x86
+AU-2(c),Inserts/replaces the setxattr rule in rules.d when on x86
+AU-2(c),Inserts/replaces the setxattr rule in rules.d when on x86_64
+AU-2(c),Inserts/replaces the shadow rule in /etc/audit/audit.rules
+AU-2(c),Inserts/replaces the shadow rule in rules.d when on x86
+AU-2(c),Inserts/replaces the truncate rule in audit.rules
+AU-2(c),Inserts/replaces the truncate rule in rules.d
+AU-2(c),Overwrites the rule in rules.d
+AU-2(c),Search /etc/audit/rules.d for audit rule entries
+AU-2(c),Search for privileged commands
+AU-2(d),Adds the rule in rules.d
+AU-2(d),Inserts/replaces the chmod rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the chmod rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the chmod rule in rules.d when on x86
+AU-2(d),Inserts/replaces the chmod rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the chown rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the chown rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the chown rule in rules.d when on x86
+AU-2(d),Inserts/replaces the chown rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the creat rule in audit.rules
+AU-2(d),Inserts/replaces the creat rule in rules.d
+AU-2(d),Inserts/replaces the fchmodat rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the fchmodat rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the fchmodat rule in rules.d when on x86
+AU-2(d),Inserts/replaces the fchmodat rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the fchmod rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the fchmod rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the fchmod rule in rules.d when on x86
+AU-2(d),Inserts/replaces the fchmod rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the fchownat rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the fchownat rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the fchownat rule in rules.d when on x86
+AU-2(d),Inserts/replaces the fchownat rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the fchown rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the fchown rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the fchown rule in rules.d when on x86
+AU-2(d),Inserts/replaces the fchown rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the fremovexattr rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the fremovexattr rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the fremovexattr rule in rules.d when on x86
+AU-2(d),Inserts/replaces the fremovexattr rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the fsetxattr rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the fsetxattr rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the fsetxattr rule in rules.d when on x86
+AU-2(d),Inserts/replaces the fsetxattr rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the ftruncate rule in audit.rules
+AU-2(d),Inserts/replaces the ftruncate rule in rules.d
+AU-2(d),Inserts/replaces the group rule in /etc/audit/audit.rules
+AU-2(d),Inserts/replaces the group rule in rules.d when on x86
+AU-2(d),Inserts/replaces the gshadow rule in /etc/audit/audit.rules
+AU-2(d),Inserts/replaces the gshadow rule in rules.d when on x86
+AU-2(d),Inserts/replaces the lchown rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the lchown rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the lchown rule in rules.d when on x86
+AU-2(d),Inserts/replaces the lchown rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the lremovexattr rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the lremovexattr rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the lremovexattr rule in rules.d when on x86
+AU-2(d),Inserts/replaces the lremovexattr rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the lsetxattr rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the lsetxattr rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the lsetxattr rule in rules.d when on x86
+AU-2(d),Inserts/replaces the lsetxattr rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the opasswd rule in /etc/audit/audit.rules
+AU-2(d),Inserts/replaces the opasswd rule in rules.d when on x86
+AU-2(d),Inserts/replaces the openat rule in audit.rules
+AU-2(d),Inserts/replaces the openat rule in rules.d
+AU-2(d),Inserts/replaces the open_by_handle_at rule in audit.rules
+AU-2(d),Inserts/replaces the open_by_handle_at rule in rules.d
+AU-2(d),Inserts/replaces the open rule in audit.rules
+AU-2(d),Inserts/replaces the open rule in rules.d
+AU-2(d),Inserts/replaces the passwd rule in /etc/audit/audit.rules
+AU-2(d),Inserts/replaces the passwd rule in rules.d when on x86
+AU-2(d),Inserts/replaces the removexattr rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the removexattr rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the removexattr rule in rules.d when on x86
+AU-2(d),Inserts/replaces the removexattr rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the rule in audit.rules
+AU-2(d),Inserts/replaces the setxattr rule in audit.rules when on x86_64
+AU-2(d),Inserts/replaces the setxattr rule in /etc/audit/audit.rules when on x86
+AU-2(d),Inserts/replaces the setxattr rule in rules.d when on x86
+AU-2(d),Inserts/replaces the setxattr rule in rules.d when on x86_64
+AU-2(d),Inserts/replaces the shadow rule in /etc/audit/audit.rules
+AU-2(d),Inserts/replaces the shadow rule in rules.d when on x86
+AU-2(d),Inserts/replaces the truncate rule in audit.rules
+AU-2(d),Inserts/replaces the truncate rule in rules.d
+AU-2(d),Overwrites the rule in rules.d
+AU-2(d),Search /etc/audit/rules.d for audit rule entries
+AU-2(d),Search for privileged commands
+AU-3(1),Inserts/replaces the chage rule in audit.rules
+AU-3(1),Inserts/replaces the chage rule in rules.d
+AU-3(1),Inserts/replaces the chsh rule in audit.rules
+AU-3(1),Inserts/replaces the chsh rule in rules.d
+AU-3(1),Inserts/replaces the crontab rule in audit.rules
+AU-3(1),Inserts/replaces the crontab rule in rules.d
+AU-3(1),Inserts/replaces the gpasswd rule in audit.rules
+AU-3(1),Inserts/replaces the gpasswd rule in rules.d
+AU-3(1),Inserts/replaces the newgrp rule in audit.rules
+AU-3(1),Inserts/replaces the newgrp rule in rules.d
+AU-3(1),Inserts/replaces the pam_timestamp_check rule in audit.rules
+AU-3(1),Inserts/replaces the pam_timestamp_check rule in rules.d
+AU-3(1),Inserts/replaces the passwd rule in audit.rules
+AU-3(1),Inserts/replaces the passwd rule in rules.d
+AU-3(1),Inserts/replaces the postdrop rule in audit.rules
+AU-3(1),Inserts/replaces the postdrop rule in rules.d
+AU-3(1),Inserts/replaces the postqueue rule in audit.rules
+AU-3(1),Inserts/replaces the postqueue rule in rules.d
+AU-3(1),Inserts/replaces the pt_chown rule in audit.rules
+AU-3(1),Inserts/replaces the pt_chown rule in rules.d
+AU-3(1),Inserts/replaces the ssh_keysign rule in audit.rules
+AU-3(1),Inserts/replaces the ssh_keysign rule in rules.d
+AU-3(1),Inserts/replaces the sudoedit rule in audit.rules
+AU-3(1),Inserts/replaces the sudoedit rule in rules.d
+AU-3(1),Inserts/replaces the sudo rule in audit.rules
+AU-3(1),Inserts/replaces the sudo rule in rules.d
+AU-3(1),Inserts/replaces the su rule in audit.rules
+AU-3(1),Inserts/replaces the su rule in rules.d
+AU-3(1),Inserts/replaces the umount rule in audit.rules
+AU-3(1),Inserts/replaces the umount rule in rules.d
+AU-3(1),Inserts/replaces the unix_chkpwd rule in audit.rules
+AU-3(1),Inserts/replaces the unix_chkpwd rule in rules.d
+AU-3(1),Inserts/replaces the userhelper rule in audit.rules
+AU-3(1),Inserts/replaces the userhelper rule in rules.d
+AU-3(2),Set rsyslog remote loghost
+AU-3,Enable service auditd
+AU-4(1),Set rsyslog remote loghost
+AU-4,Configure auditd mail_acct Action on Low Disk Space
+AU-4,Configure auditd space_left Action on Low Disk Space
+AU-5(1),Configure auditd mail_acct Action on Low Disk Space
+AU-5(1),Configure auditd space_left Action on Low Disk Space
+AU-5(a),Configure auditd mail_acct Action on Low Disk Space
+AU-5(b),Configure auditd space_left Action on Low Disk Space
+AU-6(9),Adds the rule in rules.d
+AU-6(9),Inserts/replaces the rule in audit.rules
+AU-6(9),Overwrites the rule in rules.d
+AU-6(9),Search /etc/audit/rules.d for audit rule entries
+AU-6(9),Search for privileged commands
+AU-9(1),Correct file permissions with RPM
+AU-9(1),Read list of files with incorrect permissions
+AU-9(3),Correct file permissions with RPM
+AU-9(3),Read list of files with incorrect permissions
+AU-9,Configure SELinux Policy
+AU-9,Ensure SELinux State is Enforcing
+AU-9,Set rsyslog remote loghost
+CM-2(1)(b),Enable Encrypted X11 Forwarding
+CM-3(5),Configure Periodic Execution of AIDE
+CM-3(5),Ensure AIDE is installed
+CM-3(d),Configure Periodic Execution of AIDE
+CM-3(d),Ensure aide is installed
+CM-3(d),Ensure AIDE is installed
+CM-3(e),Configure Periodic Execution of AIDE
+CM-3(e),Ensure aide is installed
+CM-3(e),Ensure AIDE is installed
+CM-5(3),Ensure GPG check Enabled for Local Packages (DNF)
+CM-5(3),Ensure GPG check Enabled for Local Packages (Yum)
+CM-5(3),Ensure GPG check is globally activated (dnf)
+CM-5(3),Ensure GPG check is globally activated (yum)
+CM-6(3),Configure Periodic Execution of AIDE
+CM-6(3),Correct file permissions with RPM
+CM-6(3),Ensure aide is installed
+CM-6(3),Ensure AIDE is installed
+CM-6(3),Read files with incorrect hash
+CM-6(3),Read list of files with incorrect permissions
+CM-6(3),Reinstall packages of files with incorrect hash
+CM-6(3),Set fact: Package manager reinstall command (dnf)
+CM-6(3),Set fact: Package manager reinstall command (yum)
+CM-6(a),Disable SSH Support for .rhosts Files
+CM-6(a),Disable SSH Support for Rhosts RSA Authentication
+CM-6(a),Disable SSH Support for User Known Hosts
+CM-6(b),Diable SSH Access via Empty Passwords
+CM-6(b),Disable Compression or Set Compression to delayed
+CM-6(b),Disable GDM Automatic Login
+CM-6(b),Disable GDM Guest Login
+CM-6(b),Disable Host-Based Authentication
+CM-6(b),Disable service kdump
+CM-6(b),Do Not Allow SSH Environment Options
+CM-6(b),Enable service firewalld
+CM-6(b),Ensure the Default UMASK is Set Correctly
+CM-6(b),Ensure vsftpd is removed
+CM-6(b),Set accounts logon fail delay
+CM-6(b),Use Only Approved Ciphers
+CM-6(c),Disable GSSAPI Authentication
+CM-6(c),Disable Kerberos Authentication
+CM-6(c),Ensure tftp-server is removed
+CM-6(d),Configure Periodic Execution of AIDE
+CM-6(d),Correct file permissions with RPM
+CM-6(d),Ensure aide is installed
+CM-6(d),Ensure AIDE is installed
+CM-6(d),Ensure sysctl net.ipv4.conf.all.accept_redirects is set
+CM-6(d),Read files with incorrect hash
+CM-6(d),Read list of files with incorrect permissions
+CM-6(d),Reinstall packages of files with incorrect hash
+CM-6(d),Set fact: Package manager reinstall command (dnf)
+CM-6(d),Set fact: Package manager reinstall command (yum)
+CM-7(a),Ensure rsh-server is removed
+CM-7(a),Ensure telnet-server is removed
+CM-7(a),Ensure ypserv is removed
+CM-7,Disable service kdump
+CM-7,Ensure kernel module 'dccp' is disabled
+CM-7,Ensure permission nosuid are set on /home
+CM-7,Ensure sysctl net.ipv4.conf.all.accept_redirects is set
+CM-7,Ensure sysctl net.ipv4.conf.all.accept_source_route is set
+CM-7,Ensure sysctl net.ipv4.conf.all.send_redirects is set to 0
+CM-7,Ensure sysctl net.ipv4.conf.default.accept_redirects is set
+CM-7,Ensure sysctl net.ipv4.conf.default.accept_source_route is set
+CM-7,Ensure sysctl net.ipv4.conf.default.send_redirects is set to 0
+CM-7,Ensure sysctl net.ipv4.icmp_echo_ignore_broadcasts is set
+CM-7,Ensure sysctl net.ipv4.ip_forward is set to 0
+CM-7,Ensure tftp-server is removed
+CM-7,Ensure vsftpd is removed
+CM-7,get back device associated to mountpoint
+CM-7,get back device fstype
+CM-7,get back device previous mount option
+IA-2(1),Disable SSH Root Login
+IA-2(5),Disable SSH Root Login
+IA-3,Disable service autofs
+IA-3,Ensure kernel module 'usb-storage' is disabled
+IA-4(e),Set Account Expiration Following Inactivity
+IA-5(1)(a),Ensure PAM variable dcredit is set accordingly
+IA-5(1)(a),Ensure PAM variable lcredit is set accordingly
+IA-5(1)(a),Ensure PAM variable minlen is set accordingly
+IA-5(1)(a),Ensure PAM variable ocredit is set accordingly
+IA-5(1)(a),Ensure PAM variable ucredit is set accordingly
+IA-5(1)(a),Prevent Log In to Accounts With Empty Password - password-auth
+IA-5(1)(a),Prevent Log In to Accounts With Empty Password - system-auth
+IA-5(1)(b),Ensure PAM variable difok is set accordingly
+IA-5(1)(c),Allow Only SSH Protocol 2
+IA-5(1)(c),Set Password Hashing Algorithm in /etc/libuser.conf
+IA-5(1)(c),Set Password Hashing Algorithm in /etc/login.defs
+IA-5(1)(c),Use Only Approved Ciphers
+IA-5(1)(d),Set Password Maximum Age
+IA-5(1)(d),Set Password Minimum Age
+IA-5(b),Ensure PAM variable dcredit is set accordingly
+IA-5(b),Ensure PAM variable difok is set accordingly
+IA-5(b),Ensure PAM variable lcredit is set accordingly
+IA-5(b),Ensure PAM variable ocredit is set accordingly
+IA-5(b),Ensure PAM variable ucredit is set accordingly
+IA-5(b),Prevent Log In to Accounts With Empty Password - password-auth
+IA-5(b),Prevent Log In to Accounts With Empty Password - system-auth
+IA-5(b),Set Password Hashing Algorithm in /etc/libuser.conf
+IA-5(b),Set Password Hashing Algorithm in /etc/login.defs
+IA-5(c),Ensure PAM variable dcredit is set accordingly
+IA-5(c),Ensure PAM variable difok is set accordingly
+IA-5(c),Ensure PAM variable lcredit is set accordingly
+IA-5(c),Ensure PAM variable maxclassrepeat is set accordingly
+IA-5(c),Ensure PAM variable maxrepeat is set accordingly
+IA-5(c),Ensure PAM variable ocredit is set accordingly
+IA-5(c),Ensure PAM variable ucredit is set accordingly
+IA-5(c),Prevent Log In to Accounts With Empty Password - password-auth
+IA-5(c),Prevent Log In to Accounts With Empty Password - system-auth
+IA-5(c),Set Password Hashing Algorithm in /etc/libuser.conf
+IA-5(c),Set Password Hashing Algorithm in /etc/login.defs
+IA-5,Ensure PAM variable maxclassrepeat is set accordingly
+IA-5,Ensure PAM variable maxrepeat is set accordingly
+IA-5,Ensure PAM variable minclass is set accordingly
+IA-5(f),Set Password Maximum Age
+IA-5(f),Set Password Minimum Age
+IA-5(g),Set Password Maximum Age
+IA-7,Set Password Hashing Algorithm in /etc/libuser.conf
+IA-7,Set Password Hashing Algorithm in /etc/login.defs
+IA-7,Use Only Approved Ciphers
+IA-7,Use Only Approved MACs
+IR-5,Adds the rule in rules.d
+IR-5,Configure auditd mail_acct Action on Low Disk Space
+IR-5,Configure auditd space_left Action on Low Disk Space
+IR-5,Enable service auditd
+IR-5,Inserts/replaces the chmod rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the chmod rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the chmod rule in rules.d when on x86
+IR-5,Inserts/replaces the chmod rule in rules.d when on x86_64
+IR-5,Inserts/replaces the chown rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the chown rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the chown rule in rules.d when on x86
+IR-5,Inserts/replaces the chown rule in rules.d when on x86_64
+IR-5,Inserts/replaces the creat rule in audit.rules
+IR-5,Inserts/replaces the creat rule in rules.d
+IR-5,Inserts/replaces the faillock rule in /etc/audit/audit.rules
+IR-5,Inserts/replaces the faillock rule in rules.d when on x86
+IR-5,Inserts/replaces the fchmodat rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the fchmodat rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the fchmodat rule in rules.d when on x86
+IR-5,Inserts/replaces the fchmodat rule in rules.d when on x86_64
+IR-5,Inserts/replaces the fchmod rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the fchmod rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the fchmod rule in rules.d when on x86
+IR-5,Inserts/replaces the fchmod rule in rules.d when on x86_64
+IR-5,Inserts/replaces the fchownat rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the fchownat rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the fchownat rule in rules.d when on x86
+IR-5,Inserts/replaces the fchownat rule in rules.d when on x86_64
+IR-5,Inserts/replaces the fchown rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the fchown rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the fchown rule in rules.d when on x86
+IR-5,Inserts/replaces the fchown rule in rules.d when on x86_64
+IR-5,Inserts/replaces the fremovexattr rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the fremovexattr rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the fremovexattr rule in rules.d when on x86
+IR-5,Inserts/replaces the fremovexattr rule in rules.d when on x86_64
+IR-5,Inserts/replaces the fsetxattr rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the fsetxattr rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the fsetxattr rule in rules.d when on x86
+IR-5,Inserts/replaces the fsetxattr rule in rules.d when on x86_64
+IR-5,Inserts/replaces the ftruncate rule in audit.rules
+IR-5,Inserts/replaces the ftruncate rule in rules.d
+IR-5,Inserts/replaces the group rule in /etc/audit/audit.rules
+IR-5,Inserts/replaces the group rule in rules.d when on x86
+IR-5,Inserts/replaces the gshadow rule in /etc/audit/audit.rules
+IR-5,Inserts/replaces the gshadow rule in rules.d when on x86
+IR-5,Inserts/replaces the lastlog rule in /etc/audit/audit.rules
+IR-5,Inserts/replaces the lastlog rule in rules.d when on x86
+IR-5,Inserts/replaces the lchown rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the lchown rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the lchown rule in rules.d when on x86
+IR-5,Inserts/replaces the lchown rule in rules.d when on x86_64
+IR-5,Inserts/replaces the lremovexattr rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the lremovexattr rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the lremovexattr rule in rules.d when on x86
+IR-5,Inserts/replaces the lremovexattr rule in rules.d when on x86_64
+IR-5,Inserts/replaces the lsetxattr rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the lsetxattr rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the lsetxattr rule in rules.d when on x86
+IR-5,Inserts/replaces the lsetxattr rule in rules.d when on x86_64
+IR-5,Inserts/replaces the opasswd rule in /etc/audit/audit.rules
+IR-5,Inserts/replaces the opasswd rule in rules.d when on x86
+IR-5,Inserts/replaces the openat rule in audit.rules
+IR-5,Inserts/replaces the openat rule in rules.d
+IR-5,Inserts/replaces the open_by_handle_at rule in audit.rules
+IR-5,Inserts/replaces the open_by_handle_at rule in rules.d
+IR-5,Inserts/replaces the open rule in audit.rules
+IR-5,Inserts/replaces the open rule in rules.d
+IR-5,Inserts/replaces the passwd rule in /etc/audit/audit.rules
+IR-5,Inserts/replaces the passwd rule in rules.d when on x86
+IR-5,Inserts/replaces the removexattr rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the removexattr rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the removexattr rule in rules.d when on x86
+IR-5,Inserts/replaces the removexattr rule in rules.d when on x86_64
+IR-5,Inserts/replaces the rule in audit.rules
+IR-5,Inserts/replaces the setxattr rule in audit.rules when on x86_64
+IR-5,Inserts/replaces the setxattr rule in /etc/audit/audit.rules when on x86
+IR-5,Inserts/replaces the setxattr rule in rules.d when on x86
+IR-5,Inserts/replaces the setxattr rule in rules.d when on x86_64
+IR-5,Inserts/replaces the shadow rule in /etc/audit/audit.rules
+IR-5,Inserts/replaces the shadow rule in rules.d when on x86
+IR-5,Inserts/replaces the tallylog rule in /etc/audit/audit.rules
+IR-5,Inserts/replaces the tallylog rule in rules.d when on x86
+IR-5,Inserts/replaces the truncate rule in audit.rules
+IR-5,Inserts/replaces the truncate rule in rules.d
+IR-5,Overwrites the rule in rules.d
+IR-5,Search /etc/audit/rules.d for audit rule entries
+IR-5,Search for privileged commands
+MA-1(b),Ensure GPG check is globally activated (dnf)
+MA-1(b),Ensure GPG check is globally activated (yum)
+MA-1(b),Security patches are up to date
+MP-2,Ensure permission nosuid are set on /home
+MP-2,get back device associated to mountpoint
+MP-2,get back device fstype
+MP-2,get back device previous mount option
+SA-8,Ensure the Default UMASK is Set Correctly
+SA-8(i),Set SSH Idle Timeout Interval
+SA-8,Set SSH Client Alive Count
+SC-10,Set Interactive Session Timeout
+SC-13,Use Only Approved MACs
+SC-28,Configure Periodic Execution of AIDE
+SC-28,Ensure aide is installed
+SC-28,Ensure AIDE is installed
+SC-30(2),Ensure sysctl kernel.randomize_va_space is set to 2
+SC-32,Ensure sysctl net.ipv4.ip_forward is set to 0
+SC-5(1),Ensure sysctl net.ipv4.conf.all.send_redirects is set to 0
+SC-5,Ensure sysctl net.ipv4.conf.all.accept_redirects is set
+SC-5,Ensure sysctl net.ipv4.conf.all.accept_source_route is set
+SC-5,Ensure sysctl net.ipv4.conf.default.accept_redirects is set
+SC-5,Ensure sysctl net.ipv4.conf.default.accept_source_route is set
+SC-5,Ensure sysctl net.ipv4.conf.default.send_redirects is set to 0
+SC-5,Ensure sysctl net.ipv4.icmp_echo_ignore_broadcasts is set
+SC-5,Ensure sysctl net.ipv4.ip_forward is set to 0
+SC-7,Ensure sysctl net.ipv4.conf.default.accept_redirects is set
+SC-7,Ensure sysctl net.ipv4.conf.default.accept_source_route is set
+SC-7,Ensure sysctl net.ipv4.conf.default.send_redirects is set to 0
+SC-8,Enable service sshd
+SC-8,Ensure openssh-server is installed
+SI-2(6),Ensure YUM Removes Previous Package Versions
+SI-2(c),Security patches are up to date
+SI-2,Security patches are up to date
+SI-6(a),Configure SELinux Policy
+SI-6(a),Ensure SELinux State is Enforcing
+SI-7(1),Read files with incorrect hash
+SI-7(1),Reinstall packages of files with incorrect hash
+SI-7(1),Set fact: Package manager reinstall command (dnf)
+SI-7(1),Set fact: Package manager reinstall command (yum)
+SI-7,Configure Periodic Execution of AIDE
+SI-7,Ensure aide is installed
+SI-7,Ensure AIDE is installed
+SI-7,Ensure GPG check is globally activated (dnf)
+SI-7,Ensure GPG check is globally activated (yum)
