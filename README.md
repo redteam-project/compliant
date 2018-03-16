@@ -12,7 +12,7 @@ All tasks are tagged with the applicable controls.  To see which tasks are relat
 Being updated
 -------------
 
-This role is currently being revamped. Refer to our issues or files in (./files/gap) for more information.
+This role is currently being revamped. Refer to our issues or files in [files/gap](./files/gap) for more information.
 
 ```bash
 $ ansible-playbook -i [inventory] --tags "AC" --list-tasks [playbook.yml]
