@@ -1,9 +1,11 @@
-800-53
-=========
+fedoraredteam.compliant
+=======================
 
-This role endeavors to apply relevant NIST 800-53 controls to an Enterprise Linux host.
+This role applies security compliance baselines to Linux hosts.
 
-This is not a "scanner" per-se.  If you wish to assess the application of this role to your host, check out the SCAP Security Guide and Open SCAP projects.  Both of these will provide you tools with which you can scan your host.
+The technical, automate-able controls in NIST SP800-53 are our first goal, but don't worry, we'll be adding others later.
+
+This is not a "scanner" per-se.  If you wish to assess the application of this role to your host, check out the OpenSCAP project.
 
 All tasks are tagged with the applicable controls.  To see which tasks are related to the "access control" category in the NIST 800-53 controls, execute the following.
 
@@ -11,23 +13,9 @@ All tasks are tagged with the applicable controls.  To see which tasks are relat
 $ ansible-playbook -i [inventory] --tags "AC" --list-tasks [playbook.yml]
 ```
 
-Requirements
-------------
-
-Per 800-53 Audit and Accountability requirements, you are recommended to have the following partitions:
-
-1. `/var`
-2. `/var/log`
-3. `/var/log/audit`
-4. `/home`
-5. `/tmp`
-
-These scripts will not create these partitions for you.
-
-**NOTE:** This will make sweeping changes to your host.  It is recommended you apply this role to a freshly provisioned host.
-
 Role Variables
 --------------
+
 ```yaml
 ---
 # vars file for 800-53
@@ -48,6 +36,7 @@ scap_profile:
 #Where on your local host you wish to place the reports
 scap_reports_dir: /tmp
 ```
+
 Dependencies
 ------------
 
@@ -66,14 +55,18 @@ Example Playbook
   roles:
     - ansible-role-800-53
 ```
+
 Example Inventory
 -----------------
+
 ```ini
 [80053_hosts]
 172.16.78.159
 ```
+
 Example Run
 -----------
+
 ```bash
 ansible-playbook -u admin -i 80053_inventory 80053.yaml
 ```
@@ -81,9 +74,13 @@ ansible-playbook -u admin -i 80053_inventory 80053.yaml
 License
 -------
 
-Apache 2.0
+GPL v3
 
-Author Information
+
+Provenance
 ------------------
 
-Ken Evensen is a Solutions Architect with Red Hat
+This project is based on work by Ken Evensen, originally at https://github.com/rhtps/ansible-role-800-53.
+
+When we borrow things from other open source projects we try to indicate when we've done so via inline comments. 
+
