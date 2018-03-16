@@ -9,6 +9,11 @@ This is not a "scanner" per-se.  If you wish to assess the application of this r
 
 All tasks are tagged with the applicable controls.  To see which tasks are related to the "access control" category in the NIST 800-53 controls, execute the following.
 
+Being updated
+-------------
+
+This role is currently being revamped. Refer to our issues or files in (./files/gap) for more information.
+
 ```bash
 $ ansible-playbook -i [inventory] --tags "AC" --list-tasks [playbook.yml]
 ```
