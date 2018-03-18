@@ -33,6 +33,8 @@ A goal of this revamp is to make this role more cross-platform and cross-standar
 ...
 ```
 
+Another goal of this project is cross-standard support. However, the NIST control famlies are prety well-generalized, so we're standardizing those for now.
+
 To generate a list of tasks that would be executed on a per-control-family basis:
 
 ```bash
