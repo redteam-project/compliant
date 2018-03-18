@@ -28,8 +28,8 @@ A goal of this revamp is to make this role more cross-platform and cross-standar
 ├── audit_and_accountability
 │   ├── centos.yml
 │   ├── fedora.yml
-│   ├── main.yml                # Linux generic AC controls
-│   └── rhel.yml                # RHEL-specific AC controls
+│   ├── main.yml                # Linux generic AU controls
+│   └── rhel.yml                # RHEL-specific AU controls
 ...
 ```
 
