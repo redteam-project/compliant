@@ -33,6 +33,8 @@ A goal of this revamp is to make this role more cross-platform and cross-standar
 ...
 ```
 
+To generate a list of tasks that would be executed on a per-control-family basis:
+
 ```bash
 $ ansible-playbook -i [inventory] --tags "AC" --list-tasks [playbook.yml]
 ```
