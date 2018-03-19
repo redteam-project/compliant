@@ -27,14 +27,14 @@ def process_tasks(tasks, filename):
                 for tag in task['tags']:
                     if 'NIST-800-53' in tag:
                         control = tag.replace('NIST-800-53-', '')
-                        these_controls.append(control + ',' + task['name'] + ',' + filename + ',' + task['uuid'])
+                        these_controls.append('"' + control + '","' + task['name'] + '","' + filename + '","' + task['uuid'] + '"')
                     else:
-                        these_controls.append(tag + ',' + task['name'] + ',' + filename + ',' + task['uuid'])
+                        these_controls.append('"' + tag + '","' + task['name'] + '","' + filename + '","' + task['uuid'] + '"')
     if isinstance(tasks, dict):
         if tasks.get('tags'):
             task_uuid = str(uuid.uuid4())
             for tag in tasks['tags']:
-                these_controls.append(tag + ',' + tasks['name'] + ',' + filename + ',' + task_uuid)
+                these_controls.append('"' + tag + '","' + tasks['name'] + '","' + filename + '","' + task_uuid + '"')
     return these_controls
 
 
