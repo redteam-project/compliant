@@ -1,3 +1,4 @@
+control,name,file,uuid
 194,Ensure PAM variable dcredit is set accordingly,files/gap/oscap_generated/ssg-rhel7-role-stig-rhel7-disa.yml,2501879d-25df-4015-9ffa-976ac2395172
 AC-10,Limit the Number of Concurrent Login Sessions Allowed Per User,files/gap/oscap_generated/ssg-rhel7-role-stig-rhel7-disa.yml,357ef545-d5c2-4cad-bc67-efe3865aa556
 AC-11(a),Enable GNOME3 Screensaver Idle Activation,files/gap/oscap_generated/ssg-rhel7-role-stig-rhel7-disa.yml,b357e37d-b837-4bec-a4de-545f3c050f6f
