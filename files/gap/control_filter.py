@@ -17,6 +17,27 @@ def find_yaml(path):
                 yaml_files.extend(find_yaml(d))
     return yaml_files
 
+
+def process_tasks(tasks, filename):
+    these_controls = []
+    if isinstance(tasks, list):
+        for task in tasks:
+            task['uuid'] = str(uuid.uuid4())
+            if task.get('tags'):
+                for tag in task['tags']:
+                    if 'NIST-800-53' in tag:
+                        control = tag.replace('NIST-800-53-', '')
+                        these_controls.append(control + ',' + task['name'] + ',' + filename + ',' + task['uuid'])
+                    else:
+                        these_controls.append(tag + ',' + task['name'] + ',' + filename + ',' + task['uuid'])
+    if isinstance(tasks, dict):
+        if tasks.get('tags'):
+            task_uuid = str(uuid.uuid4())
+            for tag in tasks['tags']:
+                these_controls.append(tag + ',' + tasks['name'] + ',' + filename + ',' + task_uuid)
+    return these_controls
+
+
 try:
     plays = []
     for d in sys.argv[1:]:
@@ -33,15 +54,9 @@ except Exception as e:
 all_controls = []
 for play in plays:
     if play.get('tasks'):
-        for task in play['tasks']:
-            task['uuid'] = str(uuid.uuid4())
-            if task.get('tags'):
-                for tag in task['tags']:
-                    if 'NIST-800-53' in tag:
-                        control = tag.replace('NIST-800-53-', '')
-                        all_controls.append(control + ',' + task['name'] + ',' + play['filename'] + ',' + task['uuid'])
-                    else:
-                        all_controls.append(tag + ',' + task['name'] + ',' + play['filename'] + ',' + task['uuid'])
+        all_controls.extend(process_tasks(play['tasks'], play['filename']))
+    elif play.get('name'):
+        all_controls.extend(process_tasks(play, play['filename']))
 
 print('control,name,file,uuid')
 print('\n'.join(sorted(all_controls)))
