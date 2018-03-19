@@ -34,12 +34,14 @@ all_controls = []
 for play in plays:
     if play.get('tasks'):
         for task in play['tasks']:
+            task['uuid'] = str(uuid.uuid4())
             if task.get('tags'):
                 for tag in task['tags']:
                     if 'NIST-800-53' in tag:
                         control = tag.replace('NIST-800-53-', '')
-                        all_controls.append(control + ',' + task['name'] + ',' + play['filename'])
+                        all_controls.append(control + ',' + task['name'] + ',' + play['filename'] + ',' + task['uuid'])
                     else:
-                        all_controls.append(tag + ',' + task['name'] + ',' + play['filename'])
+                        all_controls.append(tag + ',' + task['name'] + ',' + play['filename'] + ',' + task['uuid'])
 
+print('control,name,file,uuid')
 print('\n'.join(sorted(all_controls)))
