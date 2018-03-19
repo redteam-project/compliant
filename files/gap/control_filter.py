@@ -3,8 +3,8 @@
 import os
 import sys
 import uuid
-import yaml
 
+from ruamel.yaml import YAML
 
 def find_yaml(path):
     yaml_files = []
@@ -25,20 +25,23 @@ def process_tasks(tasks, filename):
             task['uuid'] = str(uuid.uuid4())
             if task.get('tags'):
                 for tag in task['tags']:
+                    line_number = str(task.lc.line + 1)
                     if 'NIST-800-53' in tag:
                         control = tag.replace('NIST-800-53-', '')
-                        these_controls.append('"' + control + '","' + task['name'] + '","' + filename + '","' + task['uuid'] + '"')
+                        these_controls.append('"' + control + '","' + task['name'] + '","' + filename + '","' + task['uuid'] + '","' + line_number + '"')
                     else:
-                        these_controls.append('"' + tag + '","' + task['name'] + '","' + filename + '","' + task['uuid'] + '"')
+                        these_controls.append('"' + tag + '","' + task['name'] + '","' + filename + '","' + task['uuid'] + '","' + line_number + '"')
     if isinstance(tasks, dict):
         if tasks.get('tags'):
+            line_number = str(tasks.lc.line + 1)
             task_uuid = str(uuid.uuid4())
             for tag in tasks['tags']:
-                these_controls.append('"' + tag + '","' + tasks['name'] + '","' + filename + '","' + task_uuid + '"')
+                these_controls.append('"' + tag + '","' + tasks['name'] + '","' + filename + '","' + task_uuid + '","' + line_number + '"')
     return these_controls
 
 
 try:
+    yaml = YAML()
     plays = []
     for d in sys.argv[1:]:
         for yaml_file in find_yaml(d):
@@ -58,5 +61,5 @@ for play in plays:
     elif play.get('name'):
         all_controls.extend(process_tasks(play, play['filename']))
 
-print('control,name,file,uuid')
+print('"control","name","file","uuid","line_number"')
 print('\n'.join(sorted(all_controls)))
