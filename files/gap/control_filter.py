@@ -6,6 +6,8 @@ import uuid
 
 from ruamel.yaml import YAML
 
+controls_by_uuid = {}
+
 def find_yaml(path):
     yaml_files = []
     for root, dirs, files in os.walk(path):
