@@ -44,5 +44,5 @@ for uuid in all_controls.keys():
     repo.create_issue(all_controls[uuid]['name'], body=all_controls[uuid]['body'], milestone=milestone)
     print(str(count) + '/' + str(count_keys) + ' created "' + all_controls[uuid]['name'] + '"')
     count += 1
-    sleep(10)
+    sleep(15)
 
