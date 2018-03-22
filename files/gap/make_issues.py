@@ -1,13 +1,9 @@
 #!/usr/bin/env python
 
 from github import Github
-import json
 import jinja2
 import csv
 from time import sleep
-
-# with open('issues.json', 'r') as f:
-#     old_issues = json.load(f)
 
 with open('access_token', 'r') as f:
     access_token = f.read()
@@ -15,10 +11,6 @@ with open('access_token', 'r') as f:
 github = Github(access_token)
 repo = github.get_repo('fedoraredteam/compliant')
 milestone = repo.get_milestone(2)
-
-
-# for old_issue in old_issues:
-#     repo.create_issue(old_issue['title'], body=old_issue['body'])
 
 all_controls = {}
 template = jinja2.Environment(loader=jinja2.FileSystemLoader('./')).get_template('body.j2')
