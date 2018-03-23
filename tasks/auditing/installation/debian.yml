@@ -1,5 +1,5 @@
 ---
-- name: install audit subsystem
+- name: apt-get install auditd
   apt:
     name: auditd
     state: installed

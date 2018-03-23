@@ -1,12 +1,12 @@
 ---
 
-- name: install audit
+- name: yum install audit
   yum:
     name: audit
     state: installed
   when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
 
-- name: install audit
+- name: dnf install audit
   dnf:
     name: audit
     state: installed

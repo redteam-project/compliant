@@ -1,6 +1,24 @@
 ---
 
-# Install audit subsystems
-- import_tasks: installation/main.yml
+- name: install audit daemons
+  import_tasks: installation/main.yml
+  tags:
+    - AU
+
+- name: enable auditing for processes which start prior to the audit daemon
+  import_tasks: bootloader/main.yml
+  tags:
+    - AU
+    - AU-14
+    - AU-14(1)
+    - AU-1
+    - AU-1(b)
+    - AU-2(a)
+    - AU-2(c)
+    - AU-2(d)
+    - AU-2
+    - AU-10
+
+
 
 
