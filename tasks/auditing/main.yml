@@ -19,6 +19,43 @@
     - AU-2
     - AU-10
 
+- name: add audit rules
+  import_tasks: rules/main.yml
+  notify: reload auditd
+  tags:
+    - linux_crossplatform
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - AU
+    - AU-2(a)
+    - AU-2(c)
+    - AU-2(d)
+    - AU-2
+    - AU-12
+    - AU-12(a)
+    - AU-12(c)
 
-
-
+- name: configure auditd space_left action on low disk space
+  lineinfile:
+    dest: /etc/audit/auditd.conf
+    line: "space_left_action = email"
+    regexp: "^space_left_action*"
+  notify: reload auditd
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - AU
+    - AU-1
+    - AU-1(b)
+    - AU-4
+    - AU-5
+    - AU-5(b)

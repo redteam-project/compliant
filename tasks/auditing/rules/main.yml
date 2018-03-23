@@ -1,0 +1,44 @@
+---
+- name: add audit rules - init
+  copy:
+    src: audit-800-53-init.rules
+    dest: /etc/audit/rules.d/10-audit-800-53-init.rules
+
+- name: add audit rules - b32
+  template:
+    src: audit-800-53-b32.rules.j2
+    dest: /etc/audit/rules.d/20-audit-800-53-b32.rules
+  tags:
+    - AU-1
+    - AU-1(b)
+
+- name: get underlying architecture for audit rules
+  shell: getconf LONG_BIT
+  register: audit_arch
+
+- name: add audit rules - b64
+  template:
+    src: audit-800-53-b64.rules.j2
+    dest: /etc/audit/rules.d/30-audit-800-53-b64.rules
+  when: audit_arch.stdout == '64'
+  tags:
+    - AU-1
+    - AU-1(b)
+
+- name: ensure auditd collects information on the use of privileged commands
+  template:
+    src: privileged-commands.rules.j2
+    dest: /etc/audit/rules.d/40-privileged-commands.rules
+  tags:
+    - AU-1
+    - AU-1(b)
+    - AU-6
+    - AU-6(9)
+
+- name: add audit rules - common
+  copy:
+    src: audit-800-53-common.rules
+    dest: /etc/audit/rules.d/50-audit-800-53-common.rules
+  tags:
+    - AU-1
+    - AU-1(b)
