@@ -1,6 +1,13 @@
 ---
 
-- include: install/el.yml
+- name: install audit
+  yum:
+    name: audit
+    state: installed
   when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
-- include: install/fedora.yml
+
+- name: install audit
+  dnf:
+    name: audit
+    state: installed
   when: ansible_distribution == "Fedora"
