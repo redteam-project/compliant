@@ -1,0 +1,5 @@
+---
+- name: install audit
+  yum:
+    name: audit
+    state: installed

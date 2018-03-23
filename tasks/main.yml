@@ -1,5 +1,2 @@
 ---
-# file: main.yml
-- include: 800_53.yml
-  tags:
-    - 800-53
+- include: auditing/main.yml

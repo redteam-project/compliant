@@ -1,0 +1,6 @@
+---
+
+- include: install/el.yml
+  when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
+- include: install/fedora.yml
+  when: ansible_distribution == "Fedora"

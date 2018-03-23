@@ -1,0 +1,5 @@
+---
+- name: install audit subsystem
+  pacman:
+    name: audit
+    state: installed

@@ -1,0 +1,5 @@
+---
+- name: install audit
+  dnf:
+    name: audit
+    state: installed
