@@ -1,7 +1,6 @@
 ---
-- include: redhat/main.yml
-  when: ansible_distribution == "Fedora" or ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
-- include: debian/main.yml
-  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu" or ansible_distribution == "Kali GNU/Linux"
-- include: arch/main.yml
-  when: ansible_distribution == "Archlinux"
+
+# Install audit subsystems
+- import_tasks: installation/main.yml
+
+

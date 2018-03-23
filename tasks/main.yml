@@ -1,2 +1,2 @@
 ---
-- include: auditing/main.yml
+- import_tasks: auditing/main.yml
