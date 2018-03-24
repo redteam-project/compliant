@@ -11,3 +11,8 @@
     name: audit
     state: installed
   when: ansible_distribution == "Fedora"
+
+- name: reset auid variable for RHEL 7 and CentOS 7
+  set_fact:
+    auid: 1000
+  when: (ansible_distribution == "RedHat" or ansible_distribution == "CentOS") and ansible_distribution_major_version == "7"
