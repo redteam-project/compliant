@@ -130,7 +130,7 @@
     dest: /etc/audit/auditd.conf
     regexp: '.*flush.*'
     line: flush = data
-  when: not (ansible_distribution == "RedHat" or ansible_distribution == "CentOS") and ansible_distribution_major_version == "6")
+  when: (not (ansible_distribution == "RedHat" or ansible_distribution == "CentOS") and ansible_distribution_major_version == "6"))
   tags:
     - NIST-800-53
     - NIST-800-53-AU
