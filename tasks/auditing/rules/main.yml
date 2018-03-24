@@ -1,4 +1,17 @@
 ---
+- block:
+    - name: dnf install libselinux-python
+      dnf:
+        name: libselinux-python
+        state: installed
+      when: ansible_distribution == "Fedora"
+    - name: yum install libselinux-python
+      yum:
+        name: libselinux-python
+        state: installed
+      when: (ansible_distribution == "RedHat" or ansible_distribution == "CentOS") and ansible_distribution_major_version == "6"
+  when: ansible_distribution == "Fedora" or ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
+
 - name: add audit rules - init
   copy:
     src: audit-800-53-init.rules
