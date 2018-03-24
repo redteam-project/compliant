@@ -4,7 +4,7 @@
 
 - block:
     # TODO: fix this is shoddy logic, as it will won't work predictably if one kernel is missing audit=1
-    - name: check for
+    - name: check for presence of audit=1 in grub.cfg
       command: 'grep "^[[:space:]]*linux.*audit=1.*" /boot/grub/grub.cfg'
       register: grep_result
 

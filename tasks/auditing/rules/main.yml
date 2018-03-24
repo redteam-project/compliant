@@ -38,6 +38,11 @@
     - AU-1
     - AU-1(b)
 
+- name: find commands with setuid/setgid bit set on /
+  shell: find / -xdev -type f -perm -4000 -o -type f -perm -2000 2>/dev/null
+  check_mode: no
+  register: find_result
+
 - name: ensure auditd collects information on the use of privileged commands
   template:
     src: privileged-commands.rules.j2
