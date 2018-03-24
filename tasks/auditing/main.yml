@@ -124,3 +124,49 @@
       fi
     fi
   when: ansible_distribution == "Archlinux"
+
+- name: Configure auditd flush priority
+  lineinfile:
+    dest: /etc/audit/auditd.conf
+    regexp: '.*flush.*'
+    line: flush = data
+  when: not (ansible_distribution == "RedHat" or ansible_distribution == "CentOS") and ansible_distribution_major_version == "6")
+  tags:
+    - NIST-800-53
+    - NIST-800-53-AU
+    - NIST-800-53-AU-9
+    - NIST-800-53-AU-12
+    - NIST-800-53-AU-12(1)
+
+- include_tasks: log_group/redhat.yml
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "6"
+  tags:
+    - NIST-800-53
+    - NIST-800-53-AC
+    - NIST-800-53-AC-6
+
+- name: configure auditd to use audispd's syslog plugin
+  lineinfile:
+    dest: /etc/audisp/plugins.d/syslog.conf
+    line: active = yes
+    regexp: '.*active.*'
+  tags:
+    - linux_cross_platform
+    - NIST-800-53
+    - NIST-800-53-AU
+    - NIST-800-53-AU-1
+    - NIST-800-53-AU-3
+    - NIST-800-53-AU-1(b)
+    - NIST-800-53-AU-3(2)
+    - NIST-800-53-IR
+    - NIST-800-53-IR-5
+
+- name: Enable auditd service
+  service:
+    name: auditd
+    state: started
+    enabled: yes
+  tags:
+    - linux_cross_platform
+    - NIST-800-53
+    - NIST-800-53-AU
