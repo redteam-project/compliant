@@ -3,21 +3,22 @@
 - name: install audit daemons
   import_tasks: installation/main.yml
   tags:
-    - AU
+    - NIST-800-53
+    - NIST-800-53-AU
 
 - name: enable auditing for processes which start prior to the audit daemon
   import_tasks: bootloader/main.yml
   tags:
-    - AU
-    - AU-14
-    - AU-14(1)
-    - AU-1
-    - AU-1(b)
-    - AU-2(a)
-    - AU-2(c)
-    - AU-2(d)
-    - AU-2
-    - AU-10
+    - NIST-800-53-AU
+    - NIST-800-53-AU-14
+    - NIST-800-53-AU-14(1)
+    - NIST-800-53-AU-1
+    - NIST-800-53-AU-1(b)
+    - NIST-800-53-AU-2(a)
+    - NIST-800-53-AU-2(c)
+    - NIST-800-53-AU-2(d)
+    - NIST-800-53-AU-2
+    - NIST-800-53-AU-10
 
 - name: add audit rules
   import_tasks: rules/main.yml
@@ -28,14 +29,15 @@
     - int-low
     - int-medium
     - int-high
-    - AU
-    - AU-2(a)
-    - AU-2(c)
-    - AU-2(d)
-    - AU-2
-    - AU-12
-    - AU-12(a)
-    - AU-12(c)
+    - NIST-800-53
+    - NIST-800-53-AU
+    - NIST-800-53-AU-2(a)
+    - NIST-800-53-AU-2(c)
+    - NIST-800-53-AU-2(d)
+    - NIST-800-53-AU-2
+    - NIST-800-53-AU-12
+    - NIST-800-53-AU-12(a)
+    - NIST-800-53-AU-12(c)
 
 - block:
   - name: configure auditd space_left action on low disk space
@@ -51,12 +53,13 @@
       - int-medium
       - int-high
       - CAT-II
-      - AU
-      - AU-1
-      - AU-1(b)
-      - AU-4
-      - AU-5
-      - AU-5(b)
+      - NIST-800-53
+      - NIST-800-53-AU
+      - NIST-800-53-AU-1
+      - NIST-800-53-AU-1(b)
+      - NIST-800-53-AU-4
+      - NIST-800-53-AU-5
+      - NIST-800-53-AU-5(b)
 
   - name: configure auditd admin_space_left action on low disk space
     lineinfile:
@@ -71,12 +74,13 @@
       - int-medium
       - int-high
       - CAT-II
-      - AU
-      - AU-1
-      - AU-1(b)
-      - AU-4
-      - AU-5
-      - AU-5(b)
+      - NIST-800-53
+      - NIST-800-53-AU
+      - NIST-800-53-AU-1
+      - NIST-800-53-AU-1(b)
+      - NIST-800-53-AU-4
+      - NIST-800-53-AU-5
+      - NIST-800-53-AU-5(b)
 
   - name: configure auditd mail_acct action on low disk space
     lineinfile:
@@ -91,15 +95,16 @@
       - int-medium
       - int-high
       - CAT-II
-      - AU
-      - AU-1
-      - AU-1(b)
-      - AU-4
-      - AU-5
-      - AU-5(1)
-      - AU-5(a)
-      - IR
-      - IR-5
+      - NIST-800-53
+      - NIST-800-53-AU
+      - NIST-800-53-AU-1
+      - NIST-800-53-AU-1(b)
+      - NIST-800-53-AU-4
+      - NIST-800-53-AU-5
+      - NIST-800-53-AU-5(1)
+      - NIST-800-53-AU-5(a)
+      - NIST-800-53-IR
+      - NIST-800-53-IR-5
   tags:
     - linux_cross_platform
 

@@ -23,8 +23,8 @@
       src: audit-800-53-b32.rules.j2
       dest: /etc/audit/rules.d/20-audit-800-53-b32.rules
     tags:
-      - AU-1
-      - AU-1(b)
+      - NIST-800-53-AU-1
+      - NIST-800-53-AU-1(b)
 
   - name: get underlying architecture for audit rules
     shell: getconf LONG_BIT
@@ -36,8 +36,8 @@
       dest: /etc/audit/rules.d/30-audit-800-53-b64.rules
     when: audit_arch.stdout == '64'
     tags:
-      - AU-1
-      - AU-1(b)
+      - NIST-800-53-AU-1
+      - NIST-800-53-AU-1(b)
 
   - name: find commands with setuid/setgid bit set on /
     shell: find / -xdev -type f -perm -4000 -o -type f -perm -2000 2>/dev/null
@@ -49,10 +49,10 @@
       src: privileged-commands.rules.j2
       dest: /etc/audit/rules.d/40-privileged-commands.rules
     tags:
-      - AU-1
-      - AU-1(b)
-      - AU-6
-      - AU-6(9)
+      - NIST-800-53-AU-1
+      - NIST-800-53-AU-1(b)
+      - NIST-800-53-AU-6
+      - NIST-800-53-AU-6(9)
   tags:
     - linux_cross_platform
 
@@ -61,8 +61,8 @@
     src: audit-800-53-common.rules
     dest: /etc/audit/rules.d/50-audit-800-53-common.rules
   tags:
-    - AU-1
-    - AU-1(b)
+    - NIST-800-53-AU-1
+    - NIST-800-53-AU-1(b)
 
 # TODO: add appropriate analogs to /etc/sysconfig
 - name: WORKAROUND remove references to sysconfig in debian variants and arch
