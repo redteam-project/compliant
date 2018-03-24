@@ -60,3 +60,10 @@
   tags:
     - AU-1
     - AU-1(b)
+
+- name: WORKAROUND remove references to sysconfig in debian variants and arch
+  lineinfile:
+    path: /etc/audit/rules.d/50-audit-800-53-common.rules
+    regexp: '.*/etc/sysconfig.*'
+    state: absent
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu" or ansible_distribution == "Kali GNU/Linux" or ansible_distribution == "Archlinux"
