@@ -21,7 +21,6 @@
 
 - name: add audit rules
   import_tasks: rules/main.yml
-  notify: reload auditd
   tags:
     - linux_crossplatform
     - conf-low
@@ -44,7 +43,6 @@
     dest: /etc/audit/auditd.conf
     line: "space_left_action = email"
     regexp: "^space_left_action*"
-  notify: reload auditd
   tags:
     - conf-low
     - conf-medium
@@ -65,7 +63,6 @@
     dest: /etc/audit/auditd.conf
     line: "admin_space_left_action = single"
     regexp: "^admin_space_left_action*"
-  notify: reload auditd
   tags:
     - conf-low
     - conf-medium
@@ -86,7 +83,6 @@
     dest: /etc/audit/auditd.conf
     line: "action_mail_acct = root"
     state: present
-  notify: reload auditd
   tags:
     - conf-low
     - conf-medium
@@ -104,3 +100,20 @@
     - AU-5(a)
     - IR
     - IR-5
+
+- name: regenerate audit rules
+  shell: /sbin/augenrules --load
+  when: ansible_distribution != "Archlinux"
+
+- name: regenerate audit rules on Archlinux
+  shell: |
+    result=`/sbin/augenrules --load`
+    if [ "${?}" != "0" ]; then
+      echo ${result} | grep "No change" >/dev/null 2>&1
+      if [ "${?}" == "0" ]; then
+        exit 0
+      else
+        exit 1
+      fi
+    fi
+  when: ansible_distribution == "Archlinux"
