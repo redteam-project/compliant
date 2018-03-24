@@ -12,46 +12,49 @@
       when: (ansible_distribution == "RedHat" or ansible_distribution == "CentOS") and ansible_distribution_major_version == "6"
   when: ansible_distribution == "Fedora" or ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
 
-- name: add audit rules - init
-  copy:
-    src: audit-800-53-init.rules
-    dest: /etc/audit/rules.d/10-audit-800-53-init.rules
+- block:
+  - name: add audit rules - init
+    copy:
+      src: audit-800-53-init.rules
+      dest: /etc/audit/rules.d/10-audit-800-53-init.rules
 
-- name: add audit rules - b32
-  template:
-    src: audit-800-53-b32.rules.j2
-    dest: /etc/audit/rules.d/20-audit-800-53-b32.rules
+  - name: add audit rules - b32
+    template:
+      src: audit-800-53-b32.rules.j2
+      dest: /etc/audit/rules.d/20-audit-800-53-b32.rules
+    tags:
+      - AU-1
+      - AU-1(b)
+
+  - name: get underlying architecture for audit rules
+    shell: getconf LONG_BIT
+    register: audit_arch
+
+  - name: add audit rules - b64
+    template:
+      src: audit-800-53-b64.rules.j2
+      dest: /etc/audit/rules.d/30-audit-800-53-b64.rules
+    when: audit_arch.stdout == '64'
+    tags:
+      - AU-1
+      - AU-1(b)
+
+  - name: find commands with setuid/setgid bit set on /
+    shell: find / -xdev -type f -perm -4000 -o -type f -perm -2000 2>/dev/null
+    check_mode: no
+    register: find_result
+
+  - name: ensure auditd collects information on the use of privileged commands
+    template:
+      src: privileged-commands.rules.j2
+      dest: /etc/audit/rules.d/40-privileged-commands.rules
+    tags:
+      - AU-1
+      - AU-1(b)
+      - AU-6
+      - AU-6(9)
   tags:
-    - AU-1
-    - AU-1(b)
-
-- name: get underlying architecture for audit rules
-  shell: getconf LONG_BIT
-  register: audit_arch
-
-- name: add audit rules - b64
-  template:
-    src: audit-800-53-b64.rules.j2
-    dest: /etc/audit/rules.d/30-audit-800-53-b64.rules
-  when: audit_arch.stdout == '64'
-  tags:
-    - AU-1
-    - AU-1(b)
-
-- name: find commands with setuid/setgid bit set on /
-  shell: find / -xdev -type f -perm -4000 -o -type f -perm -2000 2>/dev/null
-  check_mode: no
-  register: find_result
-
-- name: ensure auditd collects information on the use of privileged commands
-  template:
-    src: privileged-commands.rules.j2
-    dest: /etc/audit/rules.d/40-privileged-commands.rules
-  tags:
-    - AU-1
-    - AU-1(b)
-    - AU-6
-    - AU-6(9)
+    - linux_cross_platform
 
 - name: add audit rules - common
   copy:

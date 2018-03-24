@@ -22,7 +22,6 @@
 - name: add audit rules
   import_tasks: rules/main.yml
   tags:
-    - linux_crossplatform
     - conf-low
     - conf-medium
     - conf-high
@@ -38,68 +37,71 @@
     - AU-12(a)
     - AU-12(c)
 
-- name: configure auditd space_left action on low disk space
-  lineinfile:
-    dest: /etc/audit/auditd.conf
-    line: "space_left_action = email"
-    regexp: "^space_left_action*"
-  tags:
-    - conf-low
-    - conf-medium
-    - conf-high
-    - int-low
-    - int-medium
-    - int-high
-    - CAT-II
-    - AU
-    - AU-1
-    - AU-1(b)
-    - AU-4
-    - AU-5
-    - AU-5(b)
+- block:
+  - name: configure auditd space_left action on low disk space
+    lineinfile:
+      dest: /etc/audit/auditd.conf
+      line: "space_left_action = email"
+      regexp: "^space_left_action*"
+    tags:
+      - conf-low
+      - conf-medium
+      - conf-high
+      - int-low
+      - int-medium
+      - int-high
+      - CAT-II
+      - AU
+      - AU-1
+      - AU-1(b)
+      - AU-4
+      - AU-5
+      - AU-5(b)
 
-- name: configure auditd admin_space_left action on low disk space
-  lineinfile:
-    dest: /etc/audit/auditd.conf
-    line: "admin_space_left_action = single"
-    regexp: "^admin_space_left_action*"
-  tags:
-    - conf-low
-    - conf-medium
-    - conf-high
-    - int-low
-    - int-medium
-    - int-high
-    - CAT-II
-    - AU
-    - AU-1
-    - AU-1(b)
-    - AU-4
-    - AU-5
-    - AU-5(b)
+  - name: configure auditd admin_space_left action on low disk space
+    lineinfile:
+      dest: /etc/audit/auditd.conf
+      line: "admin_space_left_action = single"
+      regexp: "^admin_space_left_action*"
+    tags:
+      - conf-low
+      - conf-medium
+      - conf-high
+      - int-low
+      - int-medium
+      - int-high
+      - CAT-II
+      - AU
+      - AU-1
+      - AU-1(b)
+      - AU-4
+      - AU-5
+      - AU-5(b)
 
-- name: configure auditd mail_acct action on low disk space
-  lineinfile:
-    dest: /etc/audit/auditd.conf
-    line: "action_mail_acct = root"
-    state: present
+  - name: configure auditd mail_acct action on low disk space
+    lineinfile:
+      dest: /etc/audit/auditd.conf
+      line: "action_mail_acct = root"
+      state: present
+    tags:
+      - conf-low
+      - conf-medium
+      - conf-high
+      - int-low
+      - int-medium
+      - int-high
+      - CAT-II
+      - AU
+      - AU-1
+      - AU-1(b)
+      - AU-4
+      - AU-5
+      - AU-5(1)
+      - AU-5(a)
+      - IR
+      - IR-5
   tags:
-    - conf-low
-    - conf-medium
-    - conf-high
-    - int-low
-    - int-medium
-    - int-high
-    - CAT-II
-    - AU
-    - AU-1
-    - AU-1(b)
-    - AU-4
-    - AU-5
-    - AU-5(1)
-    - AU-5(a)
-    - IR
-    - IR-5
+    - linux_cross_platform
 
 - name: regenerate audit rules
   shell: /sbin/augenrules --load
