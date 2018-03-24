@@ -61,6 +61,7 @@
     - AU-1
     - AU-1(b)
 
+# TODO: add appropriate analogs to /etc/sysconfig
 - name: WORKAROUND remove references to sysconfig in debian variants and arch
   lineinfile:
     path: /etc/audit/rules.d/50-audit-800-53-common.rules

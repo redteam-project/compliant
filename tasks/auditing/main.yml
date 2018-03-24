@@ -59,3 +59,48 @@
     - AU-4
     - AU-5
     - AU-5(b)
+
+- name: configure auditd admin_space_left action on low disk space
+  lineinfile:
+    dest: /etc/audit/auditd.conf
+    line: "admin_space_left_action = single"
+    regexp: "^admin_space_left_action*"
+  notify: reload auditd
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - AU
+    - AU-1
+    - AU-1(b)
+    - AU-4
+    - AU-5
+    - AU-5(b)
+
+- name: configure auditd mail_acct action on low disk space
+  lineinfile:
+    dest: /etc/audit/auditd.conf
+    line: "action_mail_acct = root"
+    state: present
+  notify: reload auditd
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - CAT-II
+    - AU
+    - AU-1
+    - AU-1(b)
+    - AU-4
+    - AU-5
+    - AU-5(1)
+    - AU-5(a)
+    - IR
+    - IR-5
