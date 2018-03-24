@@ -3,3 +3,8 @@
   pacman:
     name: audit
     state: installed
+
+- name: make rules.d directory
+  file:
+    path: /etc/audit/rules.d
+    state: directory
