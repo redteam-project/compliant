@@ -1,0 +1,172 @@
+---
+
+- name: install audit daemons
+  import_tasks: installation/main.yml
+  tags:
+    - NIST-800-53
+    - NIST-800-53-AU
+
+- name: enable auditing for processes which start prior to the audit daemon
+  import_tasks: bootloader/main.yml
+  tags:
+    - NIST-800-53-AU
+    - NIST-800-53-AU-14
+    - NIST-800-53-AU-14(1)
+    - NIST-800-53-AU-1
+    - NIST-800-53-AU-1(b)
+    - NIST-800-53-AU-2(a)
+    - NIST-800-53-AU-2(c)
+    - NIST-800-53-AU-2(d)
+    - NIST-800-53-AU-2
+    - NIST-800-53-AU-10
+
+- name: add audit rules
+  import_tasks: rules/main.yml
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - NIST-800-53
+    - NIST-800-53-AU
+    - NIST-800-53-AU-2(a)
+    - NIST-800-53-AU-2(c)
+    - NIST-800-53-AU-2(d)
+    - NIST-800-53-AU-2
+    - NIST-800-53-AU-12
+    - NIST-800-53-AU-12(a)
+    - NIST-800-53-AU-12(c)
+
+- block:
+  - name: configure auditd space_left action on low disk space
+    lineinfile:
+      dest: /etc/audit/auditd.conf
+      line: "space_left_action = email"
+      regexp: "^space_left_action*"
+    tags:
+      - conf-low
+      - conf-medium
+      - conf-high
+      - int-low
+      - int-medium
+      - int-high
+      - CAT-II
+      - NIST-800-53
+      - NIST-800-53-AU
+      - NIST-800-53-AU-1
+      - NIST-800-53-AU-1(b)
+      - NIST-800-53-AU-4
+      - NIST-800-53-AU-5
+      - NIST-800-53-AU-5(b)
+
+  - name: configure auditd admin_space_left action on low disk space
+    lineinfile:
+      dest: /etc/audit/auditd.conf
+      line: "admin_space_left_action = single"
+      regexp: "^admin_space_left_action*"
+    tags:
+      - conf-low
+      - conf-medium
+      - conf-high
+      - int-low
+      - int-medium
+      - int-high
+      - CAT-II
+      - NIST-800-53
+      - NIST-800-53-AU
+      - NIST-800-53-AU-1
+      - NIST-800-53-AU-1(b)
+      - NIST-800-53-AU-4
+      - NIST-800-53-AU-5
+      - NIST-800-53-AU-5(b)
+
+  - name: configure auditd mail_acct action on low disk space
+    lineinfile:
+      dest: /etc/audit/auditd.conf
+      line: "action_mail_acct = root"
+      state: present
+    tags:
+      - conf-low
+      - conf-medium
+      - conf-high
+      - int-low
+      - int-medium
+      - int-high
+      - CAT-II
+      - NIST-800-53
+      - NIST-800-53-AU
+      - NIST-800-53-AU-1
+      - NIST-800-53-AU-1(b)
+      - NIST-800-53-AU-4
+      - NIST-800-53-AU-5
+      - NIST-800-53-AU-5(1)
+      - NIST-800-53-AU-5(a)
+      - NIST-800-53-IR
+      - NIST-800-53-IR-5
+  tags:
+    - linux_cross_platform
+
+- name: regenerate audit rules
+  shell: /sbin/augenrules --load
+  when: ansible_distribution != "Archlinux"
+
+- name: regenerate audit rules on Archlinux
+  shell: |
+    result=`/sbin/augenrules --load`
+    if [ "${?}" != "0" ]; then
+      echo ${result} | grep "No change" >/dev/null 2>&1
+      if [ "${?}" == "0" ]; then
+        exit 0
+      else
+        exit 1
+      fi
+    fi
+  when: ansible_distribution == "Archlinux"
+
+- name: Configure auditd flush priority
+  lineinfile:
+    dest: /etc/audit/auditd.conf
+    regexp: '.*flush.*'
+    line: flush = data
+  when: (ansible_distribution != "RedHat" and ansible_distribution != "CentOS") or ((ansible_distribution == "RedHat" or ansible_distribution == "CentOS") and ansible_distribution_major_version != "6")
+  tags:
+    - NIST-800-53
+    - NIST-800-53-AU
+    - NIST-800-53-AU-9
+    - NIST-800-53-AU-12
+    - NIST-800-53-AU-12(1)
+
+- include_tasks: log_group/redhat.yml
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "6"
+  tags:
+    - NIST-800-53
+    - NIST-800-53-AC
+    - NIST-800-53-AC-6
+
+- name: configure auditd to use audispd's syslog plugin
+  lineinfile:
+    dest: /etc/audisp/plugins.d/syslog.conf
+    line: active = yes
+    regexp: '.*active.*'
+  tags:
+    - linux_cross_platform
+    - NIST-800-53
+    - NIST-800-53-AU
+    - NIST-800-53-AU-1
+    - NIST-800-53-AU-3
+    - NIST-800-53-AU-1(b)
+    - NIST-800-53-AU-3(2)
+    - NIST-800-53-IR
+    - NIST-800-53-IR-5
+
+- name: enable and start auditd service
+  service:
+    name: auditd
+    state: started
+    enabled: yes
+  tags:
+    - linux_cross_platform
+    - NIST-800-53
+    - NIST-800-53-AU

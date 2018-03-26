@@ -1,0 +1,5 @@
+---
+- name: apt-get install auditd
+  apt:
+    name: auditd
+    state: installed

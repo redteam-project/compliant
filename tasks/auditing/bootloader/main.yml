@@ -1,0 +1,18 @@
+---
+- import_tasks: redhat.yml
+  when: ansible_distribution == "Fedora" or ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
+
+- block:
+    # TODO: fix this is shoddy logic, as it will won't work predictably if one kernel is missing audit=1
+    - name: check for presence of audit=1 in grub.cfg
+      command: 'grep "^[[:space:]]*linux.*audit=1.*" /boot/grub/grub.cfg'
+      register: grep_result
+
+    - name: pass audit=1 to kernel in bootloader via regexp replace
+      replace:
+        path: /boot/grub/grub.cfg
+        regexp: '^(\s*linux.*)$'
+        replace: '\1 audit=1'
+        backup: yes
+      when: grep_result.rc != 0
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu" or ansible_distribution == "Kali GNU/Linux" or ansible_distribution == "Archlinux"

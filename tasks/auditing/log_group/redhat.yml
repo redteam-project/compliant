@@ -1,0 +1,105 @@
+---
+- name: determine if log group (log_group) is set for audit logs
+  shell: grep -q ^log_group /etc/audit/auditd.conf
+  args:
+    executable: /bin/bash
+  register: log_group
+
+- debug:
+    var: log_group.stdout
+
+- name: determine if log group (log_group) is not root for audit logs
+  shell: awk -F "=" '/log_group/ {print $2}' /etc/audit/auditd.conf | tr -d ' '
+  args:
+    executable: /bin/bash
+  register: GROUP
+  when:
+    - log_group.stdout is defined
+
+- name: system audit logs must have mode 0640 or less permissive when log_group is root (1/4)
+  file:
+    path: /var/log/audit/audit.log
+    mode: 0640
+  when:
+    - GROUP.stdout is defined
+    - GROUP.stdout == "root"
+
+- name: system audit logs must have mode 0640 or less permissive when log_group is root (2/4)
+  shell: chmod 0440 /var/log/audit/audit.log.*
+  args:
+    executable: /bin/bash
+  when:
+    - GROUP.stdout is defined
+    - GROUP.stdout == "root"
+  ignore_errors: yes
+
+- name: system audit logs must have mode 0640 or less permissive when log_group is not root (1/4)
+  file:
+    path: /var/log/audit/audit.log
+    mode: 0600
+  when:
+    - GROUP.stdout is defined
+    - GROUP.stdout != "root"
+
+- name: system audit logs must have mode 0640 or less permissive when log_group is not root (2/4)
+  shell: chmod 0400 /var/log/audit/audit.log.*
+  args:
+    executable: /bin/bash
+  when:
+    - GROUP.stdout is defined
+    - GROUP.stdout != "root"
+  ignore_errors: yes
+
+- name: system audit logs must have mode 0640 or less permissive when log_group is set (3/4)
+  shell: chmod 0640 /etc/audit/audit*
+  args:
+    executable: /bin/bash
+  when:
+  - log_group.stdout is defined
+
+- name: system audit logs must have mode 0640 or less permissive when log_group is set (4/4)
+  shell: chmod 0640 /etc/audit/rules.d/*
+  args:
+    executable: /bin/bash
+  when:
+   - log_group.stdout is defined
+
+- name: system audit logs must have mode 0640 or less permissive when log_group is not set (1/4)
+  file:
+    path: /var/log/audit/audit.log
+    mode: 0600
+  when:
+    - log_group.stdout is defined
+    - log_group.stdout == ""
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+
+- name: system audit logs must have mode 0640 or less permissive when log_group is not set (2/4)
+  shell: chmod 0400 /var/log/audit/audit.log.*
+  args:
+    executable: /bin/bash
+  when:
+    - log_group.stdout is defined
+    - log_group.stdout == ""
+  ignore_errors: yes
+
+- name: system audit logs must have mode 0640 or less permissive when log_group is not set (3/4)
+  shell: chmod 0640 /etc/audit/audit*
+  args:
+    executable: /bin/bash
+  when:
+    - log_group.stdout is defined
+    - log_group.stdout == ""
+
+- name: system audit logs must have mode 0640 or less permissive when log_group is not set (4/4)
+  shell: chmod 0640 /etc/audit/rules.d/*
+  args:
+    executable: /bin/bash
+  when:
+    - log_group.stdout is defined
+    - log_group.stdout == ""
