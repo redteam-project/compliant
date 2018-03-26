@@ -20,7 +20,7 @@
     when: rhui_repo.stat.isreg is defined and rhui_repo.stat.isreg == True
   when: ansible_distribution == "RedHat"
 
-- name: ensure libselinux-python bindings are installed (yum)
+  - name: ensure libselinux-python bindings are installed (yum)
     yum:
       name: libselinux-python
       state: present
