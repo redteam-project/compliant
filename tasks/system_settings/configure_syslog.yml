@@ -67,7 +67,7 @@
 - name: Enable rsyslog Service
   service:
     name: rsyslog
-    state: running
+    state: started
     enabled: yes
   tags:
   - AU
