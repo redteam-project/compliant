@@ -1,3 +1,8 @@
 ---
 - import_tasks: auditing/main.yml
 - import_tasks: system_settings/main.yml
+- block:
+  - import_tasks: services/main.yml
+  - import_tasks: finalize.yml
+  - import_tasks: scap.yml
+  when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
