@@ -161,7 +161,7 @@
     - NIST-800-53-IR
     - NIST-800-53-IR-5
 
-- name: Enable auditd service
+- name: enable and start auditd service
   service:
     name: auditd
     state: started
