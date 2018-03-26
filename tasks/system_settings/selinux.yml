@@ -27,7 +27,7 @@
   when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
 
 - name: ensure libselinux-python bindings are installed (dnf)
-    yum:
+    dnf:
       name: libselinux-python
       state: present
   when: ansible_distribution == "Fedora"
