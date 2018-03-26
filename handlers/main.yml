@@ -15,3 +15,8 @@
   shell: mount -a
   args:
     executable: /bin/bash
+
+- name: reload auditd
+  service:
+    name: auditd
+    state: restarted
