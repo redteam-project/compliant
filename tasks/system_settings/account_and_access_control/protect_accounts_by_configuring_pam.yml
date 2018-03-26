@@ -268,6 +268,7 @@
     follow: yes
     backup: yes
   when: ansible_distribution_major_version == "6"
+  ignore_errors: yes
   tags:
     - conf-low
     - conf-medium
@@ -290,6 +291,7 @@
     follow: yes
     backup: yes
   when: ansible_distribution_major_version == "6"
+  ignore_errors: yes
   tags:
     - conf-low
     - conf-medium
