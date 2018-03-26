@@ -44,7 +44,7 @@
     - NIST-800-53-MA-1
     - NIST-800-53-MA-1(b)
 
-- name: ensure centos gpg key installed
+- name: ensure centos 7 gpg key installed
   rpm_key:
     state: present
     key: "/etc/pki/rpm-gpg/{{ item }}"
@@ -53,7 +53,7 @@
     - RPM-GPG-KEY-CentOS-Debug-7
     - RPM-GPG-KEY-CentOS-Testing-7
     - RPM-GPG-KEY-EPEL-7
-  when: ansible_distribution == "CentOS"
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
   tags:
     - conf-low
     - conf-medium
@@ -70,6 +70,34 @@
     - NIST-800-53-MA
     - NIST-800-53-MA-1
     - NIST-800-53-MA-1(b)
+
+- name: ensure centos 6 gpg key installed
+  rpm_key:
+    state: present
+    key: "/etc/pki/rpm-gpg/{{ item }}"
+  with_items:
+    - RPM-GPG-KEY-CentOS-6
+    - RPM-GPG-KEY-CentOS-Debug-6
+    - RPM-GPG-KEY-CentOS-Testing-6
+    - RPM-GPG-KEY-CentOS-Security-6
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "6"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
+    - NIST-800-53
+    - NIST-800-53-SI
+    - NIST-800-53-SI-7
+    - NIST-800-53-MA
+    - NIST-800-53-MA-1
+    - NIST-800-53-MA-1(b)
+
 
 - name: ensure fedora gpg key installed
   rpm_key:
