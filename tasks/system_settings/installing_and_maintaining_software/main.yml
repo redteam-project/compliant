@@ -1,4 +1,4 @@
 ---
-- include: disk_partitioning.yml
+- import_tasks: disk_partitioning.yml
 - include: updating_software.yml
 - include: software_integrity_checking.yml
