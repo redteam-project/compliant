@@ -1,24 +1,38 @@
-- stat:
-    path: /etc/yum.repos.d/redhat-rhui.repo
-  register: rhui_repo
+- block:
+  - stat:
+      path: /etc/yum.repos.d/redhat-rhui.repo
+    register: rhui_repo
 
-- name: Ensure libselinux-python bindings are installed
-  yum:
-    name: libselinux-python
-    state: present
-    disablerepo: "*"
-    enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
-  when: rhui_repo.stat.isreg is undefined or rhui_repo.stat.isreg == False
+  - name: ensure libselinux-python bindings are installed (rhui)
+    yum:
+      name: libselinux-python
+      state: present
+      disablerepo: "*"
+      enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
+    when: rhui_repo.stat.isreg is undefined or rhui_repo.stat.isreg == False
 
-- name: Ensure libselinux-python bindings are installed
-  yum:
-    name: libselinux-python
-    state: present
-    disablerepo: "*"
-    enablerepo: rhui-REGION-rhel-server-releases
-  when: rhui_repo.stat.isreg is defined and rhui_repo.stat.isreg == True
+  - name: ensure libselinux-python bindings are installed (rhui)
+    yum:
+      name: libselinux-python
+      state: present
+      disablerepo: "*"
+      enablerepo: rhui-REGION-rhel-server-releases
+    when: rhui_repo.stat.isreg is defined and rhui_repo.stat.isreg == True
+  when: ansible_distribution == "RedHat"
 
-- name: AC-3,AC-3(3),AC-4,AC-6 Enable SELinux
+- name: ensure libselinux-python bindings are installed (yum)
+    yum:
+      name: libselinux-python
+      state: present
+  when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
+
+- name: ensure libselinux-python bindings are installed (dnf)
+    yum:
+      name: libselinux-python
+      state: present
+  when: ansible_distribution == "Fedora"
+
+- name: enable selinux
   selinux:
     policy: targeted
     state: enforcing
@@ -29,31 +43,33 @@
     - int-low
     - int-medium
     - int-high
-    - AC
-    - AC-3
-    - AC-3(3)
-    - AC-4
-    - AC-6
-    - AU
-    - AU-9
+    - NIST-800-53
+    - NIST-800-53-AC
+    - NIST-800-53-AC-3
+    - NIST-800-53-AC-3(3)
+    - NIST-800-53-AC-4
+    - NIST-800-53-AC-6
+    - NIST-800-53-AU
+    - NIST-800-53-AU-9
 
-- name: Set SELinux to Enforcing
+- name: set selinux to enforcing
   command: /usr/sbin/setenforce 1
   when: ansible_selinux.mode == 'permissive'
   tags:
-  - AC
-  - AC-3
-  - AC-3(3)
-  - AC-4
-  - AC-6
-  - AU
-  - AU-9
+    - NIST-800-53
+    - NIST-800-53-AC
+    - NIST-800-53-AC-3
+    - NIST-800-53-AC-3(3)
+    - NIST-800-53-AC-4
+    - NIST-800-53-AC-6
+    - NIST-800-53-AU
+    - NIST-800-53-AU-9
 
-- name: Ensure SELinux Not Disabled in /etc/grub.conf
+- name: ensure selinux not disabled in /etc/grub.conf
   replace:
     dest: /etc/grub.conf
     regexp: "selinux=0"
-  when: ansible_distribution_major_version == "6"
+  when: (ansible_distribution == "RedHat" or ansible_distribution == "CentOS") and ansible_distribution_major_version == "6"
   tags:
     - conf-low
     - conf-medium
@@ -61,19 +77,20 @@
     - int-low
     - int-medium
     - int-high
-    - AC
-    - AC-3
-    - AC-3(3)
-    - AC-6
-    - AU
-    - AU-9
+    - NIST-800-53
+    - NIST-800-53-AC
+    - NIST-800-53-AC-3
+    - NIST-800-53-AC-3(3)
+    - NIST-800-53-AC-6
+    - NIST-800-53-AU
+    - NIST-800-53-AU-9
 
-- name: Ensure SELinux Not Disabled in /etc/grub2.conf
+- name: ensure selinux not disabled in /etc/grub2.conf
   replace:
     dest: /etc/grub2.cfg
     regexp: "selinux=0"
   notify: apply grub2 changes
-  when: ansible_distribution_major_version == "7"
+  when: ((ansible_distribution == "RedHat" or ansible_distribution == "CentOS") and ansible_distribution_major_version == "7") or ansible_distribution == "Fedora"
   tags:
     - conf-low
     - conf-medium
@@ -81,9 +98,10 @@
     - int-low
     - int-medium
     - int-high
-    - AC
-    - AC-3
-    - AC-3(3)
-    - AC-6
-    - AU
-    - AU-9
+    - NIST-800-53
+    - NIST-800-53-AC
+    - NIST-800-53-AC-3
+    - NIST-800-53-AC-3(3)
+    - NIST-800-53-AC-6
+    - NIST-800-53-AU
+    - NIST-800-53-AU-9
