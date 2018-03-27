@@ -15,5 +15,5 @@ galaxy_info:
   - SCAP
   - EL
   - Red Hat
-  - disconnected
+  - CentOS
 dependencies: []
