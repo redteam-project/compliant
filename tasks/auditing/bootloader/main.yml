@@ -17,3 +17,15 @@
         backup: yes
       when: grep_result.rc != 0
   when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu" or ansible_distribution == "Kali GNU/Linux" or ansible_distribution == "Archlinux" or ansible_distribution == "Linux Mint"
+  tags:
+    - NIST-800-53
+    - NIST-800-53-AU
+    - NIST-800-53-AU-14
+    - NIST-800-53-AU-14(1)
+    - NIST-800-53-AU-1
+    - NIST-800-53-AU-1(b)
+    - NIST-800-53-AU-2(a)
+    - NIST-800-53-AU-2(c)
+    - NIST-800-53-AU-2(d)
+    - NIST-800-53-AU-2
+    - NIST-800-53-AU-10

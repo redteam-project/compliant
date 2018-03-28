@@ -11,6 +11,22 @@
         state: installed
       when: (ansible_distribution == "RedHat" or ansible_distribution == "CentOS") and ansible_distribution_major_version == "6"
   when: ansible_distribution == "Fedora" or ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - NIST-800-53
+    - NIST-800-53-AU
+    - NIST-800-53-AU-2(a)
+    - NIST-800-53-AU-2(c)
+    - NIST-800-53-AU-2(d)
+    - NIST-800-53-AU-2
+    - NIST-800-53-AU-12
+    - NIST-800-53-AU-12(a)
+    - NIST-800-53-AU-12(c)
 
 - block:
   - name: add audit rules - init

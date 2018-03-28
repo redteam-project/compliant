@@ -9,6 +9,7 @@
 - name: enable auditing for processes which start prior to the audit daemon
   import_tasks: bootloader/main.yml
   tags:
+    - NIST-800-53
     - NIST-800-53-AU
     - NIST-800-53-AU-14
     - NIST-800-53-AU-14(1)

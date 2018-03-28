@@ -17,13 +17,14 @@
       - int-low
       - int-medium
       - int-high
-      - CM
-      - CM-3
-      - CM-3(d)
-      - CM-3(e)
-      - CM-6
-      - CM-6(d)
-      - CM-6(3)
+      - NIST-800-53
+      - NIST-800-53-CM
+      - NIST-800-53-CM-3
+      - NIST-800-53-CM-3(d)
+      - NIST-800-53-CM-3(e)
+      - NIST-800-53-CM-6
+      - NIST-800-53-CM-6(d)
+      - NIST-800-53-CM-6(3)
 
   - name: Install AIDE
     yum:
