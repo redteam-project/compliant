@@ -1,0 +1,120 @@
+- block:
+  - stat:
+      path: /etc/yum.repos.d/redhat-rhui.repo
+    register: rhui_repo
+
+  - name: install aide
+    yum:
+      name: aide
+      state: present
+      disablerepo: '*'
+      enablerepo: rhel-{{ansible_distribution_major_version}}-server-rpms
+    when: rhui_repo.stat.isreg is undefined or rhui_repo.stat.isreg == False
+    tags:
+      - conf-low
+      - conf-medium
+      - conf-high
+      - int-low
+      - int-medium
+      - int-high
+      - NIST-800-53
+      - NIST-800-53-CM
+      - NIST-800-53-CM-3
+      - NIST-800-53-CM-3(d)
+      - NIST-800-53-CM-3(e)
+      - NIST-800-53-CM-6
+      - NIST-800-53-CM-6(d)
+      - NIST-800-53-CM-6(3)
+
+  - name: install aide
+    yum:
+      name: aide
+      state: present
+      disablerepo: '*'
+      enablerepo: rhui-REGION-rhel-server-releases
+    when: rhui_repo.stat.isreg is defined and rhui_repo.stat.isreg == True
+    tags:
+      - conf-low
+      - conf-medium
+      - conf-high
+      - int-low
+      - int-medium
+      - int-high
+      - NIST-800-53
+      - NIST-800-53-CM
+      - NIST-800-53-CM-3
+      - NIST-800-53-CM-3(d)
+      - NIST-800-53-CM-3(e)
+      - NIST-800-53-CM-6
+      - NIST-800-53-CM-6(d)
+      - NIST-800-53-CM-6(3)
+  when: ansible_distribution == "RedHat"
+
+- name: install aide
+  yum:
+    name: aide
+    state: present
+  when: ansible_distribution == "CentOS"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - NIST-800-53
+    - NIST-800-53-CM
+    - NIST-800-53-CM-3
+    - NIST-800-53-CM-3(d)
+    - NIST-800-53-CM-3(e)
+    - NIST-800-53-CM-6
+    - NIST-800-53-CM-6(d)
+    - NIST-800-53-CM-6(3)
+
+- name: install aide
+  dnf:
+    name: aide
+    state: installed
+  when: ansible_distribution == "Fedora"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - NIST-800-53
+    - NIST-800-53-CM
+    - NIST-800-53-CM-3
+    - NIST-800-53-CM-3(d)
+    - NIST-800-53-CM-3(e)
+    - NIST-800-53-CM-6
+    - NIST-800-53-CM-6(d)
+    - NIST-800-53-CM-6(3)
+
+- name: schedule aide
+  cron:
+    name: aide
+    minute: "{{ aide_minute }}"
+    hour: "{{ aide_hour }}"
+    day: "{{ aide_day_of_month }}"
+    weekday: "{{ aide_day_of_week }}"
+    month: "{{ aide_month }}"
+    cron_file: aide
+    user: root
+    job: "/usr/sbin/aide --check"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - NIST-800-53
+    - NIST-800-53-CM
+    - NIST-800-53-CM-3
+    - NIST-800-53-CM-3(d)
+    - NIST-800-53-CM-6
+    - NIST-800-53-CM-6(d)
+    - NIST-800-53-CM-6(3)
+

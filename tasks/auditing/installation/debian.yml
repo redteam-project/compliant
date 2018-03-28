@@ -3,3 +3,6 @@
   apt:
     name: auditd
     state: installed
+  tags:
+    - NIST-800-53
+    - NIST-800-53-AU

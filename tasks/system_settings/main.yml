@@ -1,8 +1,11 @@
 ---
-- include: selinux.yml
-- include: installing_and_maintaining_software/main.yml
-- include: file_permissions_and_masks/main.yml
-- include: account_and_access_control/main.yml
-- include: network_configuration_and_firewalls/main.yml
-- include: configure_syslog.yml
-- include: system_accounting_with_auditd.yml
+- import_tasks: selinux.yml
+  when: ansible_distribution == "Fedora" or ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
+- import_tasks: installing_and_maintaining_software/main.yml
+- block:
+  - import_tasks: file_permissions_and_masks/main.yml
+  - import_tasks: account_and_access_control/main.yml
+  - import_tasks: network_configuration_and_firewalls/main.yml
+  - import_tasks: configure_syslog.yml
+#  - import_tasks: system_accounting_with_auditd.yml
+  when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"

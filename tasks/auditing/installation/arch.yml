@@ -3,8 +3,14 @@
   pacman:
     name: audit
     state: installed
+  tags:
+    - NIST-800-53
+    - NIST-800-53-AU
 
 - name: make rules.d directory
   file:
     path: /etc/audit/rules.d
     state: directory
+  tags:
+    - NIST-800-53
+    - NIST-800-53-AU

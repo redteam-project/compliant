@@ -1,4 +1,4 @@
 ---
-- include: obsolete_services.yml
-- include: base_services.yml
-- include: ssh_service.yml
+- import_tasks: obsolete_services.yml
+- import_tasks: base_services.yml
+- import_tasks: ssh_service.yml

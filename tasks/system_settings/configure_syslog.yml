@@ -30,6 +30,7 @@
   args:
     executable: /bin/bash
   with_items: "{{ log_files.stdout_lines }}"
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -66,7 +67,7 @@
 - name: Enable rsyslog Service
   service:
     name: rsyslog
-    state: running
+    state: started
     enabled: yes
   tags:
   - AU

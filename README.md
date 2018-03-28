@@ -3,9 +3,11 @@ fedoraredteam.compliant
 
 This role applies security compliance baselines to Linux hosts.
 
-The technical, automate-able controls in NIST SP800-53 are our first goal, but don't worry, we'll be adding others later.
+Support is very good for RHEL and CentOS 7, pretty good for RHEL and CentOS 6, and Fedora is being worked.
 
-This is not a "scanner" per-se.  If you wish to assess the application of this role to your host, check out the OpenSCAP project.
+The technical, automate-able controls in NIST 800-53 are our first goal, but don't worry, we'll be adding others later.
+
+Note that this is not a "scanner" per-se.  If you wish to assess the application of this role to your host, check out the OpenSCAP project.
 
 All tasks are tagged with the applicable controls.  To see which tasks are related to the "access control" category in the NIST 800-53 controls, execute the following.
 
@@ -14,31 +16,13 @@ Being updated
 
 This role is currently being revamped. Refer to our issues or files in [files/gap](./files/gap) for more information.
 
-**New Layout**
-
-A goal of this revamp is to make this role more cross-platform and cross-standard. So this is the layout to expect in the role directories:
-
-```
-├── main.yml                    # main role file
-├── access_control
-│   ├── centos.yml
-│   ├── fedora.yml
-│   ├── main.yml                # Linux generic AC controls
-│   └── rhel.yml                # RHEL-specific AC controls
-├── audit_and_accountability
-│   ├── centos.yml
-│   ├── fedora.yml
-│   ├── main.yml                # Linux generic AU controls
-│   └── rhel.yml                # RHEL-specific AU controls
-...
-```
-
-Another goal of this project is cross-standard support. However, the NIST control famlies are prety well-generalized, so we're standardizing those for now.
+Usage
+-----
 
 To generate a list of tasks that would be executed on a per-control-family basis:
 
 ```bash
-$ ansible-playbook -i [inventory] --tags "AC" --list-tasks [playbook.yml]
+$ ansible-playbook -i [inventory] --tags "NIST-800-53-AC" --list-tasks [playbook.yml]
 ```
 
 Role Variables
@@ -46,7 +30,7 @@ Role Variables
 
 ```yaml
 ---
-# vars file for 800-53
+# vars file for compliant
 
 #The schedule for AIDE
 aide_minute: 05
@@ -81,7 +65,7 @@ Example Playbook
   vars:
     scap_reports_dir: ~/scap_reports
   roles:
-    - ansible-role-800-53
+    - fedoraredteam.compliant
 ```
 
 Example Inventory
@@ -108,7 +92,4 @@ GPL v3
 Provenance
 ------------------
 
-This project is based on work by Ken Evensen, originally at https://github.com/rhtps/ansible-role-800-53.
-
-When we borrow things from other open source projects we try to indicate when we've done so via inline comments. 
-
+This project is based on work by Ken Evensen, originally at https://github.com/rhtps/ansible-role-800-53, as well as OpenSCAP, which also borrowed heavily from Ken.

@@ -1,3 +1,15 @@
 ---
 - name: pass audit=1 to kernel in bootloader with grubby
   shell: /sbin/grubby --update-kernel=ALL --args="audit=1"
+  tags:
+    - NIST-800-53
+    - NIST-800-53-AU
+    - NIST-800-53-AU-14
+    - NIST-800-53-AU-14(1)
+    - NIST-800-53-AU-1
+    - NIST-800-53-AU-1(b)
+    - NIST-800-53-AU-2(a)
+    - NIST-800-53-AU-2(c)
+    - NIST-800-53-AU-2(d)
+    - NIST-800-53-AU-2
+    - NIST-800-53-AU-10

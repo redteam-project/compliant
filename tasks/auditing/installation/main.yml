@@ -5,6 +5,6 @@
 - import_tasks: redhat.yml
   when: ansible_distribution == "Fedora" or ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
 - import_tasks: debian.yml
-  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu" or ansible_distribution == "Kali GNU/Linux"
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu" or ansible_distribution == "Kali GNU/Linux" or ansible_distribution == "Linux Mint"
 - import_tasks: arch.yml
   when: ansible_distribution == "Archlinux"
