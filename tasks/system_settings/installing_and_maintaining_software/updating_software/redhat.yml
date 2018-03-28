@@ -12,7 +12,7 @@
     - NIST-800-53-SI
     - NIST-800-53-SI-7
 
-- name: verify file hashes with rpm
+- name: verify file hashes
   debug:
     msg: "tasks not yet implemented"
   tags:

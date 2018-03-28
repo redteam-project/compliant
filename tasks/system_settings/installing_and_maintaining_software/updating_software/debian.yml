@@ -1,0 +1,24 @@
+- name: verify and correct file permissions
+  debug: msg="not implemented for debian variants. see issue 503"
+  tags:
+    - NIST-800-53
+    - NIST-800-53-AC
+    - NIST-800-53-AC-6
+    - NIST-800-53-CM
+    - NIST-800-53-CM-6
+    - NIST-800-53-CM-6(d)
+    - NIST-800-53-SI
+    - NIST-800-53-SI-7
+
+- name: verify file hashes
+  debug:
+    msg: "tasks not yet implemented"
+  tags:
+    - NIST-800-53
+    - NIST-800-53-CM
+    - NIST-800-53-CM-6
+    - NIST-800-53-SI
+    - NIST-800-53-SI-7
+
+- name: ensure package manager gpg keys are installed
+  apt_key:
