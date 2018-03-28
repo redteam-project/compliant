@@ -27,7 +27,7 @@
     state: present
     key: "/etc/pki/rpm-gpg/{{ item }}"
   when: ansible_distribution == "RedHat"
-  with-items:
+  with_items:
     - "{{ rpm_keys.rhel }}"
   tags:
     - conf-low
@@ -51,7 +51,7 @@
     state: present
     key: "/etc/pki/rpm-gpg/{{ item }}"
   when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "6"
-  with-items:
+  with_items:
     - "{{ rpm_keys.centos-6 }}"
   tags:
     - conf-low
@@ -75,7 +75,7 @@
     state: present
     key: "/etc/pki/rpm-gpg/{{ item }}"
   when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
-  with-items:
+  with_items:
     - "{{ rpm_keys.centos-7 }}"
   tags:
     - conf-low
@@ -99,7 +99,7 @@
     state: present
     key: "/etc/pki/rpm-gpg/{{ item }}"
   when: ansible_distribution == "Fedora" and ansible_distribution_major_version == "27"
-  with-items:
+  with_items:
     - "{{ rpm_keys.fedora-27 }}"
   tags:
     - conf-low
