@@ -1,4 +1,4 @@
-- name: verify and correct file permissions with rpm
+- name: verify and correct file permissions
   shell: for FILE_PATH in $(rpm -Va | grep '^.M'); do rpm --setperms $(rpm -qf "${FILE_PATH}"); done
   args:
     executable: /bin/bash
@@ -22,11 +22,13 @@
     - NIST-800-53-SI
     - NIST-800-53-SI-7
 
-- name: ensure red hat gpg key installed
+- name: ensure package manager gpg keys are installed
   rpm_key:
     state: present
-    key: /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+    key: "/etc/pki/rpm-gpg/{{ item }}"
   when: ansible_distribution == "RedHat"
+  with-items:
+    - "{{ rpm_keys.rhel }}"
   tags:
     - conf-low
     - conf-medium
@@ -44,43 +46,13 @@
     - NIST-800-53-MA-1
     - NIST-800-53-MA-1(b)
 
-- name: ensure centos 7 gpg key installed
+- name: ensure package manager gpg keys are installed
   rpm_key:
     state: present
     key: "/etc/pki/rpm-gpg/{{ item }}"
-  with_items:
-    - RPM-GPG-KEY-CentOS-7
-    - RPM-GPG-KEY-CentOS-Debug-7
-    - RPM-GPG-KEY-CentOS-Testing-7
-    - RPM-GPG-KEY-EPEL-7
-  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
-  tags:
-    - conf-low
-    - conf-medium
-    - conf-high
-    - int-low
-    - int-medium
-    - int-high
-    - avail-low
-    - avail-medium
-    - avail-high
-    - NIST-800-53
-    - NIST-800-53-SI
-    - NIST-800-53-SI-7
-    - NIST-800-53-MA
-    - NIST-800-53-MA-1
-    - NIST-800-53-MA-1(b)
-
-- name: ensure centos 6 gpg key installed
-  rpm_key:
-    state: present
-    key: "/etc/pki/rpm-gpg/{{ item }}"
-  with_items:
-    - RPM-GPG-KEY-CentOS-6
-    - RPM-GPG-KEY-CentOS-Debug-6
-    - RPM-GPG-KEY-CentOS-Testing-6
-    - RPM-GPG-KEY-CentOS-Security-6
   when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "6"
+  with-items:
+    - "{{ rpm_keys.centos-6 }}"
   tags:
     - conf-low
     - conf-medium
@@ -98,15 +70,13 @@
     - NIST-800-53-MA-1
     - NIST-800-53-MA-1(b)
 
-
-- name: ensure fedora gpg key installed
+- name: ensure package manager gpg keys are installed
   rpm_key:
     state: present
     key: "/etc/pki/rpm-gpg/{{ item }}"
-  with_items:
-    - "RPM-GPG-KEY-fedora-{{ ansible_distribution_major_version }}-primary"
-    - "RPM-GPG-KEY-fedora-{{ ansible_distribution_major_version }}-secondary"
-  when: ansible_distribution == "Fedora"
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+  with-items:
+    - "{{ rpm_keys.centos-7 }}"
   tags:
     - conf-low
     - conf-medium
@@ -124,7 +94,31 @@
     - NIST-800-53-MA-1
     - NIST-800-53-MA-1(b)
 
-- name: ensure gpgcheck enabled in main yum configuration
+- name: ensure package manager gpg keys are installed
+  rpm_key:
+    state: present
+    key: "/etc/pki/rpm-gpg/{{ item }}"
+  when: ansible_distribution == "Fedora" and ansible_distribution_major_version == "27"
+  with-items:
+    - "{{ rpm_keys.fedora-27 }}"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
+    - NIST-800-53
+    - NIST-800-53-SI
+    - NIST-800-53-SI-7
+    - NIST-800-53-MA
+    - NIST-800-53-MA-1
+    - NIST-800-53-MA-1(b)
+
+- name: ensure gpgcheck enabled for package manager
   replace:
     dest: /etc/yum.conf
     regexp: 'gpgcheck=0'
@@ -147,7 +141,7 @@
     - NIST-800-53-MA-1
     - NIST-800-53-MA-1(b)
 
-- name: ensure gpgcheck enabled in main yum configuration
+- name: ensure gpgcheck enabled for package manager
   replace:
     dest: /etc/dnf/dnf.conf
     regexp: 'gpgcheck=0'
@@ -183,7 +177,7 @@
     - NIST-800-53-SI
     - NIST-800-53-SI-7
 
-- name: ensure gpgcheck enabled for all yum package repositories
+- name: ensure gpgcheck enabled for package manager
   with_items: "{{ yum_find.files }}"
   replace:
     dest: "{{ item.path }}"

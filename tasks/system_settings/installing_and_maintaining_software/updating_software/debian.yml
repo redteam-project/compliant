@@ -1,5 +1,5 @@
 - name: verify and correct file permissions
-  debug: msg="not implemented for debian variants. see issue 503"
+  debug: msg="not yet implemented, see issue number 503"
   tags:
     - NIST-800-53
     - NIST-800-53-AC
@@ -22,3 +22,147 @@
 
 - name: ensure package manager gpg keys are installed
   apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: "{{ item }}"
+    state: present
+  when: ansible_distribution == "Debian" and ansible_major_distribution == "9"
+  with-items:
+    - "{{ apt_keys.debian-9 }}"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
+    - NIST-800-53
+    - NIST-800-53-SI
+    - NIST-800-53-SI-7
+    - NIST-800-53-MA
+    - NIST-800-53-MA-1
+    - NIST-800-53-MA-1(b)
+
+- name: ensure package manager gpg keys are installed
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: "{{ item }}"
+    state: present
+  when: ansible_distribution == "Ubuntu" and ansible_major_distribution == "16.04"
+  with-items:
+    - "{{ apt_keys.ubuntu-16.04 }}"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
+    - NIST-800-53
+    - NIST-800-53-SI
+    - NIST-800-53-SI-7
+    - NIST-800-53-MA
+    - NIST-800-53-MA-1
+    - NIST-800-53-MA-1(b)
+
+- name: ensure package manager gpg keys are installed
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: "{{ item }}"
+    state: present
+  when: ansible_distribution == "Ubuntu" and ansible_major_distribution == "17.10"
+  with-items:
+    - "{{ apt_keys.ubuntu-17.10 }}"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
+    - NIST-800-53
+    - NIST-800-53-SI
+    - NIST-800-53-SI-7
+    - NIST-800-53-MA
+    - NIST-800-53-MA-1
+    - NIST-800-53-MA-1(b)
+
+- name: ensure package manager gpg keys are installed
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: "{{ item }}"
+    state: present
+  when: ansible_distribution == "Kali GNU/Linux"
+  with-items:
+    - "{{ apt_keys.kali }}"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
+    - NIST-800-53
+    - NIST-800-53-SI
+    - NIST-800-53-SI-7
+    - NIST-800-53-MA
+    - NIST-800-53-MA-1
+    - NIST-800-53-MA-1(b)
+
+- name: ensure package manager gpg keys are installed
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: "{{ item }}"
+    state: present
+  when: ansible_distribution == "Mint"
+  with-items:
+    - "{{ apt_keys.mint-18.3 }}"
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
+    - NIST-800-53
+    - NIST-800-53-SI
+    - NIST-800-53-SI-7
+    - NIST-800-53-MA
+    - NIST-800-53-MA-1
+    - NIST-800-53-MA-1(b)
+
+- name: ensure gpgcheck enabled for package manager
+  replace:
+    dest: /etc/apt/sources.list
+    regexp: '[trusted=yes]'
+    replace: ''
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
+    - NIST-800-53
+    - NIST-800-53-SI
+    - NIST-800-53-SI-7
+    - NIST-800-53-MA
+    - NIST-800-53-MA-1
+    - NIST-800-53-MA-1(b)
