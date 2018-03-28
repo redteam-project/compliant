@@ -1,16 +1,16 @@
 - name: Find Log Files
-  shell: grep -e "\$IncludeConfig[[:space:]]\+[^[:space:];]\+" /etc/rsyslog.conf | cut -d ' ' -f 2
+  shell: grep -e "\$IncludeConfig[[:space:]]\+[^[:space:];]\+" /etc/rsyslog.conf | cut -d ' ' -f 2 | perl -n -e 'my @files = glob $_;' -e 'foreach $f (@files) { print "$f\n"; }'
   register: log_files
   tags:
     - SI
     - SI-11
 
 - name: SI-11 Ensure System Log Files Have Correct Permissions
-  shell: chmod 0600 {{ item }}
-  args:
-    executable: /bin/bash
+  file:
+    path: "{{ item }}"
+    mode: 0600
   with_items: "{{ log_files.stdout_lines }}"
-  ignore_errors: true
+  ignore_errors: yes
   tags:
   - conf-low
   - conf-medium
@@ -26,9 +26,9 @@
   - SI-11
 
 - name: SI-11 Ensure System Log Files Are Correctly Owned
-  shell: chown root:root {{ item }}
-  args:
-    executable: /bin/bash
+  file:
+    path: "{{ item }}"
+    owner: root
   with_items: "{{ log_files.stdout_lines }}"
   ignore_errors: yes
   tags:
