@@ -38,22 +38,22 @@ login_banner_text: 'You[\s\n]+are[\s\n]+accessing[\s\n]+a[\s\n]+U.S.[\s\n]+Gover
 rpm_keys:
   rhel:
     - /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
-  centos-6:
+  centos_6:
     - RPM-GPG-KEY-CentOS-6
     - RPM-GPG-KEY-CentOS-Debug-6
     - RPM-GPG-KEY-CentOS-Testing-6
     - RPM-GPG-KEY-CentOS-Security-6
-  centos-7:
+  centos_7:
     - RPM-GPG-KEY-CentOS-7
     - RPM-GPG-KEY-CentOS-Debug-7
     - RPM-GPG-KEY-CentOS-Testing-7
     - RPM-GPG-KEY-EPEL-7
-  fedora-27:
+  fedora_27:
     - RPM-GPG-KEY-fedora-27-primary
     - RPM-GPG-KEY-fedora-27-secondary
 
 apt_keys:
-  debian-9:
+  debian_9:
     - name: debian-archive-jessie-automatic
       id: 126c0d24bd8a2942cc7df8ac7638d0442b90d010
     - name: debian-archive-jessie-security-automatic
@@ -64,12 +64,12 @@ apt_keys:
       id: e1cf20ddffe4b89e802658f1e0b11894f66aec98
     - name: debian-archive-stretch-security-automatic
       id: 6ed6f5cb5fa6fb2f460ae88eeda0d2388ae22ba9
-  ubuntu-17.10:
+  ubuntu_17.10:
     - name: ubuntu-keyring-2012-archive
       id: 790bc7277767219c42c86f933b4fe6acc0b21f32
     - name: ubuntu-keyring-2012-cdimage
       id: 843938df228d22f7b3742bc0d94aa3f0efe21092
-  ubuntu-16.04:
+  ubuntu_16.04:
     - name: Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>
       id: 437d05b5
     - name: Ubuntu Archive Automatic Signing Key (2012) <ftpmaster@ubuntu.com>
@@ -78,7 +78,7 @@ apt_keys:
       id: efe21092
     - name: Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>
       id: fbb75451
-  mint-18.3:
+  mint_18.3:
     - name: Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>
       id: 437d05b5
     - name: Ubuntu Archive Automatic Signing Key (2012) <ftpmaster@ubuntu.com>
