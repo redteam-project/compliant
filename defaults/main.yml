@@ -37,7 +37,7 @@ login_banner_text: 'You[\s\n]+are[\s\n]+accessing[\s\n]+a[\s\n]+U.S.[\s\n]+Gover
 
 rpm_keys:
   rhel:
-    - /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+    - RPM-GPG-KEY-redhat-release
   centos_6:
     - RPM-GPG-KEY-CentOS-6
     - RPM-GPG-KEY-CentOS-Debug-6
