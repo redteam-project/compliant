@@ -52,7 +52,7 @@
     key: "/etc/pki/rpm-gpg/{{ item }}"
   when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "6"
   with_items:
-    - "{{ rpm_keys.centos-6 }}"
+    - "{{ rpm_keys.centos_6 }}"
   tags:
     - conf-low
     - conf-medium
@@ -76,7 +76,7 @@
     key: "/etc/pki/rpm-gpg/{{ item }}"
   when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
   with_items:
-    - "{{ rpm_keys.centos-7 }}"
+    - "{{ rpm_keys.centos_7 }}"
   tags:
     - conf-low
     - conf-medium
@@ -100,7 +100,7 @@
     key: "/etc/pki/rpm-gpg/{{ item }}"
   when: ansible_distribution == "Fedora" and ansible_distribution_major_version == "27"
   with_items:
-    - "{{ rpm_keys.fedora-27 }}"
+    - "{{ rpm_keys.fedora_27 }}"
   tags:
     - conf-low
     - conf-medium
