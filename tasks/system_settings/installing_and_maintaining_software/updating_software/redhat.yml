@@ -119,10 +119,11 @@
     - NIST-800-53-MA-1(b)
 
 - name: ensure gpgcheck enabled for package manager
-  replace:
-    dest: /etc/yum.conf
-    regexp: 'gpgcheck=0'
-    replace: 'gpgcheck=1'
+  lineinfile:
+    path: /etc/yum.conf
+    regexp: '^gpgcheck'
+    line: 'gpgcheck=1'
+    state: present
   when: ansible_distribution == "RedHat" or ansible_distribution == "CentOS"
   tags:
     - conf-low
@@ -142,10 +143,11 @@
     - NIST-800-53-MA-1(b)
 
 - name: ensure localpkg_gpgcheck enabled for package manager
-  replace:
+  lineinfile:
     path: /etc/yum.conf
-    regexp: 'localpkg_gpgcheck=0'
-    replace: 'localpkg_gpgcheck=1'
+    regexp: '^localpkg_gpgcheck'
+    line: 'localpkg_gpgcheck=1'
+    state: present
   tags:
     - conf-low
     - conf-medium
@@ -164,10 +166,11 @@
     - NIST-800-53-MA-1(b)
 
 - name: ensure repo_gpgcheck enabled for package manager
-  replace:
+  lineinfile:
     path: /etc/yum.conf
-    regexp: 'repo_gpgcheck=0'
-    replace: 'repo_gpgcheck=1'
+    regexp: '^repo_gpgcheck'
+    line: 'repo_gpgcheck=1'
+    state: present
   tags:
     - conf-low
     - conf-medium
@@ -186,10 +189,11 @@
     - NIST-800-53-MA-1(b)
 
 - name: ensure gpgcheck enabled for package manager
-  replace:
-    dest: /etc/dnf/dnf.conf
-    regexp: 'gpgcheck=0'
-    replace: 'gpgcheck=1'
+  lineinfile:
+    path: /etc/dnf/dnf.conf
+    regexp: '^gpgcheck'
+    line: 'gpgcheck=1'
+    state: present
   when: ansible_distribution == "Fedora"
   tags:
     - conf-low
