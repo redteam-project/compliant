@@ -21,10 +21,11 @@
     - NIST-800-53-SI-7
 
 - name: ensure package manager gpg keys are installed
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: "{{ item }}"
-    state: present
+#  apt_key:
+#    keyserver: keyserver.ubuntu.com
+#    id: "{{ item }}"
+#    state: present
+  shell: "apt-key adv --keyserver keyserver.ubuntu.com --recv-keys {{ item }}"
   when: ansible_distribution == "Debian" and ansible_major_distribution == "9"
   with_items:
     - "{{ apt_keys.debian_9 }}"
