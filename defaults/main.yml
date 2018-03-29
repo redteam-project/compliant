@@ -90,24 +90,42 @@ apt_keys:
     - name: Linux Mint Repository Signing Key <root@linuxmint.com>
       id: 451BBBF2
   kali:
+#    - name: debian-archive-jessie-automatic
+#      id: 126c0d24bd8a2942cc7df8ac7638d0442b90d010
+#    - name: debian-archive-jessie-security-automatic
+#      id: d21169141cecd440f2eb8dda9d6d8f6bc857c906
+#    - name: debian-archive-jessie-stable
+#      id: 75ddc3c4a499f1a18cb5f3c8cbf8d6fd518e17e1
+#    - name: debian-archive-stretch-automatic
+#      id: e1cf20ddffe4b89e802658f1e0b11894f66aec98
+#    - name: debian-archive-stretch-security-automatic
+#      id: 6ed6f5cb5fa6fb2f460ae88eeda0d2388ae22ba9
+#    - name: debian-archive-stretch-stable
+#      id: 067e3c456bae240acee88f6fef0f382a1a7b6500
+#    - name: debian-archive-wheezy-automatic
+#      id: a1bd8e9d78f7fe5c3e65d8af8b48ad6246925553
+#    - name: debian-archive-wheezy-stable
+#      id: ed6d65271aacf0ff15d123036fb2a1c265ffb764
+#    - name: kali-archive-keyring
+#      id: 44c6513a8e4fb3d30875f758ed444ff07d8d0bf6
     - name: debian-archive-jessie-automatic
-      id: 126c0d24bd8a2942cc7df8ac7638d0442b90d010
+      id: 126C0D24BD8A2942CC7DF8AC7638D0442B90D010
     - name: debian-archive-jessie-security-automatic
-      id: d21169141cecd440f2eb8dda9d6d8f6bc857c906
+      id: D21169141CECD440F2EB8DDA9D6D8F6BC857C906
     - name: debian-archive-jessie-stable
-      id: 75ddc3c4a499f1a18cb5f3c8cbf8d6fd518e17e1
+      id: 75DDC3C4A499F1A18CB5F3C8CBF8D6FD518E17E1
     - name: debian-archive-stretch-automatic
-      id: e1cf20ddffe4b89e802658f1e0b11894f66aec98
+      id: E1CF20DDFFE4B89E802658F1E0B11894F66AEC98
     - name: debian-archive-stretch-security-automatic
-      id: 6ed6f5cb5fa6fb2f460ae88eeda0d2388ae22ba9
+      id: 6ED6F5CB5FA6FB2F460AE88EEDA0D2388AE22BA9
     - name: debian-archive-stretch-stable
-      id: 067e3c456bae240acee88f6fef0f382a1a7b6500
+      id: 067E3C456BAE240ACEE88F6FEF0F382A1A7B6500
     - name: debian-archive-wheezy-automatic
-      id: a1bd8e9d78f7fe5c3e65d8af8b48ad6246925553
+      id: A1BD8E9D78F7FE5C3E65D8AF8B48AD6246925553
     - name: debian-archive-wheezy-stable
-      id: ed6d65271aacf0ff15d123036fb2a1c265ffb764
+      id: ED6D65271AACF0FF15D123036FB2A1C265FFB764
     - name: kali-archive-keyring
-      id: 44c6513a8e4fb3d30875f758ed444ff07d8d0bf6
+      id: 44C6513A8E4FB3D30875F758ED444FF07D8D0BF6
 
 # arch_keys
 
