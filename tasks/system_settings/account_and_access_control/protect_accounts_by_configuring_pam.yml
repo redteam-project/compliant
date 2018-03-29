@@ -95,7 +95,7 @@
   lineinfile:
     dest: /etc/security/pwquality.conf
     regexp: '^difok ='
-    line: "difok = 5"
+    line: "difok = 8"
   when: ansible_distribution_major_version == "7"
   tags:
     - conf-low
@@ -192,7 +192,7 @@
   lineinfile:
     dest: /etc/pam.d/system-auth
     insertafter: "^password requisite pam_pwquality.so"
-    regexp: "^password sufficient pam_unix.so*"
+    regexp: '^password\s+sufficient\s+pam_unix.so*'
     line: "password sufficient pam_unix.so use_authtok sha512 shadow remember=5"
     state: present
     follow: true
@@ -219,8 +219,8 @@
 - name: Set Password Strength - /etc/pam.d/system-auth
   lineinfile:
     dest: /etc/pam.d/system-auth
-    regexp: '^password    requisite     pam_pwquality.so'
-    line: 'password    requisite     pam_pwquality.so try_first_pass local_users_only retry=3 authtok_type= dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1 difok=4 maxrepeat=2'
+    regexp: '^password\s+requisite\s+pam_pwquality.so'
+    line: 'password    requisite     pam_pwquality.so try_first_pass local_users_only retry=3 authtok_type= dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1 difok=8 maxrepeat=2'
     follow: yes
     backup: yes
   when: ansible_distribution_major_version == "7"
@@ -241,8 +241,8 @@
 - name: Set Password Strength - /etc/pam.d/password-auth
   lineinfile:
     dest: /etc/pam.d/password-auth
-    regexp: '^password    requisite     pam_pwquality.so'
-    line: 'password    requisite     pam_pwquality.so try_first_pass local_users_only retry=3 authtok_type= dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1 difok=4 maxrepeat=2'
+    regexp: '^password\s+requisite\s+pam_pwquality.so'
+    line: 'password    requisite     pam_pwquality.so try_first_pass local_users_only retry=3 authtok_type= dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1 difok=8 maxrepeat=2'
     follow: yes
     backup: yes
   when: ansible_distribution_major_version == "7"
@@ -350,3 +350,19 @@
     dest: /etc/pam.d/system-auth
     line: "session    required  pam_lastlog.so showfailed"
     state: present
+
+- name: Enforce password quality rules
+  lineinfile:
+    path: /etc/pam.d/passwd
+    regexp: '^password\s+required\s+pam_pwquality.so'
+    line: 'password required pam_pwquality.so retry=3'
+    state: present
+  tags:
+    - CAT-II
+    - IA
+    - IA-5
+    - IA-5(b)
+    - IA-5(c)
+    - IA-5(1)
+    - IA-7
+    - RHEL-07-010119
