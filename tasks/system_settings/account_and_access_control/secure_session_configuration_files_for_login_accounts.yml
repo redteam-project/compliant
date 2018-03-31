@@ -16,6 +16,28 @@
     - SA
     - SA-8
 
+- name: Change default auto-logout after inactivity
+  lineinfile:
+    path: /etc/profile
+    regexp: '^TMOUT'
+    line: 'TMOUT=600'
+    state: present
+  tags:
+    - conf-low
+    - conf-medium
+    - conf-high
+    - int-low
+    - int-medium
+    - int-high
+    - avail-low
+    - avail-medium
+    - avail-high
+    - SA
+    - SA-8
+    - AC-12
+    - SC-10
+    - RHEL-07-040160
+
 - name: Change default bash umask
   replace:
     dest: /etc/bashrc
