@@ -8,7 +8,7 @@
     - CM
     - CM-7
 
-- name: Uninstall xinted Package
+- name: Uninstall xinetd Package
   package:
     name: xinetd
     state: absent

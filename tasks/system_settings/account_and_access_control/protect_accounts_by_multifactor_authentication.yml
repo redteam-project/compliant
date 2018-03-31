@@ -1,0 +1,15 @@
+- name: Check for esc package
+  package:
+    name: esc
+    state: present
+
+- name: Check for pam_pkcs11 package
+  package:
+    name: pam_pkcs11
+    state: present
+
+- name: Check for authconfig-gtk package
+  package:
+    name: authconfig-gtk
+    state: present
+
