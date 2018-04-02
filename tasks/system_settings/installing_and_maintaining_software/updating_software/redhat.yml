@@ -1,5 +1,5 @@
 - name: verify and correct file permissions
-  shell: for FILE_PATH in $(rpm -Va | grep '^.M'); do rpm --setperms $(rpm -qf "${FILE_PATH}"); done
+  shell: for FILE_PATH in $(rpm -Va | grep '^.M' | awk '{print $3}'); do rpm --setperms $(rpm -qf "${FILE_PATH}"); done
   args:
     executable: /bin/bash
   tags:
@@ -12,10 +12,41 @@
     - NIST-800-53-SI
     - NIST-800-53-SI-7
 
-- name: verify file hashes
-  debug:
-    msg: "tasks not yet implemented"
+- name: find files with hash values that deviate from the installed package
+  shell: rpm -Va | grep '^..5' | grep -v '^...........c' | awk '{print $2}'
+  register: deviants
   tags:
+    - CM-6(d) 
+    - CM-6(3) 
+    - SI-7(1)
+    - NIST-800-53
+    - NIST-800-53-CM
+    - NIST-800-53-CM-6
+    - NIST-800-53-SI
+    - NIST-800-53-SI-7
+
+- name: collect names of packages to be reinstalled
+  shell: "rpm -qf {{ item }}"
+  with_items: "{{ deviants.stdout_lines }}"
+  register: packages_to_reinstall
+  tags:
+    - CM-6(d)
+    - CM-6(3)
+    - SI-7(1)
+    - NIST-800-53
+    - NIST-800-53-CM
+    - NIST-800-53-CM-6
+    - NIST-800-53-SI
+    - NIST-800-53-SI-7
+
+- name: reinstall packages
+# yum module in Ansible does not include the "reinstall" command
+  shell: "yum reinstall {{ item.stdout_lines[0] }} -y"
+  with_items: "{{ packages_to_reinstall.results }}"
+  tags:
+    - CM-6(d)
+    - CM-6(3)
+    - SI-7(1)
     - NIST-800-53
     - NIST-800-53-CM
     - NIST-800-53-CM-6
