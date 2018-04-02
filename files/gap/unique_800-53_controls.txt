@@ -1,4 +1,3 @@
-AC
 AC-10
 AC-11
 AC-11(a)
@@ -12,10 +11,10 @@ AC-17(8)
 AC-17(8).1(ii)
 AC-18
 AC-18(3)
-AC-18(a)
-AC-18(d)
+AC-18(a) <- ?
+AC-18(d) <- ?
 AC-19
-AC-19(a)
+AC-19(a) <- AC-19(4).a?
 AC-19(d)
 AC-19(e)
 AC-2
@@ -42,7 +41,6 @@ AC-8(c)(1)
 AC-8(c)(2)
 AC-8(c)(3)
 AC-9
-AU
 AU-1
 AU-1(b)
 AU-10
@@ -73,9 +71,7 @@ AU-9
 AU-9(1)
 AU-9(2)
 AU-9(3)
-CA
 CA-3
-CM
 CM-2(1)(b)
 CM-3
 CM-3(5)
@@ -91,7 +87,6 @@ CM-6(c)
 CM-6(d)
 CM-7
 CM-7(a)
-IA
 IA-2
 IA-2(1)
 IA-2(5)
@@ -113,20 +108,15 @@ IA-5(f)
 IA-5(g)
 IA-5(h)
 IA-7
-IR
 IR-5
-MA
 MA-1
 MA-1(b)
 MA-4
-MP
 MP-2
-SA
 SA-6
 SA-6(b)
 SA-8
 SA-8(i)
-SC
 SC-10
 SC-13
 SC-28
@@ -141,7 +131,6 @@ SC-5(3)
 SC-5(a)
 SC-7
 SC-8
-SI
 SI-11
 SI-2
 SI-2(6)
