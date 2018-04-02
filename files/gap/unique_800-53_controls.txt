@@ -44,7 +44,7 @@ AC-9
 AU-1
 AU-1(b)
 AU-10
-AU-10(5)
+AU-10(5) <-- withdrawn
 AU-12
 AU-12(1)
 AU-12(a)
@@ -52,7 +52,7 @@ AU-12(c)
 AU-14
 AU-14(1)
 AU-2
-AU-2(4)
+AU-2(4) <-- withdrawn
 AU-2(a)
 AU-2(c)
 AU-2(d)
@@ -66,7 +66,7 @@ AU-5(1)
 AU-5(a)
 AU-5(b)
 AU-6
-AU-6(9)
+AU-6(9) <-- you sure?
 AU-9
 AU-9(1)
 AU-9(2)
@@ -77,18 +77,18 @@ CM-3
 CM-3(5)
 CM-3(d)
 CM-3(e)
-CM-4
+CM-4 <-- looks organizational
 CM-5(3)
 CM-6
-CM-6(3)
+CM-6(3) <-- withdrawn
 CM-6(a)
 CM-6(b)
 CM-6(c)
 CM-6(d)
 CM-7
-CM-7(a)
+CM-7(a) <-- debatable, jot JEOS-ing the OS
 IA-2
-IA-2(1)
+IA-2(1) <-- nope, not without LinOTP or the like
 IA-2(5)
 IA-3
 IA-4
@@ -107,16 +107,16 @@ IA-5(e)
 IA-5(f)
 IA-5(g)
 IA-5(h)
-IA-7
-IR-5
+IA-7 <-- requires FIPS mode
+IR-5 <-- not really
 MA-1
-MA-1(b)
-MA-4
+MA-1(b) <-- this doesn't seem right
+MA-4 <-- neither does this
 MP-2
 SA-6
-SA-6(b)
+SA-6(b) <-- withdrawn
 SA-8
-SA-8(i)
+SA-8(i) <-- does this control even exist?
 SC-10
 SC-13
 SC-28
@@ -124,14 +124,14 @@ SC-30
 SC-30(2)
 SC-32
 SC-39
-SC-5
+SC-5 <-- these need to be reviewed, this can require more than OS-level protection
 SC-5(1)
 SC-5(2)
 SC-5(3)
 SC-5(a)
-SC-7
+SC-7 <-- same
 SC-8
-SI-11
+SI-11 <-- maybe
 SI-2
 SI-2(6)
 SI-2(c)
