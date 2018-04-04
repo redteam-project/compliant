@@ -1,28 +1,14 @@
-- name: verify and correct file permissions
-  shell: rpm -Va | grep '^.M' | awk '{ print $3 }'
-  register: wayward_files
-  tags:
-    - NIST-800-53
-    - NIST-800-53-AC
-    - NIST-800-53-AC-6
-    - NIST-800-53-CM
-    - NIST-800-53-CM-6
-    - NIST-800-53-CM-6(d)
-    - NIST-800-53-SI
-    - NIST-800-53-SI-7
 
-- name: assign correct file permissions
-  shell: rpm --setperms $(rpm -qf "{{ item }}")
-  with_items: "{{ wayward_files.stdout_lines }}"
-  tags:
-    - NIST-800-53
-    - NIST-800-53-AC
-    - NIST-800-53-AC-6
-    - NIST-800-53-CM
-    - NIST-800-53-CM-6
-    - NIST-800-53-CM-6(d)
-    - NIST-800-53-SI
-    - NIST-800-53-SI-7
+- name: "Read list of files with incorrect permissions"
+  shell: "rpm -Va | grep '^.M' | sed -r 's;^.*\\s+(.+);\\1;g'"
+  register: files_with_incorrect_permissions
+  failed_when: False
+  changed_when: False
+
+- name: "Correct file permissions with RPM"
+  shell: "rpm --setperms $(rpm -qf '{{item}}')"
+  with_items: "{{ files_with_incorrect_permissions.stdout_lines }}"
+  when: files_with_incorrect_permissions.stdout_lines | length > 0
 
 - name: find files with hash values that deviate from the installed package
   shell: rpm -Va | grep '^..5' | grep -v '^...........c' | awk '{print $2}'

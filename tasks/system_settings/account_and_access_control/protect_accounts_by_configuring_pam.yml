@@ -132,7 +132,7 @@
   lineinfile:
     dest: /etc/pam.d/system-auth
     insertbefore: "^auth.*pam_unix.so.*"
-    line: "auth         required      pam_faillock.so preauth silent deny=3 unlock_time=604800 fail_interval=900"
+    line: "auth         required      pam_faillock.so preauth silent deny=3 unlock_time=never fail_interval=900"
   tags:
   - AC
   - AC-7
@@ -142,7 +142,7 @@
   lineinfile:
     dest: /etc/pam.d/system-auth
     insertafter: "^auth.*pam_unix.so.*"
-    line: "auth      [default=die] pam_faillock.so authfail deny=3 unlock_time=604800 fail_interval=900"
+    line: "auth      [default=die] pam_faillock.so authfail deny=3 unlock_time=never fail_interval=900"
   tags:
   - AC
   - AC-7
@@ -158,11 +158,36 @@
   - AC-7
   - AC-7(a)
 
+- name: Configure even_deny_root for Failed Password Attempts in /etc/pam.d/system-auth
+  pamd:
+    name: system-auth
+    type: auth
+    control: required
+    module_path: pam_faillock.so
+    module_arguments: even_deny_root
+    state: args_present
+  tags:
+  - AC
+  - AC-7
+  - AC-7(a)
+- name: Configure even_deny_root for Failed Password Attempts in /etc/pam.d/password-auth
+  pamd:
+    name: password-auth
+    type: auth
+    control: '[default=die]'
+    module_path: pam_faillock.so
+    module_arguments: even_deny_root
+    state: args_present
+  tags:
+  - AC
+  - AC-7
+  - AC-7(a)
+
 - name: Set Deny, Lockout Time, and Interval Count For Failed Password Attempts in /etc/pam.d/password-auth (1/3)
   lineinfile:
     dest: /etc/pam.d/password-auth
     insertbefore: "^auth.*pam_unix.so.*"
-    line: "auth         required    pam_faillock.so preauth silent deny=3 unlock_time=604800 fail_interval=900"
+    line: "auth         required    pam_faillock.so preauth silent deny=3 unlock_time=never fail_interval=900"
   tags:
   - AC
   - AC-7
@@ -172,7 +197,7 @@
   lineinfile:
     dest: /etc/pam.d/password-auth
     insertafter: "^auth.*pam_unix.so.*"
-    line: "auth      [default=die] pam_faillock.so authfail deny=3 unlock_time=604800 fail_interval=900"
+    line: "auth      [default=die] pam_faillock.so authfail deny=3 unlock_time=never fail_interval=900"
   tags:
   - AC
   - AC-7
