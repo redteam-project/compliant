@@ -47,7 +47,6 @@ rpm_keys:
     - RPM-GPG-KEY-CentOS-7
     - RPM-GPG-KEY-CentOS-Debug-7
     - RPM-GPG-KEY-CentOS-Testing-7
-    - RPM-GPG-KEY-EPEL-7
   fedora_27:
     - RPM-GPG-KEY-fedora-27-primary
     - RPM-GPG-KEY-fedora-27-secondary

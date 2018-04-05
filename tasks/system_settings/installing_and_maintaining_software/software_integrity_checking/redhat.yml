@@ -92,4 +92,61 @@
     - NIST-800-53-CM-6(d)
     - NIST-800-53-CM-6(3)
 
+- block:
+  - name: System Settings | Installing and Maintaining Software | Software Integrity Checking | Red Hat | Obtain custom policy rule sets from /etc/aide.conf
+    shell: /bin/grep "^[A-Z]\+" /etc/aide.conf | /bin/cut -f1 -d '=' | /bin/tr -d ' ' | /bin/sort -u
+    args:
+      executable: /bin/bash
+    register: aide_policy_groups
+    changed_when: False
 
+  - debug:
+      var: aide_policy_groups
+
+  - name: System Settings | Installing and Maintaining Software | Software Integrity Checking | Red Hat | Configure AIDE to Verify Access Control Lists (ACLs)
+    aide_ruleset:
+      name: "{{ item }} "
+      state: present
+      options:
+      - acl
+    with_items:
+    - "{{ aide_policy_groups.stdout_lines }}"
+    
+  - name: System Settings | Installing and Maintaining Software | Software Integrity Checking | Red Hat | Configure AIDE to Verify Extended Attributes
+    aide_ruleset:
+      name: "{{ item }} "
+      state: present
+      options:
+      - xattrs
+    with_items:
+    - "{{ aide_policy_groups.stdout_lines }}"
+
+  - name: System Settings | Installing and Maintaining Software | Software Integrity Checking | Red Hat | Configure AIDE to Use FIPS 140-2 for Validating Hashes
+    aide_ruleset:
+      name: "{{ item }} "
+      state: present
+      options:
+      - sha512
+    with_items:
+    - "{{ aide_policy_groups.stdout_lines }}"
+
+  - name: System Settings | Installing and Maintaining Software | Software Integrity Checking | Red Hat | Configure AIDE to Use FIPS 140-2 - Remove Forbidden Hashes
+    aide_ruleset:
+      name: "{{ item }} "
+      state: absent
+      options:
+      - sha1
+      - rmd160
+      - sha256
+      - whirlpool
+      - tiger
+      - haval
+      - gost
+    with_items:
+    - "{{ aide_policy_groups.stdout_lines }}"
+
+  tags:
+  - NIST-800-53-SI-7.1
+  - NIST-800-53-SI-7
+  - NIST-800-53-SI
+  - SRG-OS-000480-GPOS-00227

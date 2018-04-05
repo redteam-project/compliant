@@ -58,9 +58,9 @@ Example Playbook
 ----------------
 
 ```yaml
-# file: 80053.yaml
+# file: compliant.yaml
 ---
-- hosts: 80053_hosts
+- hosts: compliant_hosts
   become: yes
   vars:
     scap_reports_dir: ~/scap_reports
@@ -72,7 +72,7 @@ Example Inventory
 -----------------
 
 ```ini
-[80053_hosts]
+[compliant_hosts]
 172.16.78.159
 ```
 
@@ -80,7 +80,7 @@ Example Run
 -----------
 
 ```bash
-ansible-playbook -u admin -i 80053_inventory 80053.yaml
+ansible-playbook -u admin -i inventory compliant.yaml
 ```
 
 License
