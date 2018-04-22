@@ -3,6 +3,8 @@
 - stat:
     path: /etc/yum.repos.d/redhat-rhui.repo
   register: rhui_repo
+  tags:
+  - scap
 
 #- block:
 #  - name: Install Open SCAP scanner
@@ -30,6 +32,8 @@
     name: openscap-scanner, scap-security-guide
     state: installed
   when: rhui_repo.stat.isreg is undefined or rhui_repo.stat.isreg == False
+  tags:
+  - scap
 
 
 - block:
@@ -77,12 +81,21 @@
 #    - scap
 
 - block:
-  - name: Run an SCAP scan and Generate Report EL 7
+  - name: Run an SCAP scan and Generate Report RHEL 7
     command: /usr/bin/oscap xccdf eval --profile "{{ item }}" --results /tmp/scap_reports/scan-xccdf-results-{{ ansible_date_time.iso8601  }}-{{ item }}.xml --report /tmp/scap_reports/scan-xccdf-report-{{ ansible_date_time.iso8601  }}-{{ item }}.html  /usr/share/xml/scap/ssg/content/ssg-rhel{{ ansible_distribution_major_version }}-xccdf.xml
-    failed_when: "result | failed and result.rc == 1"
+    failed_when: "result is failed and result.rc == 1"
     register: result
     with_items: "{{ scap_profile_rhel7 }}"
-    when: run_scap and ansible_distribution_major_version == "7"
+    when: run_scap and ansible_distribution_major_version == "7" and ansible_distribution == "RedHat"
+    tags:
+      - scap
+  
+  - name: Run an SCAP scan and Generate Report CentOS 7
+    command: /usr/bin/oscap xccdf eval --profile "{{ item }}" --results /tmp/scap_reports/scan-xccdf-results-{{ ansible_date_time.iso8601  }}-{{ item }}.xml --report /tmp/scap_reports/scan-xccdf-report-{{ ansible_date_time.iso8601  }}-{{ item }}.html  /usr/share/xml/scap/ssg/content/ssg-centos{{ ansible_distribution_major_version }}-xccdf.xml
+    failed_when: "result is failed and result.rc == 1"
+    register: result
+    with_items: "{{ scap_profile_rhel7 }}"
+    when: run_scap and ansible_distribution_major_version == "7" and ansible_distribution == "CentOS"
     tags:
       - scap
 

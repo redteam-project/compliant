@@ -60,6 +60,20 @@
     - MP
     - MP-2
 
+- name: fedoraredteam.compliant | Configure Notification of Post-AIDE Scan Details
+  cron:
+    job: /usr/sbin/aide --check | /bin/mail -s "$(hostname) - AIDE Integrity Check" root@localhost
+    day: "{{ aide_day_of_month }}"
+    hour: "{{ aide_hour }}"
+    minute: "{{ aide_minute }}"
+    month: "{{ aide_day_of_month }}"
+    weekday: "{{ aide_day_of_week }}"
+  tags:
+   - NIST-800-53-CM
+   - NIST-800-53-CM-3
+   - NIST-800-53-CM-3(5)
+   - SRG-OS-000363-GPOS-00150
+
 - name: Build AIDE Database
   shell: /usr/sbin/aide --init
   args:

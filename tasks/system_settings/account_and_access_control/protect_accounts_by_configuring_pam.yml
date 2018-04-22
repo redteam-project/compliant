@@ -170,6 +170,7 @@
   - AC
   - AC-7
   - AC-7(a)
+  
 - name: Configure even_deny_root for Failed Password Attempts in /etc/pam.d/password-auth
   pamd:
     name: password-auth

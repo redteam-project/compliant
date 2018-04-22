@@ -147,6 +147,17 @@
     - NIST-800-53-MA-1
     - NIST-800-53-MA-1(b)
 
+- name: System Settings | Installing and Maintaining Software | Updating Software | Determine if EPEL Repo is Enabled
+  command: yum repolist | awk '{ print $1 }' | grep -v 'repolist' | grep -v '*' | grep -v 'Load' | grep epel
+  register: epelrepo
+
+- name: System Settings | Installing and Maintaining Software | Updating Software | Ensure Package Manager GPG Keys are Installed for EPEL
+  rpm_key:
+    state: present
+    key: "/etc/pki/rpm-gpg/{{ item }}"
+  when: epelrepo.rc == "1"
+  
+
 - name: ensure gpgcheck enabled for package manager
   lineinfile:
     path: /etc/yum.conf

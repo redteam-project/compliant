@@ -3,6 +3,14 @@
     path: /etc/firewalld/firewalld.conf
   register: firewalld
 
+- name: fedoraredteam.compliant | Enable SSH Server firewalld Firewall exception
+  command: firewall-cmd --permanent --add-service=ssh --zone=drop
+  when:
+  - firewalld.stat.exists == true
+  tags:
+  - CM
+  - CM-7
+
 - name: Set Default firewalld Zone for Incoming Packets
   lineinfile:
     dest: /etc/firewalld/firewalld.conf
@@ -13,3 +21,4 @@
   tags:
   - CM
   - CM-7
+
