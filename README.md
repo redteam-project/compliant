@@ -1,4 +1,4 @@
-fedoraredteam.compliant
+redteam-project.compliant
 =======================
 
 This role applies security compliance baselines to Linux hosts.
